@@ -16,6 +16,10 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "^2.2.4"
+    "jquery": "^2.2.4",
+    "bootstrap": "^3.3.7"
+  },
+  "resolutions": {
+    "bootstrap": "~3.0.0"
   }
 }
