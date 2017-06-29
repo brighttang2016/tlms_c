@@ -21,6 +21,7 @@
   "homepage": "https://github.com/brighttang2016/tlms_c#readme",
   "devDependencies": {
     "del": "^2.2.2",
+    "gulp-bom": "^1.0.0",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.1",
     "gulp-jshint": "^2.0.4",
@@ -29,6 +30,7 @@
     "gulp-minify-html": "^1.0.6",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^2.1.2",
+    "gulp-utf8-convert": "0.0.7",
     "jshint": "^2.9.4",
     "mincss": "^0.4.1"
   }

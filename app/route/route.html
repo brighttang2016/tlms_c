@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html  ng-app='myApp'>
+<head lang="en">
+   <!-- <base href="/base/url" />-->
+    <meta name="fragment" content="!"/>
+    <meta charset="UTF-8">
+    <title>route 测试</title>
+    <script src="../../../bower_components/angular/angular.js"></script>
+    <script src="../../../bower_components/angular-route/angular-route.js"></script>
+    <script src="../../js/route/route.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../css/tlms.min.css"/>
+</head>
+<body>
+    <h2>AngularJS 路由应用</h2>
+    <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#computers">电脑</a></li>
+        <li><a href="#/printers">打印机</a></li>
+        <li><a href="#/blabla">其他</a></li>
+        <li><a href="#/userManage">用户管理页面</a></li>
+        <li><a href="#/userManage/brighttang">获取路由参数</a></li>
+        <li><a href="#/toMain">回到首页</a></li>
+    </ul>
+    <div ng-view class="border-style" ng-controller="UserManageController"></div>
+
+    <div ng-controller="MyController">
+        <button ng-click="sayHello()">依赖注入</button>
+    </div>
+</body>
+</html>

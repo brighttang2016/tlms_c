@@ -1,25 +1,28 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-
-
+<!DOCTYPE html>
 <html>
-<head>
-<script type="text/javascript" src="../../bower_components/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="login.js">
-$(document).ready(function(){
-$("button").click(function(){
-$("p").hide();
-});
-});
-</script>
-</head>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
 
+    <script type="text/javascript" src="../../../bower_components/jquery/dist/jquery.js" charse="UTF-8"></script>
+    <script type="text/javascript" src="../../js/login/login.min.js"  charset="UTF-8">
+    /*<script type="text/javascript" src="../../js/all.js"  charset="UTF-8">*/
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("p").hide();
+            });
+        });
+    </script>
+</head>
 <body>
 <h2>This is a heading</h2>
 <p>This is a paragraph.</p>
 <p>This is another paragraph.</p>
-<div style="color: red">����</div>
-<button type="button" id="login">Click me</button>
-<a href="https://dm.console.aliyun.com/#/directmail/Home">��ת������</a>
+<div style="color: red">测试</div>
+<button type="button" id="login">模拟登录</button>
+<button type="button" id="logout">模拟登出</button>
+<button type="button" id="doTrans">模拟发送交易(验证是否登录)</button>
+<button type="button" id="printCookie">打印cookie对象</button>
+<a href="https://dm.console.aliyun.com/#/directmail/Home">跳转阿里云</a>
 </body>
 </html>

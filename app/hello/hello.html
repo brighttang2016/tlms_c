@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="../../../bower_components/angular/angular.js"></script>
+    <!--<script src="../../js/hello/hello.min.js"></script>-->
+    <script src="../../js/hello/hello.min.js"></script>
+</head>
+<>
+    <input ng-model="name" type="text" placeholder="Your name"/>
+    <h1>hello {{name}}</h1>
+    <div  ng-controller="MyContryller0">
+        名:  <input type="text" ng-model="firstName"><br>
+        姓:  <input type="text" ng-model="lastName"><br>
+        <br>
+        姓名: {{firstName + " " + lastName}}
+    </div>
+    <div ng-controller="MyController1">
+        <input type="button" value="ng-click测试-add(不在myController2的作用域内，无效)" ng-click="add(1)"/>
+        <h5>{{clock}}</h5>
+    </div>
+    <div ng-controller="MyController2">
+        <h5>{{clock2}}</h5>
+        <div>
+            <input type="button" value="ng-click测试-add" ng-click="add(1)"/>
+            <input type="button" value="ng-click测试-substract" ng-click="substract(1)"/>
+            <div>ng-click测试结果：{{amount}}</div>
+        </div>
+    </div>
+    <hr/>
+    <div ng-controller="ParentController">
+        <div ng-controller="ChildController">
+            <input type="button" ng-click="sayHello()" value="控制器嵌套使用"/>
+            <div>{{person.name}}</div>
+        </div>
+    </div>
+    <hr/>
+    <div ng-controller="MyController3">
+        <div>解析angular表达式</div>
+        <input ng-model="parseValue" type="text" placeholder="enter an expression"/>
+        <div>解析后值：{{parseValue}}</div>
+    </div>
+
+    <hr/>
+    <div ng-controller="mainCtrl" style="border: 1px solid red;">
+        <p>$watch可以监听属性变化，但是，当对象中的属性改变时，需要执行深度监听，第三个参数为：true</p>
+        <input id="myText" type="text" ng-model="person.name"/>
+        <h2>{{person}}</h2>
+        <h2>Status: {{status}}</h2>
+    </div>
+
+   <div ng-controller="MyController4">
+        <p>插值字符串</p>
+        <input ng-model="myName" type="text"  placeholder="Recipient" />
+        <input ng-model="myName2" type="text"  placeholder="Recipient" />
+        <textarea ng-model="emailBody"></textarea>
+        <div>interpolatedValue:{{interpolatedValue}}</div>
+   </div>
+
+</body>
+</html>
