@@ -22,16 +22,16 @@ gulp.task('minifycss',function(){
 
 gulp.task('minifyjs',function(){
     //gulp.src('asset/**/*.js')
-    gulp.src('app/**/*.js')
+    gulp.src(['app/**/*.js','asset/**/*.js'])
         .pipe(rename({suffix:'.min'}))
-        .pipe(uglify({
+        /*.pipe(uglify({
             //mangle:{regex:'tang'}
             mangle:false
             //mangle:{except:['require' ,'exports' ,'module','$']}
-            //mangle:false,//ÊÇ·ñÐÞ¸Ä±äÁ¿Ãû£¬Ä¬ÈÏtrue
-            //compress:true,//ÊÇ·ñÑ¹Ëõ£¬Ä¬ÈÏtrue
-            //preserveComments: all//±£Áô×¢ÊÍ
-        }))
+            //mangle:false,//
+            //compress:true,//
+            //preserveComments: all//
+        }))*/
         //.pipe(bom())
         .pipe(gulp.dest('dest/js'));
 });
@@ -40,7 +40,6 @@ gulp.task('minifyhtml',function(){
     gulp.src('app/**/*.html')
         .pipe(utf8Convert({
             encNotMatchHandle:function(file){
-                console.log(file+"×Ö·û±àÂë´íÎó")
             }
         }))
         .pipe(minifyhtml())
@@ -52,7 +51,6 @@ gulp.task('concat',function(){
     gulp.src(['asset/**/*.js','app/**/*.js'])
         .pipe(utf8Convert({
             encNotMatchHandle:function(file){
-                console.log(file+"×Ö·û±àÂë´íÎó")
             }
         }))
         .pipe(concat('all.js'))

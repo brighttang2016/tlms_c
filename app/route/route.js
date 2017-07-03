@@ -30,7 +30,7 @@ app.config(['$routeProvider',function($routeProvider){
         })
         .when('/userManage',{
             templateUrl:'route.tpl.html'
-        })
+})
         .when('/userManage/:name',{
             controller:'UserManageController',
             redirectTo:function(route,path,search){

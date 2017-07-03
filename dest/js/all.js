@@ -8,15 +8,15 @@
  * @param expire cookie超时时间
  */
 function setCookie(name,value,expire){
-   // console.log("setCookie,"+"name:"+name+",value:"+value+",expire:"+expire);
+    console.log("setCookie,"+"name:"+name+",value:"+value+",expire:"+expire);
     var timeNow = new Date();
     var expireTime = new Date();
     expireTime.setTime(expire);
     //document.cookie=name+"="+value+";expires="+expireTime.toGMTString();
-    console.log("expire:"+expire+",expireTime:"+expireTime);
+    //console.log("expire:"+expire+",expireTime:"+expireTime);
     document.cookie=name+"="+value+";expires="+expireTime;
     document.cookie="expireTime="+expire+";expires="+expireTime;
-    console.log("存储的cookie:"+document.cookie);
+    //console.log("存储的cookie:"+document.cookie);
 }
 
 /**
@@ -348,6 +348,88 @@ $(document).ready(function(){
 });
 
 /**
+ * Created by pujjr on 2017/7/3.
+ */
+var app = angular.module('MyApp',["ngRoute","MyController", "MyService"])
+    .config(['$locationProvider',function($locationProvider){
+        $locationProvider.html5Mode(false);
+        $locationProvider.hashPrefix('');
+    }]);
+
+app.config(['$routeProvider',function($routeProvider){
+    $routeProvider.when('/',{
+        templateUrl:'template.html',
+        controller:'IndexController'
+    });
+}]);
+
+
+/**
+ * Created by pujjr on 2017/7/3.
+ */
+angular.module('MyController',[])
+    .controller('IndexController',["$scope","githubService",function($scope,githubService){
+        console.log("IndexController");
+        $scope.name = "dreamapple";
+        $scope.show = true;
+        githubService.getPullRequests().then(function(result){
+            $scope.data = result;
+        },function(error){
+            $scope.data = "error!";
+        },function(progress){
+            $scope.progress = progress;
+            $scope.show = false;
+        });
+    }]);
+/**
+ * Created by pujjr on 2017/7/3.
+ */
+angular.module('MyService',[])
+    .factory('githubService',['$q','$http',function($q,$http){
+        console.log("githubService");
+        var getPullRequests = function(){
+            var deffered = $q.defer();
+            var promise = deffered.promise;
+            var progess;
+            $http({
+                method:'POST',
+                url:'http://localhost:8090/tlms-web/login/userLogin',
+                data:{}
+            }).then(function(response){
+                alert('请求返回成功');
+            },function(response){
+                alert('error');
+            });
+            return promise;
+        };
+        return {
+            getPullRequests: getPullRequests
+        };
+    }]);
+/**
+ * Created by pujjr on 2017/6/30.
+ */
+/*angular测试一直报错 20170630*/
+// Add Restangular as a dependency to your app
+/*var app = angular.module('myApp', ['restangular']);
+
+// Inject Restangular into your controller
+app.controller('MyController1', function($scope, Restangular) {
+    $scope.doTrans = function(){
+        alert("tttt");
+    };
+});*/
+
+
+var app = angular.module('myApp', ['restangular','lodash']);
+
+// Inject Restangular into your controller
+app.controller('MyController1', function($scope,Restangular) {
+  /*  $scope.doTrans = function(){
+    };*/
+});
+
+/**
  * Created by pujjr on 2017/6/28.
  */
 var app = angular.module('myApp',['ngRoute'])
@@ -379,7 +461,7 @@ app.config(['$routeProvider',function($routeProvider){
         })
         .when('/userManage',{
             templateUrl:'route.tpl.html'
-        })
+})
         .when('/userManage/:name',{
             controller:'UserManageController',
             redirectTo:function(route,path,search){
@@ -506,3 +588,144 @@ app.provider('myService3',function(){
 
 
 
+
+/**
+ * Created by pujjr on 2017/6/29.
+ */
+var app = angular.module('myApp',[]);
+//
+app.controller('MyController1',function($scope,$http){
+    $scope.login = function(){
+        alert("login");
+        $http({
+            method:'POST',
+            url:'http://localhost:8090/tlms-web/login/userLogin',
+            params:{'page':'1','province':'重庆市','city':'永川区'},
+            data:{'name':'brighttang'}
+        }).then(function(response){
+            alert('请求返回成功');
+            //console.log(response);
+            //console.log(response.data);
+            //console.log(response.status);
+            //console.log(response.headers);
+            //console.log(response.headers('token'));
+
+            $scope.id = response.data.id;
+        },function(response){
+            alert('error');
+            //console.log(response.data);
+            //console.log(response.status);
+            //console.log(response.headers);
+
+        });
+    };
+
+    $scope.getToken = function(){
+        $scope.token = getCookie('token');
+    };
+
+    $scope.doTrans = function(){
+        //添加特定http头
+        $http.defaults.headers.common['token'] = getCookie('token');
+        $http.defaults.headers.common['expireTime'] = getCookie('expireTime');
+        $http({
+            method:'POST',
+            url:'http://localhost:8090/tlms-web/login/doTrans',
+            data:{}
+        }).then(function(response){
+            alert('请求返回成功');
+        },function(response){
+            alert('error');
+        });
+    };
+});
+
+//拦截器定义(创建拦截器服务)
+app.factory('myInterceptor',function($q){
+    var interceptor = {
+        'request':function(config){
+            //console.log(config);
+            //alert("request");
+            //每次http请求，token数据放入http头中
+            config.headers.token = getCookie('token');
+            config.headers.expireTime = getCookie('expireTime');
+             // 成功的请求方法
+            return config; // 或者 $q.when(config);
+        },
+        'response':function(response){
+            //console.log($q);
+            //console.log(response);
+            var token = response.headers('token');
+            var expireTime =  response.headers('expireTime');
+            setCookie('token',token,expireTime);
+            // 响应成功
+            return response; // 或者 $q.when(config);
+        },
+        'requestError':function(rejection){
+            console.log(rejection);
+            // 请求发生了错误，如果能从错误中恢复，可以返回一个新的请求或promise
+            return response; // 或新的promise
+            // 或者，可以通过返回一个rejection来阻止下一步
+            // return $q.reject(rejection);
+        },
+        'responseError':function(rejection){
+            console.log(rejection);
+            // 请求发生了错误，如果能从错误中恢复，可以返回一个新的响应或promise
+            return rejection; // 或新的promise
+            // 或者，可以通过返回一个rejection来阻止下一步
+            // return $q.reject(rejection);
+        }
+    };
+    return interceptor;
+});
+//注册拦截器
+app.config(function($httpProvider) {
+    $httpProvider.interceptors.push('myInterceptor');
+    console.log($httpProvider.defaults.headers.common);
+  /*  //扩充http头
+    $httpProvider.defaults.headers.post['token'] = getCookie('token');
+    $httpProvider.defaults.headers.post['expireTime'] = getCookie('expireTime');*/
+});
+
+
+/*app.controller('MyController2',function($scope,Restangular){
+
+});*/
+
+app.controller("MyController2", ["$scope", "$q", function ($scope, $q) {
+    alert("MyController2");
+    $scope.flag = true;
+    $scope.handle = function () {
+        var deferred = $q.defer();
+        var promise = deferred.promise;
+        console.log("1111");
+        promise.then(function (result) {
+            result = result + "you have passed the first then()";
+            console.log(result);
+            $scope.status = result;
+            return result;
+        }, function (error) {
+            error = error + "failed but you have passed the first then()";
+            console.log(error);
+            $scope.status = error;
+            return error;
+        }).then(function(result){
+            result = "第二个then  success";
+            console.log(result);
+        },function(error){
+            error = "第二个then  error";
+            console.log(error);
+        });
+        console.log("2222");
+        if ($scope.flag) {
+            deferred.resolve("you are lucky!");
+        } else {
+            deferred.reject("sorry, it lost!");
+        }
+        console.log("3333");
+    }
+}]);
+
+/**
+ * Created by pujjr on 2017/7/3.
+ */
