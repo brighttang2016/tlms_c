@@ -1,0 +1,22 @@
+
+<div>
+    <input type="radio" ng-model="myVar" value="1">登录
+    <input type="radio" ng-model="myVar" value="2">注册
+    <div>指令模板中展现父scope对象传入值：{{myParentName}}</div>
+    <div ng-show="showLoginForm==1" style="background-color: #C9D6E0;width:600px;">
+        用户登录：
+        <form ng-submit="submitLogin()">
+            用户名：<input type="text" ng-model="userName"/>
+            密码：<input type="text" ng-model="password"/>
+            <input type="submit" value="登录"/>
+        </form>
+    </div>
+    <div ng-show="showLoginForm==2" style="background-color: #F2F5F7;width:600px;">
+        用户注册：
+        <form ng-submit="submitRegister()">
+            用户名：<input type="text" ng-model="userName"/>
+            密码：<input type="text" ng-model="password"/>
+            <input type="submit" value="注册"/>
+        </form>
+    </div>
+</div>

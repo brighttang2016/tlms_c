@@ -2,18 +2,33 @@
 <html ng-app="myApp">
 <head lang="en">
     <meta charset="UTF-8">
-    <script src="../../../bower_components/angular/angular.js"></script>
+  <!--  <script src="../../../bower_components/angular/angular.js"></script>
     <script src="../../../bower_components/angular-route/angular-route.js"></script>
     <script src="../../../bower_components/angular-resource/angular-resource.js"></script>
+    <script src="../../../bower_components/bootstrap/angular-resource.js"></script>
 
-    <script src="../../js/xhr/xhrController.min.js"></script>
+    <script src="../../../bower_components/bootstrap/dist/js/bootstrap.js"></script>-->
+
+   <!-- <script src="../../js/xhr/xhr.min.js"></script>
     <script src="../../js/xhr/xhrService.min.js"></script>
-    <script type="text/javascript" src="../../js/js/utils.min.js"  charset="UTF-8"></script>
+    <script src="../../js/xhr/xhrController.min.js"></script>
+    <script src="../../js/xhr/xhrController2.min.js"></script>-->
+
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/angular-route/angular-route.js"></script>
+    <script src="../../bower_components/angular-resource/angular-resource.js"></script>
+
+    <script src="../../bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="../../js/all.min.js"></script>
+
+   <!-- <script type="text/javascript" src="../../js/js/utils.min.js"  charset="UTF-8"></script>-->
     <link type="text/css" rel="stylesheet" href="../../css/tlms.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../../css/angular-bootstrap/ui-bootstrap-csp.css"/>
+    <link type="text/css" rel="stylesheet" href="../../css/bootstrap/dist/css/bootstrap.css"/>
     <title>xhr服务</title>
 </head>
 <body>
-    <div ng-controller="MyController1">
+   <div ng-controller="MyController1">
         <div>xhr测试</div>
         <button ng-click="login()">用户登录</button>
         <div>
@@ -31,8 +46,7 @@
 <!--    <div ng-controller="MyController1">
         <button ng-click="restAngularTest1()">restangular测试</button>
     </div>-->
-
-    <div ng-app="MyApp">
+    <div>
         <div ng-controller="MyController2">
             <label for="flag">成功
                 <input id="flag" type="checkbox" ng-model="flag" /><br/>
@@ -44,6 +58,44 @@
             <button ng-click="handle()">点击我</button>
         </div>
     </div>
+
+   <!--<div ng-controller="LoginController">
+       <div ng-show="showLoginForm">
+           登录:{{test}}
+           <form ng-submit="sendLogin()">
+               <input type="submit" value="登录"/>
+           </form>
+       </div>
+       <div ng-show="!showLoginForm">
+           注册
+           <form ng-submit="sendRegister()">
+               <input type="submit" value="注册"/>
+           </form>
+       </div>
+   </div>-->
+   <div  ng-init="parentname='brighttanghaha'">
+       <div ng-controller = 'LoginController'>
+           <div login-form on-login="sendLogin(user,userId)" on-register="sendRegister(userName,password)" my-parent-name="{{parentname}}">
+           </div>
+           <div>
+               指令中的参数传回页面效果：{{nameRet2}}
+           </div>
+           <div>
+               显示指令中赋值【为空】（指令隔离作用域中参数赋值，在上级作用域中，不可能取值）：{{nameRet3}}
+           </div>
+           <div>
+               控制器中设置值：{{nameRet4}}
+           </div>
+       </div>
+   </div>
+
+   <div class="form-group">
+       <label class="col-sm-2 control-label">Last Name:</label>
+       <div class="col-sm-10">
+           <input type="text" ng-model="lName" ng-disabled="!edit" placeholder="Last Name">
+       </div>
+   </div>
+
 
 </body>
 </html>

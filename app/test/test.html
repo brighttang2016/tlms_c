@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function pageOnload(){
+            alert("pageOnload");
+            var div = document.getElementById("clickDiv");
+            div.addEventListener('click',function(){
+                alert("div click");
+                console.log("div click");
+            });
+        }
+    </script>
+</head>
+<body onload="pageOnload()">
+    <div id="clickDiv">点击div触发点击事件</div>
+</body>
+</html>

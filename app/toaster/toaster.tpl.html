@@ -1,0 +1,14 @@
+<div>
+   <!-- <toaster-container
+            toaster-timeout="{'time-out':{'toast-info':1000,'toast-success':1000,'toast-warning':2000,'toast-error':3000}}"
+            toast-options="{close-button:true}">
+    </toaster-container>-->
+   <!-- <toaster-container toaster-options="{'time-out': 2000}"></toaster-container>-->
+    <toaster-container toaster-options="{'time-out':{'toast-info':1000,'toast-success':1000,'toast-warning':2000,'toast-error':3000},'close-button':true,'newest-on-top':false}">
+
+    </toaster-container>
+    <h1>Hello Plunker!</h1>
+    <div ng-controller="ToasterController">
+        <button ng-click="pop()">Show a Toaster</button>
+    </div>
+</div>

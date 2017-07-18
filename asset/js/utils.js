@@ -25,7 +25,8 @@ function setCookie(name,value,expire){
  * @returns {*}
  */
 function getCookie(name){
-    alert("utils.js->getCookie");
+    //alert("utils.js->getCookie");
+    console.log("utils.js->getCookie");
     //console.log(name);
     var start = 0;
     var end = 0;

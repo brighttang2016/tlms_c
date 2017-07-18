@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="../../../bower_components/angular/angular.js"></script>
+    <script src="../../js/eventtest/eventtest.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../css/tlms.min.css"/>
+    <title>事件测试</title>
+</head>
+<body>
+    <h1>事件测试</h1>
+    <div my-directive></div>
+    <div ng-controller="myControl">
+        <div>
+            <a ng-click="myChange(123)">点我向下广播</a>
+        </div>
+        <div event-directive tang-change="myChange(title)">
+            test
+        </div>
+
+    </div>
+</body>
+</html>

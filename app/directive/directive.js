@@ -1,7 +1,7 @@
 /**
  * Created by pujjr on 2017/6/27.
  */
-var app = angular.module("myApp",[]);
+angular.module("com.tang.directive",[]);
 app.directive("myDirective",function(){
     return {
         restrict:'A',
@@ -47,7 +47,7 @@ app.directive("myDirective4",function(){
             myUrl4:'=someUrl',//双向数据绑定（采用了绑定策略“=”而非“@”），与指令外的DOM属性some-url值：theirUrl表示的作用域变量相绑定
             myLinkText4:'@'
         },
-        template:'指令内：输入需要跳转到地址(指令内)(指令内输入，同时同步外部信息【p55页内容】)<input type="text" ng-model="myUrl4"/><a href="{{myUrl4}}">{{myLinkText4}}</a>'
+        template:'指令内：输入需要跳转到地址(指令内)(指令内输入，同时同步外部信息【p55页内容】)<input type="text" ng-model="myUrl4"/><a href="{{myLinkText4}}">{{myLinkText4}}</a>'
 
     };
 });

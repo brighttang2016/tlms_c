@@ -1,17 +1,26 @@
 /**
  * Created by pujjr on 2017/7/3.
  */
-angular.module('MyController',[])
-    .controller('IndexController',["$scope","githubService",function($scope,githubService){
+angular.module('MyApp.MyController',[])
+    .controller('IndexController',["$scope","loginService",function($scope,loginService){
         console.log("IndexController");
         $scope.name = "dreamapple";
         $scope.show = true;
-        githubService.getPullRequests().then(function(result){
-            $scope.data = result;
-        },function(error){
-            $scope.data = "error!";
-        },function(progress){
-            $scope.progress = progress;
-            $scope.show = false;
-        });
+       loginService.getPullRequests().then(function(result){
+                    console.log(result);
+                    $scope.data = result+'resolve';
+                },function(error){
+                    console.log(error);
+                    $scope.data = error+'reject';
+                },function(progress){
+                    console.log("progress:"+progress);
+                    $scope.data = "progress:"+progress;
+                   //$scope.progress = progress;
+                   //$scope.show = false;
+           }).catch(function(reason){
+                alert("reason:"+reason);
+           }).finally(function(final){
+                alert("final:"+final);
+           });
+        //loginService.getPullRequests();
     }]);

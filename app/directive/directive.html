@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>指令测试</title>
     <script src="../../../bower_components/angular/angular.js"></script>
-    <script src="../../js/directive/directive.min.js"></script>
+    <!--<script src="../../js/directive/directive.min.js"></script>-->
+    <script src="../../js/all.min.js"></script>
     <link type="text/css" rel="stylesheet" href="../../css/tlms.min.css"/>
 </head>
 <body>
@@ -15,7 +16,7 @@
 
     <div my-directive2
          my-url="http://www.baidu.com"
-         my-link-text="跳转百度(向指令中传递数据)">
+         my-link-text="my-directive2跳转百度(向指令中传递数据)">
     </div>
 
     <div class="border-style">
@@ -31,7 +32,7 @@
         输入需要跳转到地址(指令外)<input type="text" ng-model="theirUrl"/>
         <div my-directive4
              some-url="theirUrl"
-             my-link-text4="跳转到{{theirUrl}}(向指令中传递数据)">
+             my-link-text4=" my-directive4跳转到{{theirUrl}}(向指令中传递数据)">
         </div>
     </div>
 
