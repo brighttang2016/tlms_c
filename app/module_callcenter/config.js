@@ -3,7 +3,8 @@
  */
 angular.module('com.app.callcenter',[
     'com.app.callcenter.controller',
-    'com.app.callcenter.service'
+    'com.app.callcenter.service',
+    'com.app.callcenter.directive'
 ]).run(['$rootScope',function($rootScope){
     $rootScope.eventShowCallCenter = "eventShowCallCenter";//显示面板
     $rootScope.eventHideCallCenter = "eventHideCallCenter";//隐藏面板
@@ -23,3 +24,4 @@ angular.module('com.app.callcenter',[
 }]);
 angular.module('com.app.callcenter.controller',[]);
 angular.module('com.app.callcenter.service',[]);
+angular.module('com.app.callcenter.directive',[]);

@@ -3,6 +3,12 @@
  */
 angular.module('com.app.callcenter.controller')
     .controller('CallCenterController',['$scope','$rootScope','CallCenterService','$timeout',function($scope,$rootScope,CallCenterService,$time0ut){
+
+        $scope.getFormData = function(){
+            console.log($scope.userName);
+        };
+
+        $scope.myData = {};
         //定义上送报文
         $scope.firstName = "tttttttt";
         var sendMsg = {"cmdsn":"","seatno":"","caller":"","para":"","cmd":""};
@@ -27,9 +33,9 @@ angular.module('com.app.callcenter.controller')
         };
         //签入
         $scope.checkIn = function(){
-            $scope.data = {};
             //$scope.data.phoneNo = "1111";
-            alert($scope.data.phoneNo);
+            console.log($scope);
+            console.log($scope.firstName);
             $time0ut(function(){
                 $scope.$emit($scope.eventRefreshStatus,{"msg":"呼叫系统签入中,请等待..."});
             },10);
@@ -38,7 +44,7 @@ angular.module('com.app.callcenter.controller')
             sendMsg.para = '123456';//密码
             sendMsg.caller = '1001';//分机号
             sendMsg.cmd = '1';
-            CallCenterService.connect(sendMsg);
+            //CallCenterService.connect(sendMsg);
         };
         //签出
         $scope.checkOut = function(){
@@ -106,8 +112,17 @@ angular.module('com.app.callcenter.controller')
         };
 
 
+        /*$scope.doActiveCallCenter = function(){
+            //$scope.myUrl4 = 'active';
+            if($scope.myUrl4 == 'active'){
+                $rootScope.$emit($rootScope.eventHideCallCenter,{msg:'隐藏callcenter面板'});
+            }
+            else{
+                $rootScope.$emit($rootScope.eventShowCallCenter,{msg:'展开callcenter面板'});
+            }
+        };*/
+
         $scope.doActiveCallCenter = function(){
-            //console.log("doActiveCallCenter");
             if($scope.activeCallCenter == 'active'){
                 $rootScope.$emit($rootScope.eventHideCallCenter,{msg:'隐藏callcenter面板'});
             }
@@ -118,12 +133,12 @@ angular.module('com.app.callcenter.controller')
         //注册callcenter面板显示事件
         $rootScope.$on($rootScope.eventShowCallCenter,function(event,param){
             $scope.activeCallCenter = 'active';
-            //console.log(param.msg);
+            console.log(param.msg);
         });
         //注册callcenter面板隐藏事件
         $rootScope.$on($rootScope.eventHideCallCenter,function(event,param){
             $scope.activeCallCenter = '';
-            //console.log(param.msg);
+            console.log(param.msg);
         });
         //注册刷新状态事件
         $rootScope.$on( $rootScope.eventRefreshStatus,function(event,param){

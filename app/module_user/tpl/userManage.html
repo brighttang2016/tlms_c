@@ -1,5 +1,16 @@
-<div ng-controller="UserController">
+<div >
     用户管理
     <button ng-click="showCallCenter()">打开呼叫中心面板</button>
     <button ng-click="hideCallCenter()">隐藏呼叫中心面板</button>
+    <div class="border-style">
+        <p>说明：双向数据绑定测试</p>
+        输入需要跳转到地址(指令外)<input type="text" ng-model="theirUrl"/>
+        <div my-directive4
+             some-url="theirUrl"
+             my-link-text4=" my-directive4跳转到{{theirUrl}}(向指令中传递数据)">
+        </div>
+    </div>
+
+    <input name="userName" ng-model="userName"/>
+    <button type="button" ng-click="getFormData()">点击在controller层获取表单数据</button>
 </div>

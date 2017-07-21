@@ -9,4 +9,7 @@ angular.module('com.app.user.controller.UserController',[])
         $scope.hideCallCenter = function(){
             $rootScope.$emit($rootScope.eventHideCallCenter,{msg:'隐藏callcenter面板'});
         };
+        $scope.getFormData = function(){
+          console.log($scope.userName);
+        };
     }]);

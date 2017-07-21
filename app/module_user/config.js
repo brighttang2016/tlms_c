@@ -3,8 +3,10 @@
  */
 angular.module('com.app.user',[
     'com.app.user.controller.UserController',
-    'com.app.user.service.UserService'
+    'com.app.user.service.UserService',
+    'com.app.user.directive'
 ]);
+
 
 angular.module('myApp')
     .config(function($stateProvider,$urlRouterProvider){
