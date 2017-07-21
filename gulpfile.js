@@ -23,7 +23,13 @@ gulp.task('minifycss',function(){
 gulp.task('minifyjs',function(){
     //gulp.src('asset/**/*.js')
     //gulp.src(['app/**/*.js','asset/**/*.js'])
-    gulp.src(['app/*.js','asset/js/**/*.js','app/xhr/*.js','app/uirouter/*.js','app/toaster/*.js','app/utils/**/*.js'])
+    gulp.src(['app/*.js'
+        ,'asset/js/**/*.js'
+        ,'app/xhr/*.js'
+        ,'app/uirouter/*.js'
+        ,'app/toaster/*.js'
+        ,'app/utils/**/*.js'
+        ,'app/module_*/**/*.js'])
         .pipe(concat('all.js'))
         .pipe(rename({suffix:'.min'}))
         /*.pipe(uglify({

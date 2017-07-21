@@ -2208,16 +2208,16 @@ fieldset[disabled] .btn-black.active {
 .settings {
   position: fixed;
   top: 120px;
-  right: -240px;
+  right: -500px;
   z-index: 1050;
-  width: 240px;
-  -webkit-transition: right 0.2s;
-          transition: right 0.2s;
+  width: 500px;
+  -webkit-transition: right 0.6s;
+          transition: right 0.6s;
 }
 
 .settings.active {
-  right: -1px;
-}
+   right: -1px;
+ }
 
 .settings > .btn {
   position: absolute;

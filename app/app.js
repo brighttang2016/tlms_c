@@ -20,6 +20,7 @@ var app = angular.module('myApp',[
     'oc.lazyLoad',
     'pascalprecht.translate',
     'ncy-angular-breadcrumb',
+    'ngWebSocket',
     'com.tang.intercepter',
     'com.tang.controller.MyController1',
     'com.tang.service.XhrService',
@@ -28,7 +29,9 @@ var app = angular.module('myApp',[
     'com.tang.directive.LoginDirective',
     //'com.tang.appController',
     'com.tang.controller.RouterController',
-    'com.tang.controller.ToasterController'
+    'com.tang.controller.ToasterController',
+    'com.app.user',
+    'com.app.callcenter'
 
 ]);
 app.config(function($httpProvider) {

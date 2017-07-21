@@ -1,0 +1,109 @@
+<!-- settings -->
+<!--<button class="'btn' btn-default no-shadow pos-abt {{activeCallCenter}}}"  ng-click="doActiveCallCenter()">-->
+<button class="btn btn-default no-shadow pos-abt" ng-click="doActiveCallCenter()">
+    <i class="fa fa-phone-square fa-lg"></i>
+  </button>
+
+  <div class="panel-heading">
+    呼叫中心
+  </div>
+  <div class="panel-body">
+      <div class="input-group">
+          <span class="input-group-addon">外呼电话号码：</span>
+          <input type="text" ng-model="firstName">
+          {{data.phoneNo}}
+          <input type="text" class="form-control" placeholder="请输入外呼电话号码" ng-model="data.phoneNo"/>
+      </div>
+      <hr/>
+      <div>
+         <!-- <textarea style="height:60px;width:100%;" readonly="true" value="状态提醒栏"/>-->
+          <textarea name="callCenterStatus" style="height: 250px;width: 100%" value="" readonly = "true">{{callCenterStatus}}</textarea>
+      </div>
+      <hr/>
+
+      <div class="m-b-sm row">
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-success col-xs-12"  ng-click="checkIn()">
+                  <i class="fa fa-address-book"></i>
+                  坐席签入
+                  <span class="badge badge-sm  pull-right-xs">4</span>
+              </button>
+          </div>
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-danger col-xs-12" ng-click="checkOut()">
+                  坐席签出
+                  <span class="badge hide">4</span>
+              </button>
+          </div>
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-warning col-xs-12" ng-click="seatBusy()">
+                  坐席忙
+                  <span class="badge hide">4</span>
+              </button>
+          </div>
+      </div>
+
+      <div class="m-b-sm row">
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="seatIdle()">
+                  坐席闲
+                  <span class="badge  hide">4</span>
+              </button>
+          </div>
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="threeTalk()">
+                  三方通话
+                  <span class="badge  hide">4</span>
+              </button>
+          </div>
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12">
+                  转其他坐席组
+                  <span class="badge  hide">4</span>
+              </button>
+          </div>
+      </div>
+
+      <div class="m-b-sm row">
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12">
+                  转其他坐席
+                  <span class="badge  hide">4</span>
+              </button>
+          </div>
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12">
+                  保持通话
+                  <span class="badge  hide">4</span>
+              </button>
+          </div>
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12">
+                  取消通话保持
+                  <span class="badge  hide">4</span>
+              </button>
+          </div>
+      </div>
+
+      <div class="m-b-sm row">
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12">
+                  退出三方通话
+                  <span class="badge  hide">4</span>
+              </button>
+          </div>
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12">
+                  挂机
+                  <span class="badge  hide">4</span>
+              </button>
+          </div>
+          <div class="col-xs-4">
+              <button type="button" class="btn btn-info col-xs-12">
+                  呼叫
+                  <span class="badge hide">4</span>
+              </button>
+          </div>
+      </div>
+  </div>
+<!-- /settings -->
