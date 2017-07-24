@@ -121,8 +121,13 @@ angular.module('com.app.callcenter.service')
         };
 
         var onClose = function(evt){
-            $rootScope.ccCurrStatus = $rootScope.ccAllStatus.未连接;
-            eventMsg.msg += '操作成功';
+            console.log($rootScope);
+            if($rootScope.ccCurrStatus == $rootScope.ccAllStatus.未连接){
+                eventMsg.msg = '坐席签入:签入失败，无法连接服务器';
+            }else{
+                eventMsg.msg = '关闭连接成功';
+                $rootScope.ccCurrStatus = $rootScope.ccAllStatus.未连接;
+            }
             $rootScope.$emit($rootScope.eventDisConnect,eventMsg);
         };
 
@@ -162,6 +167,10 @@ angular.module('com.app.callcenter.service')
                     $rootScope.$emit($rootScope.eventRefreshStatus,eventMsg);
                 },10);
             }else{
+                $timeout(function(){
+                    eventMsg.msg += "坐席签入中，请稍候...";
+                    $rootScope.$emit($rootScope.eventRefreshStatus,eventMsg);
+                },20);
                 connnect(sendMsg);
             }
         };
