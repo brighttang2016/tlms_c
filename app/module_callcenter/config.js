@@ -9,6 +9,8 @@ angular.module('com.app.callcenter',[
     $rootScope.eventShowCallCenter = "eventShowCallCenter";//显示面板
     $rootScope.eventHideCallCenter = "eventHideCallCenter";//隐藏面板
     $rootScope.eventRefreshStatus = "eventRefreshStatus";//刷新状态事件
+    $rootScope.eventConnect = "eventConnect";//建立链接
+    $rootScope.eventDisConnect = 'eventDisConnecct';//断开连接
     $rootScope.eventCheckIn = "eventCheckIn";//签入
     $rootScope.eventCheckOut = "eventCheckOut";//签出
     $rootScope.eventSeatBusy = "eventSeatBusy";//坐席忙
@@ -19,9 +21,16 @@ angular.module('com.app.callcenter',[
     $rootScope.eventStayCall = "eventStayCall";//保持通话
     $rootScope.eventCancelStayCall = "eventStayCallCancel";//取消保持通话
     $rootScope.eventExitThreeCall = "eventExitThreeCall";//退出三方通话
-    $rootScope.eventHangUp = "eventHangUp";//挂机
+    $rootScope.eventKillCall = "eventKillCall";//挂机
     $rootScope.eventMakeCall = "eventMakeCall";//呼叫
+
+    $rootScope.eventCallIn = "eventCallIn";//呼入弹屏事件
 }]);
 angular.module('com.app.callcenter.controller',[]);
 angular.module('com.app.callcenter.service',[]);
 angular.module('com.app.callcenter.directive',[]);
+
+var callCenterStatus = {
+
+};
+

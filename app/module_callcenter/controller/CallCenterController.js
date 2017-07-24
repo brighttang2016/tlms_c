@@ -2,125 +2,141 @@
  * Created by pujjr on 2017/7/19.
  */
 angular.module('com.app.callcenter.controller')
-    .controller('CallCenterController',['$scope','$rootScope','CallCenterService','$timeout',function($scope,$rootScope,CallCenterService,$time0ut){
+    .controller('CallCenterController',['$scope','$rootScope','CallCenterService','$timeout','$interval',function($scope,$rootScope,CallCenterService,$timeout,$interval){
 
-        $scope.getFormData = function(){
-            console.log($scope.userName);
-        };
-
-        $scope.myData = {};
         //定义上送报文
-        $scope.firstName = "tttttttt";
         var sendMsg = {"cmdsn":"","seatno":"","caller":"","para":"","cmd":""};
+        var seatno = '8010';
+        var caller = '1001';
         //链接
-        $scope.connect = function(){
-            $time0ut(function(){
-                $scope.$emit($scope.eventRefreshStatus,{"msg":"呼叫系统签入中,请等待..."});
-            },10);
-            sendMsg.cmdsn = '100';//交易编码
-            sendMsg.seatno = '8010';//坐席号
-            sendMsg.para = '123456';//密码
-            sendMsg.caller = '1001';//分机号
-            sendMsg.cmd = '1';
-            CallCenterService.connect(sendMsg);
-        };
-
-        $scope.disCnnnect = function(){
+       /* $scope.connect = function(){
+         sendMsg.cmdsn = '100';//交易编码
+         sendMsg.seatno =seatno;//坐席号
+         sendMsg.para = '123456';//密码
+         sendMsg.caller = seatno;//分机号
+         sendMsg.cmd = '1';
+         CallCenterService.connect(sendMsg);
+         };*/
+       /* $scope.disCnnnect = function(){
             CallCenterService.disCnnnect();
-        };
-        $scope.doSend = function(sendStr){
-            CallCenterService.doSend(sendStr);
-        };
+        };*/
+       /* $scope.doSend = function(sendStr){
+         CallCenterService.doSend(sendStr);
+         };*/
         //签入
         $scope.checkIn = function(){
-            //$scope.data.phoneNo = "1111";
-            console.log($scope);
-            console.log($scope.firstName);
-            $time0ut(function(){
-                $scope.$emit($scope.eventRefreshStatus,{"msg":"呼叫系统签入中,请等待..."});
-            },10);
-            sendMsg.cmdsn = '100';//交易编码
-            sendMsg.seatno = '8010';//坐席号
+            sendMsg.cmdsn = '10001';//交易编码
+            sendMsg.seatno =seatno;//坐席号
             sendMsg.para = '123456';//密码
-            sendMsg.caller = '1001';//分机号
+            sendMsg.caller = caller;//分机号
             sendMsg.cmd = '1';
-            //CallCenterService.connect(sendMsg);
+            CallCenterService.checkIn(sendMsg);
         };
         //签出
         $scope.checkOut = function(){
-            sendMsg.cmdsn = '101';
-            sendMsg.seatno = '8010';
+            sendMsg.cmdsn = '10002';
+            sendMsg.seatno =seatno;
             sendMsg.para = '';
             sendMsg.caller = '';
             sendMsg.cmd = '2';
-            CallCenterService.doSend(sendMsg);
+            CallCenterService.checkOut(sendMsg);
         };
         //坐席忙
         $scope.seatBusy = function(){
-            sendMsg.cmdsn = '105';
-            sendMsg.seatno = '8010';
+            sendMsg.cmdsn = '10005';
+            sendMsg.seatno =seatno;
             sendMsg.para = '1';//para 为0 时为示闲，为1-99 都是示忙，各个示忙类型自己定义
             sendMsg.caller = '';
             sendMsg.cmd = '5';
-            CallCenterService.connect(sendMsg);
+            CallCenterService.doSend(sendMsg);
         };
         //坐席闲
         $scope.seatIdle = function(){
-            sendMsg.cmdsn = '105';
-            sendMsg.seatno = '8010';
+            sendMsg.cmdsn = '10005';
+            sendMsg.seatno = seatno;
             sendMsg.para = '0';//para 为0 时为示闲，为1-99 都是示忙，各个示忙类型自己定义
             sendMsg.caller = '';
             sendMsg.cmd = '5';
-            CallCenterService.connect(sendMsg);
+            CallCenterService.doSend(sendMsg);
         };
         //3方通话
         $scope.threeTalk = function(){
-            sendMsg.cmdsn = '109';
-            sendMsg.seatno = '8010';
-            sendMsg.para =  this.phoneNo;
+            sendMsg.cmdsn = '10011';
+            sendMsg.seatno =seatno;
+            sendMsg.para =  $scope.inputParam;
             sendMsg.caller = '';
-            sendMsg.cmd = '24';
-            CallCenterService.connect(sendMsg);
+            sendMsg.cmd = '11';
+            CallCenterService.doSend(sendMsg);
         };
-
+        //转其他坐席组
         $scope.trans2Group = function(){
-            CallCenterService.otherGroup();
+            sendMsg.cmdsn = '10009';
+            sendMsg.seatno =seatno;
+            sendMsg.para =  $scope.inputParam;//其他坐席组编号
+            sendMsg.caller = '';
+            sendMsg.cmd = '9';
+            CallCenterService.doSend(sendMsg);
         };
-
-        $scope.trans2Sroup = function(){
-            CallCenterService.otherSeat();
+        //转其他坐席
+        $scope.trans2Seat = function(){
+            sendMsg.cmdsn = '10012';
+            sendMsg.seatno =seatno;
+            sendMsg.para =  $scope.inputParam;//其他坐席组编号
+            sendMsg.caller = '';
+            sendMsg.cmd = '12';
+            CallCenterService.doSend(sendMsg);
         };
 
         $scope.stayCall = function(){
-            CallCenterService.stayCall();
+            sendMsg.cmdsn = '10013';
+            sendMsg.seatno =seatno;
+            sendMsg.para =  '1';//保持通话
+            sendMsg.caller = caller;
+            sendMsg.cmd = '13';
+            CallCenterService.doSend(sendMsg);
         };
 
         $scope.cancelStayCall = function(){
-            CallCenterService.cancelStayCall();
+            sendMsg.cmdsn = '10013';
+            sendMsg.seatno =seatno;
+            sendMsg.para =  '2';//取消保持通话
+            sendMsg.caller = caller;
+            sendMsg.cmd = '13';
+            CallCenterService.doSend(sendMsg);
         };
-
+        /**
+         * 退出3方通话
+         * 0 坐席退出3 方通话,
+         1 拨入时，客服退出3 方通话,
+         2 新加入3 方通话的C 用户退出3 方通话.
+         3 结束3 方通话:所有人都退出3 方通话挂机.
+         */
         $scope.exitThreeCall = function(){
-            CallCenterService.exitThreeCall();
+            sendMsg.cmdsn = '10014';
+            sendMsg.seatno =seatno;
+            sendMsg.para =  '0';
+            sendMsg.caller = caller;
+            sendMsg.cmd = '14';
+            CallCenterService.doSend(sendMsg);
         };
-
-        $scope.hangUp = function(){
-            CallCenterService.hangUp();
+        //挂机
+        $scope.killTalk = function(){
+            sendMsg.cmdsn = '10004';
+            sendMsg.seatno =seatno;
+            sendMsg.para =  $scope.inputParam;
+            sendMsg.caller = caller;
+            sendMsg.cmd = '4';
+            CallCenterService.doSend(sendMsg);
         };
-
+        //外呼
         $scope.makeCall = function(){
-            CallCenterService.makeCall();
+            sendMsg.cmdsn = '10003';
+            sendMsg.seatno =seatno;
+            sendMsg.para =  $scope.inputParam;
+            sendMsg.caller = caller;
+            sendMsg.cmd = '3';
+            CallCenterService.doSend(sendMsg);
         };
-
-
-        /*$scope.doActiveCallCenter = function(){
-            //$scope.myUrl4 = 'active';
-            if($scope.myUrl4 == 'active'){
-                $rootScope.$emit($rootScope.eventHideCallCenter,{msg:'隐藏callcenter面板'});
-            }
-            else{
-                $rootScope.$emit($rootScope.eventShowCallCenter,{msg:'展开callcenter面板'});
-            }
-        };*/
 
         $scope.doActiveCallCenter = function(){
             if($scope.activeCallCenter == 'active'){
@@ -130,10 +146,21 @@ angular.module('com.app.callcenter.controller')
                 $rootScope.$emit($rootScope.eventShowCallCenter,{msg:'展开callcenter面板'});
             }
         };
+        //连接
+        $rootScope.$on($rootScope.eventConnect,function(event,param){
+            console.log(event);
+            console.log(param);
+            $rootScope.$emit($rootScope.eventRefreshStatus,param);
+        });
+        //断开连接
+        $rootScope.$on($rootScope.eventDisConnect,function(event,param){
+            console.log(event);
+            console.log(param);
+            $rootScope.$emit($rootScope.eventRefreshStatus,param);
+        });
         //注册callcenter面板显示事件
         $rootScope.$on($rootScope.eventShowCallCenter,function(event,param){
             $scope.activeCallCenter = 'active';
-            console.log(param.msg);
         });
         //注册callcenter面板隐藏事件
         $rootScope.$on($rootScope.eventHideCallCenter,function(event,param){
@@ -142,7 +169,9 @@ angular.module('com.app.callcenter.controller')
         });
         //注册刷新状态事件
         $rootScope.$on( $rootScope.eventRefreshStatus,function(event,param){
-            $scope.$apply(function(){
+            console.log(event);
+            console.log(param);
+            $rootScope.$apply(function(){
                 date = new Date();
                 $scope.callCenterStatus =  date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay()+" "+ date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+" " + param.msg + "\n" + ($scope.callCenterStatus == undefined ? "" : $scope.callCenterStatus);
             });
@@ -168,11 +197,11 @@ angular.module('com.app.callcenter.controller')
             $rootScope.$emit($rootScope.eventRefreshStatus,param);
         });
 
-        $rootScope.$on($rootScope.eventOtherGroup,function(event,param){
+        $rootScope.$on($rootScope.eventTrans2Group,function(event,param){
             $rootScope.$emit($rootScope.eventRefreshStatus,param);
         });
 
-        $rootScope.$on($rootScope.eventOtherSeat,function(event,param){
+        $rootScope.$on($rootScope.eventTrans2Seat,function(event,param){
             $rootScope.$emit($rootScope.eventRefreshStatus,param);
         });
 
@@ -188,11 +217,15 @@ angular.module('com.app.callcenter.controller')
             $rootScope.$emit($rootScope.eventRefreshStatus,param);
         });
 
-        $rootScope.$on($rootScope.eventHangUp,function(event,param){
+        $rootScope.$on($rootScope.eventKillCall,function(event,param){
             $rootScope.$emit($rootScope.eventRefreshStatus,param);
         });
         $rootScope.$on($rootScope.eventMakeCall,function(event,param){
             $rootScope.$emit($rootScope.eventRefreshStatus,param);
+        });
+        $rootScope.$on($rootScope.eventCallIn,function(event,param){
+            $rootScope.$emit($rootScope.eventRefreshStatus,param);
+            $rootScope.$emit($rootScope.eventShowCallCenter);
         });
 
     }]);

@@ -8,14 +8,10 @@
     呼叫中心
   </div>
 
-<input name="userName" ng-model="userName"/>
-<button type="button" ng-click="getFormData()">点击在controller层获取表单数据</button>
-
   <div class="panel-body">
       <div class="input-group">
           <span class="input-group-addon">外呼电话号码：</span>
-          <input type="text" ng-model="firstName">
-          <input type="text" class="form-control" placeholder="请输入外呼电话号码" ng-model="myData.phoneNo"/>
+          <input type="text" class="form-control" placeholder="请输入外呼电话号码" ng-model="inputParam"/>
       </div>
       <hr/>
       <div>
@@ -26,14 +22,14 @@
 
       <div class="m-b-sm row">
           <div class="col-xs-4">
-              <button type="button" class="btn btn-success col-xs-12"  ng-click="checkIn()">
+              <button type="button" class="btn btn-default col-xs-12"  ng-click="checkIn()">
                   <i class="fa fa-address-book"></i>
                   坐席签入
                   <span class="badge badge-sm  pull-right-xs">4</span>
               </button>
           </div>
           <div class="col-xs-4">
-              <button type="button" class="btn btn-danger col-xs-12" ng-click="checkOut()">
+              <button type="button" class="btn btn-black col-xs-12" ng-click="checkOut()">
                   坐席签出
                   <span class="badge hide">4</span>
               </button>
@@ -60,7 +56,7 @@
               </button>
           </div>
           <div class="col-xs-4">
-              <button type="button" class="btn btn-info col-xs-12">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="trans2Group()">
                   转其他坐席组
                   <span class="badge  hide">4</span>
               </button>
@@ -69,19 +65,19 @@
 
       <div class="m-b-sm row">
           <div class="col-xs-4">
-              <button type="button" class="btn btn-info col-xs-12">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="trans2Seat()">
                   转其他坐席
                   <span class="badge  hide">4</span>
               </button>
           </div>
           <div class="col-xs-4">
-              <button type="button" class="btn btn-info col-xs-12">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="stayCall()">
                   保持通话
                   <span class="badge  hide">4</span>
               </button>
           </div>
           <div class="col-xs-4">
-              <button type="button" class="btn btn-info col-xs-12">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="cancelStayCall()">
                   取消通话保持
                   <span class="badge  hide">4</span>
               </button>
@@ -90,19 +86,19 @@
 
       <div class="m-b-sm row">
           <div class="col-xs-4">
-              <button type="button" class="btn btn-info col-xs-12">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="exitThreeCall()">
                   退出三方通话
                   <span class="badge  hide">4</span>
               </button>
           </div>
           <div class="col-xs-4">
-              <button type="button" class="btn btn-info col-xs-12">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="killTalk()">
                   挂机
                   <span class="badge  hide">4</span>
               </button>
           </div>
           <div class="col-xs-4">
-              <button type="button" class="btn btn-info col-xs-12">
+              <button type="button" class="btn btn-info col-xs-12" ng-click="makeCall()">
                   呼叫
                   <span class="badge hide">4</span>
               </button>

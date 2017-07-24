@@ -2,42 +2,15 @@
  * Created by Administrator on 2017/7/21.
  */
 angular.module('com.app.callcenter.directive')
-    /*.directive('callCenterDirective',function(){
-        return{
-            restrict:'A',
-            //replace:true,
-            scope:{
-                activeCallCenter:'=activeCallCenter'
-            },
-            template:'Ö¸ÁîÄÚ£ºÊäÈëĞèÒªÌø×ªµ½µØÖ·(Ö¸ÁîÄÚÊäÈë£¬ÎŞ·¨Í¬²½Íâ²¿ĞÅÏ¢¡¾p54Ò³ÄÚÈİ¡¿)<input type="text" ng-model="myOutUrl"><a href="{{myUrl3}}">{{myLinkText3}}</a>',
-            //templateUrl:'html/module_callcenter/tpl/callcenter.html',
-            controller:'CallCenterController',
-            link:function(scope,el,attr){
-                console.log('³õÊ¼¼¤»î');
-                scope.activeCallCenter = 'active';
-            }
-        };
-    });*/
     .directive('callCenterDirective',function(){
         return{
             restrict:"A",
             replace:false,
             scope:{
-                activeCallCenter:'=activeCallCenter',//Ë«ÏòÊı¾İ°ó¶¨£¨²ÉÓÃÁË°ó¶¨²ßÂÔ¡°=¡±¶ø·Ç¡°@¡±£©£¬ÓëÖ¸ÁîÍâµÄDOMÊôĞÔsome-urlÖµ£ºtheirUrl±íÊ¾µÄ×÷ÓÃÓò±äÁ¿Ïà°ó¶¨
+                activeCallCenter:'=activeCallCenter',//åŒå‘æ•°æ®ç»‘å®šï¼ˆé‡‡ç”¨äº†ç»‘å®šç­–ç•¥â€œ=â€è€Œéâ€œ@â€ï¼‰ï¼Œä¸æŒ‡ä»¤å¤–çš„DOMå±æ€§some-urlå€¼ï¼štheirUrlè¡¨ç¤ºçš„ä½œç”¨åŸŸå˜é‡ç›¸ç»‘å®š
                 myLinkText4:'@'
             },
-            /*template:'Ö¸ÁîÄÚ£ºÊäÈëĞèÒªÌø×ªµ½µØÖ·(Ö¸ÁîÄÚ)(Ö¸ÁîÄÚÊäÈë£¬Í¬Ê±Í¬²½Íâ²¿ĞÅÏ¢¡¾p55Ò³ÄÚÈİ¡¿)<input type="text" ng-model="myUrl4"/>' +
-             '<a href="{{myLinkText4}}">{{myLinkText4}}</a>' +
-             '<button type="button" ng-click="getData()">µã»÷»ñÈ¡Ö¸ÁîÄ£°å±íµ¥Öµ±íµ¥Öµ</button>',*/
             templateUrl:'html/module_callcenter/tpl/callcenter.html',
-            /*controller:function($scope){
-             $scope.doActiveCallCenter = function(){
-             $scope.myUrl4 = 'active';
-             };
-             $scope.getData = function(){
-             console.log($scope.myUrl4);
-             };
-             }*/
             controller:'CallCenterController'
         };
     });
