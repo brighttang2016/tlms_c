@@ -13,4 +13,39 @@
 
     <input name="userName" ng-model="userName"/>
     <button type="button" ng-click="getFormData()">点击在controller层获取表单数据</button>
+    <hr/>
+   <!-- <div myDirective4>
+        <div my-link>18723290701</div>
+    </div>-->
+<!--    <div my-directive4>-->
+    phoneNum：<input text="text" ng-model="phoneNum"/>
+    tenantPhone：<input text="text" ng-model="tenantPhone"/>
+
+<!--link2指令-->
+   <!-- <div call-center-directive-parent>
+        <div my-link2 attr-name="phoneNum" phone-num="phoneNum">
+            {{phoneNum}}
+        </div>
+    </div>-->
+
+    <div call-center-directive-parent>
+        <div phone-num-directive attr-name="phoneNum"  phone-num="tenantPhone">
+            {{tenantPhone}}
+        </div>
+    </div>
+
+    <call-center-directive-parent>
+        <phone-num-directive attr-name="phoneNum"  phone-num="tenantPhone">
+            {{tenantPhone}}
+        </phone-num-directive>
+    </call-center-directive-parent>
+
+    <button class="btn btn-default no-shadow pos-abt" ng-click="doActiveCallCenter()">
+        <i class="fa fa-phone-square fa-4x"></i>
+    </button>
+
+    <div class="panel-heading">
+        呼叫中心
+    </div>
+
 </div>
