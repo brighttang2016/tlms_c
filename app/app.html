@@ -85,6 +85,9 @@
  <!-- <div ng-include=" 'html/module_callcenter/tpl/callcenter.html' " class="settings panel panel-default {{activeCallCenter}}" ng-controller="CallCenterController">
   </div>-->
   <!--<div callCenterDirective active-call-center="activeCallCenter" class="settings panel panel-default {{activeCallCenter}}"></div>{{activeCallCenter}}-->
-  <div call-center-directive class="settings panel panel-default {{activeCallCenter}}"
-       active-call-center="activeCallCenter">
+  <div call-center-directive-parent>
+    <div call-center-directive class="settings panel panel-default {{activeCallCenter}}"
+         active-call-center="activeCallCenter">
+    </div>
   </div>
+

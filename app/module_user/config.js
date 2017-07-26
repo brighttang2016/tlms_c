@@ -2,11 +2,12 @@
  * Created by pujjr on 2017/7/19.
  */
 angular.module('com.app.user',[
-    'com.app.user.controller.UserController',
+    'com.app.user.controller',
     'com.app.user.service.UserService',
     'com.app.user.directive'
 ]);
-
+angular.module('com.app.user.directive',[
+]);
 
 angular.module('myApp')
     .config(function($stateProvider,$urlRouterProvider){
