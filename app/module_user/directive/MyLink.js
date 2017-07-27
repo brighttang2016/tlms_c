@@ -7,7 +7,7 @@ angular.module('com.app.user.directive')
            restrict:"EA",
            scope:{
                myUrl4:'=someUrl',//双向数据绑定（采用了绑定策略“=”而非“@”），与指令外的DOM属性some-url值：theirUrl表示的作用域变量相绑定
-               myLinkText4:'@',
+               //myLinkText4:'@',
                attrName:'@',
                phoneNum:'=phoneNum'
            },
