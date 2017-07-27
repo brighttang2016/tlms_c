@@ -30,7 +30,10 @@ angular.module('com.app.callcenter.controller',[]);
 angular.module('com.app.callcenter.service',[]);
 angular.module('com.app.callcenter.directive',[]);
 
-var callCenterStatus = {
+/*var callCenterStatus = {
 
 };
+var callCenterStatua = {
+
+};*/
 

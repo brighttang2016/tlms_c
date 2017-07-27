@@ -8,8 +8,7 @@ angular.module('com.app.callcenter.directive')
             restrict:"EA",
             replace:false,
             scope:{
-                activeCallCenter:'=activeCallCenter',//双向数据绑定（采用了绑定策略“=”而非“@”），与指令外的DOM属性some-url值：theirUrl表示的作用域变量相绑定
-                myLinkText4:'@'
+                activeCallCenter:'=activeCallCenter'//双向数据绑定（采用了绑定策略“=”而非“@”），与指令外的DOM属性some-url值：theirUrl表示的作用域变量相绑定
             },
             templateUrl:'html/module_callcenter/tpl/callcenter.tpl.html',
             require:'?^callCenterDirectiveParent',
@@ -32,10 +31,6 @@ angular.module('com.app.callcenter.directive')
                 scope.doActiveCallCenter = ctrl.doActiveCallCenter;
                 scope.doInit = ctrl.doInit;
                 scope.doInit();
-            },
-            //controller:'CallCenterController'
-            controller:function($scope){
-
             }
         };
     });
