@@ -9,14 +9,20 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
+
+    <!-- translate -->
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+
     <script src="js/all.min.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="css/tlms.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/tlms.css"/>
     <link type="text/css" rel="stylesheet" href="css/bootstrap/dist/css/bootstrap.css"/>
     <link type="text/css" rel="stylesheet" href="css/AngularJS-Toaster/toaster.css"/>
     <title>首页</title>
 </head>
-<body ng-controller="userCtrl">
+<body>
 <div class="container">
 
     <h3>Users</h3>
@@ -87,7 +93,6 @@
 <div>
     <div>导航栏</div>
     <div>
-
         <ul>
             <li><a ui-sref="home">主页</a></li>
             <li><a ui-sref="home.toaster">toaster</a></li>
