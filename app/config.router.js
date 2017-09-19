@@ -21,8 +21,8 @@ angular.module('myApp')
           $stateProvider
               .state('app', {
                   //abstract: true,
-                  url: '/app',
-                  templateUrl: 'app.html'
+                  url: '/app'
+                  //templateUrl: 'app.html'
               })
               .state('app.dashboard-v0', {
                   url: '/dashboard-v0',

@@ -6,6 +6,9 @@ angular.module('com.app.user.controller',[])
         console.log("**************UserController*****************");
         console.log($scope);
         var globalParam = "";//全局变量测试
+        $scope.extendTest = '集成测试（UserController初始化数据）';
+        $scope.applyPhone = "1111111";
+        $scope.applyPhone2 = "22222222222";
         $scope.showCallCenter = function(){
             globalParam = '全局变量测试';
             console.log("doActiveCallCenter："+globalParam);

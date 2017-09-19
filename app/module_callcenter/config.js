@@ -9,6 +9,9 @@ angular.module('com.app.callcenter',[
     $rootScope.eventShowCallCenter = "eventShowCallCenter";//显示面板
     $rootScope.eventHideCallCenter = "eventHideCallCenter";//隐藏面板
     $rootScope.eventRefreshStatus = "eventRefreshStatus";//刷新状态事件
+
+    $rootScope.eventPhoneIconClick = "eventPhoneIconClick";//电话图标点击事件
+
     $rootScope.eventConnect = "eventConnect";//建立链接
     $rootScope.eventDisConnect = 'eventDisConnecct';//断开连接
     $rootScope.eventCheckIn = "eventCheckIn";//签入
@@ -30,10 +33,6 @@ angular.module('com.app.callcenter.controller',[]);
 angular.module('com.app.callcenter.service',[]);
 angular.module('com.app.callcenter.directive',[]);
 
-/*var callCenterStatus = {
-
-};
-var callCenterStatua = {
-
-};*/
+//声明：呼叫中心指令作用域对象
+//var callCenterDirectiveScope;
 

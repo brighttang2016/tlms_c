@@ -26,12 +26,15 @@ angular.module('com.app.callcenter.directive')
                phoneNum:'=phoneNum'//双向数据绑定（采用了绑定策略“=”而非“@”），与指令外的DOM属性phone-num值：phoneNum表示的作用域变量相绑定
            },
            replace:false,
-           transclude:true,
-           templateUrl:'html/module_callcenter/tpl/phone.tpl.html',
+           //transclude:true,
+           //templateUrl:'html/module_callcenter/tpl/phone.tpl.html',
+          template:'<label>666666666666</label>',
            require:'?^callCenterDirectiveParent',
            link:function(scope,el,attr,ctrl){
                scope.makeCallByClickPhoneNum = ctrl.makeCallByClickPhoneNum;
                scope.doActiveCallCenter = ctrl.doActiveCallCenter;
+               scope.initPhoneIcon = ctrl.initPhoneIcon;
+               scope.initPhoneIcon();
            },
           controller:'UserController'
        };

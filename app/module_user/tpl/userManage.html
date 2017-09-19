@@ -22,24 +22,23 @@
     tenantPhone：<input text="text" ng-model="tenantPhone"/>
 
 <!--link2指令-->
-   <!-- <div call-center-directive-parent>
+<!--   <div call-center-directive-parent>
         <div my-link2 attr-name="phoneNum" phone-num="phoneNum">
             {{phoneNum}}
         </div>
     </div>-->
 
     <div call-center-directive-parent>
-        <div phone-num-directive attr-name="phoneNum"  phone-num="tenantPhone">
-            {{tenantPhone}}
+        <div  phone-num-directive attr-name="phoneNum"  phone-num="tenantPhone">
         </div>
+        <!--<input phone-num-directive attr-name="phoneNum"  phone-num="tenantPhone"/>-->
+        <!--<div phone-num-directive attr-name="phoneNum"  phone-num="tenantPhone">
+            {{tenantPhone}}
+        </div>-->
     </div>
 
-    <button class="btn btn-default no-shadow pos-abt" ng-click="doActiveCallCenter()">
-        <i class="fa fa-phone-square fa-4x"></i>
-    </button>
-
-    <div class="panel-heading">
-        呼叫中心
-    </div>
+    <input type="text" phone-icon-directive ng-model="applyPhone"/>
+    <input type="text" phone-icon-directive ng-model="applyPhone2"/>
+    <label phone-icon-directive ng-model="applyPhone2">{{applyPhone2}}</label>
 
 </div>

@@ -14,7 +14,20 @@ angular.module('com.app.callcenter.controller')
         var sendMsg = {"cmdsn":"","seatno":"","caller":"","para":"","cmd":""};
 
         eventMsg = {"prefix":"","msg":""};
+        console.log("共享controller");
+        console.log($scope);
 
+        //电话号码指令初始化
+        this.initPhoneIcon = function(){
+           var phoneDirectiveScope = this;
+            if($rootScope.account.invokeCallcenter == true){
+                this.phoneIconShow = "";
+            }else{
+                this.phoneIconShow = "hide";
+            }
+            console.log("*********电话指令初始化************");
+            console.log(this);
+        };
         this.doInit = function(){
             console.log("******************doInit******************");
             directiveScope = this;
@@ -112,6 +125,12 @@ angular.module('com.app.callcenter.controller')
                 $rootScope.$emit($rootScope.eventRefreshStatus,param);
                 $rootScope.$emit($rootScope.eventShowCallCenter);
             });
+
+            $rootScope.$on($rootScope.eventPhoneIconClick,function(event,param){
+                $rootScope.$emit($rootScope.eventShowCallCenter,{"msg":""});
+                directiveScope.inputParam = param.phoneNum;
+            });
+
             $timeout(function(){
                 directiveScope.doActiveCallCenter();
                 directiveScope.checkIn();
@@ -119,14 +138,15 @@ angular.module('com.app.callcenter.controller')
         };
 
         this.makeCallByClickPhoneNum = function(){
-            /*console.log("**************************makeCallByClickPhoneNum*********************************");
+            console.log("**************************makeCallByClickPhoneNum*********************************");
             console.log(this);
             console.log($scope);
             console.log($(this));
-            console.log(directiveScope);*/
+            console.log(directiveScope);
             //directiveScope.$emit($rootScope.eventShowCallCenter,{"msg":""});
             $rootScope.$emit($rootScope.eventShowCallCenter,{"msg":""});
             directiveScope.inputParam = this[this['attrName']];
+
         };
 
         //签入
