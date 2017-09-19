@@ -109,10 +109,12 @@ gulp.task('clean',function(){
         gulp.src(['dist'])
             .pipe(clean());
     },10);
+    console.log("clean");
 });
 
 gulp.task('dobefore',function(){
-    console.log(" do before default");
+    //console.log(" do before default");
+    //gulp.start('clean');
 });
 
 gulp.task('copy',function(){

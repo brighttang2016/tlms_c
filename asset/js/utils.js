@@ -8,7 +8,7 @@
  * @param expire cookie超时时间
  */
 function setCookie(name,value,expire){
-    console.log("setCookie,"+"name:"+name+",value:"+value+",expire:"+expire);
+    //console.log("setCookie,"+"name:"+name+",value:"+value+",expire:"+expire);
     var timeNow = new Date();
     var expireTime = new Date();
     expireTime.setTime(expire);
@@ -26,7 +26,7 @@ function setCookie(name,value,expire){
  */
 function getCookie(name){
     //alert("utils.js->getCookie");
-    console.log("utils.js->getCookie");
+    //console.log("utils.js->getCookie");
     //console.log(name);
     var start = 0;
     var end = 0;
@@ -45,7 +45,7 @@ function getCookie(name){
          console.log(name+":"+value);
          }*/
         var pairs = document.cookie.split(";");
-        console.log("pairs:"+pairs);
+        //console.log("pairs:"+pairs);
         for(var i = 0;i < pairs.length;i++){
             var pair = pairs[i];
             //console.log(i+":"+pair);
@@ -61,5 +61,5 @@ function getCookie(name){
 }
 
 function printCookie(){
-    console.log("document.cookie:"+document.cookie);
+    //console.log("document.cookie:"+document.cookie);
 }

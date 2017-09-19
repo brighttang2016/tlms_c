@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/app.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/blocks/aside.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/blocks/header.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/blocks/nav.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/blocks/page_footer.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/blocks/settings.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/config.lazyload.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/config.router.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/hello/hello.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/login/login.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/main.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/module_callcenter/directive/CallCenterDirective.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/utils/controllers" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/utils/directives" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/utils/filters" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/utils/services" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/vendor" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/css/animate.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/css/app.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/css/bootstrap.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/css/callCenter.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/css/font-awesome.min.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/css/font.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/css/simple-line-icons.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/css/tlms.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/asset/fonts" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/fonts/glyphicons-halflings-regular.woff2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/asset/img" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/js/loader-static-files.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/js/storage-cookie.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/js/storage-local.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/asset/js/utils.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gulpfile.js" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
