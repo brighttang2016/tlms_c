@@ -2,12 +2,12 @@
  * Created by pujjr on 2017/7/11.
  */
 var app = angular.module('myApp',[
-   /* 'ui.router',
+    'ui.router',
     'ngAnimate',
     'toaster',
-    */
+
     'ngAnimate',
-    'ngCookies',
+    // 'ngCookies',
     'ngResource',
     'ngSanitize',
     'ngTouch',
