@@ -4,7 +4,10 @@
 angular.module('com.tang.controller.RouterController',[])
     .controller('routerController',function($scope){
 
-    }).config(function($stateProvider,$urlRouterProvider) {
+    }).run(function($templateCache){
+        $templateCache.put('html/uirouter/photo.tpl.html','<div>tttttttttttttttttttttttttttt</div>');
+    })
+    .config(function($stateProvider,$urlRouterProvider) {
         $urlRouterProvider.otherwise('/home');
         $stateProvider
             .state('home',{

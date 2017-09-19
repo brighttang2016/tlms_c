@@ -4,8 +4,7 @@
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-sequence": "^0.4.6"
+    "gulp": "^3.9.1"
   },
   "scripts": {
     "test": "gulp test"
@@ -22,6 +21,7 @@
   "homepage": "https://github.com/brighttang2016/tlms_c#readme",
   "devDependencies": {
     "del": "^2.2.2",
+    "gulp-angular-templatecache": "^2.0.0",
     "gulp-bom": "^1.0.0",
     "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.1",
@@ -30,6 +30,7 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-minify-html": "^1.0.6",
     "gulp-rename": "^1.2.2",
+    "gulp-run-sequence": "^0.3.2",
     "gulp-sequence": "^0.4.6",
     "gulp-uglify": "^2.1.2",
     "gulp-utf8-convert": "0.0.7",

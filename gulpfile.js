@@ -6,7 +6,9 @@ var gulp = require('gulp'),
     jshint=require('gulp-jshint'),
     clean=require('gulp-clean'),
     minifyhtml=require('gulp-minify-html'),
-    utf8Convert=require('gulp-utf8-convert');
+    utf8Convert=require('gulp-utf8-convert'),
+    templateCache =require('gulp-angular-templatecache'),
+    runSequence = require('gulp-run-sequence');
 var bom = require('gulp-bom');
 
 var src_css='asset/!**',
@@ -18,6 +20,18 @@ gulp.task('minifycss',function(){
        //.pipe(rename({suffix:'.min'}))
        .pipe(minifycss())
        .pipe(gulp.dest("dist"));
+});
+
+gulp.task('templatecache',function(){
+    return gulp.src('app/**/*.tpl.html')
+        .pipe(templateCache('templates.js',{
+            root:'myroot',
+            standalone :true,
+            transformUrl: function(url) {
+                return url.replace(/\.tpl\.html$/, '.html')
+            }
+        }))
+        .pipe(gulp.dest('dist/js/template'))
 });
 
 gulp.task('minifyjs',function(){
@@ -100,15 +114,7 @@ gulp.task('appAllHtml',function(){
 });*/
 
 gulp.task('clean',function(){
-    setTimeout(function(){
-       /* gulp.src(['dist/!**!/!*.css','dist/!**!/!*.js','dist/!**!/!*.html'
-            ,'dist/bower_components/!**!/!*.js'
-            ,'dist/bower_components/!**!/!*.css'
-            ,'dist/bower_components/!**!/!*.woff2','bower_components/!**!/!*.woff','bower_components/!**!/!*.ttf'])
-            .pipe(clean());*/
-        gulp.src(['dist'])
-            .pipe(clean());
-    },10);
+    return gulp.src(['dist']).pipe(clean());
     console.log("clean");
 });
 
@@ -135,6 +141,10 @@ gulp.task('copy',function(){
         .pipe(gulp.dest("dist/vendor"));
 });
 
-gulp.task('default',['dobefore'],function(){
-   gulp.start('minifycss','minifyjs','minifyhtml','copy','appAllHtml');
+/*gulp.task('default',['clean'],function(){
+   gulp.start('minifycss','templatecache','minifyjs','minifyhtml','copy','appAllHtml');
+});*/
+
+gulp.task('default',function(cb){
+    runSequence('clean','templatecache',['minifyjs','minifyhtml','copy']);
 });
