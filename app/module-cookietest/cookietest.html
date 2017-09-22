@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<script src="../../asset/js/utils.js"></script>
+<script>
+    function operCookie(){
+        console.log('operCookie');
+        var date = new Date();
+        console.log(date.toTimeString());
+        console.log(date.toLocaleTimeString());
+        console.log(date.getTime());
+        console.log(date.setTime(date.getTime() + 28800000));
+        console.log(date.toTimeString());
+        console.log(date.toGMTString());
+        var expireTime = date.getTime();
+        setCookie("myName","bright",expireTime);
+    }
+    function getSpecialCookie(){
+        console.log(getCookie('myName'));
+    }
+    function setSpecialCookie(){
+        var date = new Date();
+        console.log(date.getTime());
+        date.setTime(date.getTime() + 5000);
+        var expireTime = date.getTime();
+        setCookie("myName","唐亮",expireTime);
+    }
+</script>
+<body>
+    <input type="button" value="获取cookie" onclick="getSpecialCookie()"/>
+    <input type="button" value="设置cookie" onclick="setSpecialCookie()"/>
+</body>
+</html>

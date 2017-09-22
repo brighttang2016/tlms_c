@@ -25,7 +25,7 @@ gulp.task('minifycss',function(){
 gulp.task('templatecache',function(){
     return gulp.src('app/**/*.tpl.html')
         .pipe(templateCache('templates.js',{
-            root:'myroot',
+            root:'app',
             standalone :true,
             transformUrl: function(url) {
                 return url.replace(/\.tpl\.html$/, '.html')
@@ -43,7 +43,8 @@ gulp.task('minifyjs',function(){
         ,'app/uirouter/*.js'
         ,'app/toaster/*.js'
         ,'app/utils/**/*.js'
-        ,'app/module_*/**/*.js'])
+        ,'app/module-*/**/*.js'
+        ,'dist/js/template/templates.js'])
         .pipe(concat('all.js'))
         .pipe(rename({suffix:'.min'}))
         /*.pipe(uglify({
@@ -136,7 +137,6 @@ gulp.task('copy',function(){
         .pipe(gulp.dest("dist/fonts"));
     gulp.src(['asset/img/*.*'])
         .pipe(gulp.dest("dist/img"));
-
     gulp.src(['app/vendor/**/*.*'])
         .pipe(gulp.dest("dist/vendor"));
 });
@@ -146,5 +146,5 @@ gulp.task('copy',function(){
 });*/
 
 gulp.task('default',function(cb){
-    runSequence('clean','templatecache',['minifyjs','minifyhtml','copy']);
+    runSequence('clean','minifycss','templatecache',['minifyjs','copy'],'minifyhtml','appAllHtml');
 });

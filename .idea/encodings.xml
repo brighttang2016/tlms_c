@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/app-20170920bak.html" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/app.html" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/blocks/aside.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/blocks/header.html" charset="UTF-8" />
@@ -12,7 +13,7 @@
     <file url="file://$PROJECT_DIR$/app/hello/hello.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/login/login.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/main.js" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/module_callcenter/directive/CallCenterDirective.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/module-callcenter/directive/CallCenterDirective.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/utils/controllers" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/utils/directives" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/utils/filters" charset="GBK" />

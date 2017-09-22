@@ -17,12 +17,16 @@ angular.module('myApp')
       function ($stateProvider,   $urlRouterProvider) {
           
           $urlRouterProvider
-              .otherwise('/app');
+              .otherwise('signin');
           $stateProvider
               .state('app', {
                   //abstract: true,
                   url: '/app',
                   templateUrl: 'app.html'
+              })
+              .state('signin',{
+                  url:'/signin',
+                  templateUrl:'app/module-user/tpl/userLogin.html'
               })
               .state('app.dashboard-v0', {
                   url: '/dashboard-v0',

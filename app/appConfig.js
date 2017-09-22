@@ -2,6 +2,7 @@
  * Created by pujjr on 2017/7/18.
  */
 var BASE_URL='http://127.0.0.1:8080/pcms-web';
+var TLMS_URL='http://localhost:8090/tlms-web';
 var SERVER_URL = {
     /**认证地址**/
     AUTH_SERVER_URL:BASE_URL,

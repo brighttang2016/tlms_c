@@ -2,12 +2,11 @@
  * Created by pujjr on 2017/7/11.
  */
 var app = angular.module('myApp',[
+    'templates',
     'ui.router',
-    'ngAnimate',
+    //'ngAnimate',
     'toaster',
-
-    'ngAnimate',
-    // 'ngCookies',
+     'ngCookies',
     'ngResource',
     'ngSanitize',
     'ngTouch',
@@ -21,6 +20,7 @@ var app = angular.module('myApp',[
     'pascalprecht.translate',
     'ncy-angular-breadcrumb',
     'ngWebSocket',
+    'restangular',
     'com.tang.intercepter',
     'com.tang.controller.MyController1',
     'com.tang.service.XhrService',
@@ -31,14 +31,16 @@ var app = angular.module('myApp',[
     'com.tang.controller.RouterController',
     'com.tang.controller.ToasterController',
     'com.app.user',
-    'com.app.callcenter'
+    'com.app.callcenter',
+    'com.tlms.sys.service',
+    'com.tlms.sys.controller'
 
 ]);
 app.config(function($httpProvider) {
     $httpProvider.interceptors.push('myInterceptor');
     //console.log($httpProvider.defaults.headers.common);
-    /*  //扩充http头
-     $httpProvider.defaults.headers.post['token'] = getCookie('token');
+      //扩充http头
+    /* $httpProvider.defaults.headers.post['token'] = getCookie('token');
      $httpProvider.defaults.headers.post['expireTime'] = getCookie('expireTime');*/
 });
 
@@ -46,3 +48,65 @@ app.config(['$locationProvider',function($locationProvider){
     //$locationProvider.html5Mode(false);
     $locationProvider.hashPrefix('');
 }]);
+/*
+app.config(function(RestangularProvider){
+    RestangularProvider.setRequestInterceptor(function(elem,operation,what){
+        console.log("setRequestInterceptor");
+        console.log(elem);
+        console.log(operation);
+        console.log(what);
+        elem.time = "200810405234";
+    });
+});*/
+
+app.factory('TlmsRestangular',function(Restangular){
+    return Restangular.withConfig(function(configurer){
+        configurer.setBaseUrl(TLMS_URL);
+    });
+});
+
+app.factory('myInterceptor',function($q,CookieService,$state){
+    var interceptor = {
+        'request':function(config){
+            //console.log("request");
+            //console.log(config);
+            /**
+             * 发送请求时，请求消息头headers是json对象
+             */
+            config.headers['token'] =CookieService.getCookie('token');
+            config.headers['expireTime'] =CookieService.getCookie('expireTime');
+            return config;
+        },
+        'response':function(config){
+            //console.log('response');
+            /*console.log(config);
+            console.log(config.headers['token']);
+            console.log(config.headers("token"));*/
+            /**
+             *接收请求时，接收消息头headers是函数
+             */
+            if(config.status == '200'){
+
+            }else{
+
+            }
+            var token = config.headers('token')+'';
+            var expireTime = config.headers('expireTime')+'';
+            //console.log('token:'+token);
+            //console.log('expireTime:'+expireTime);
+            //console.log(token == 'null');
+            if(token != null && token != undefined && token != '' && token != 'null'){
+                CookieService.setCookie('token',token);
+            }
+            if(expireTime != null && expireTime != undefined && expireTime != '' && token != 'null'){
+                CookieService.setCookie('expireTime',expireTime);
+            }
+            return config;
+        }
+    };
+    return interceptor;
+
+});
+
+
+

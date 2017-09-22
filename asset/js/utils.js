@@ -8,15 +8,19 @@
  * @param expire cookie超时时间
  */
 function setCookie(name,value,expire){
-    //console.log("setCookie,"+"name:"+name+",value:"+value+",expire:"+expire);
+    console.log("setCookie,"+"name:"+name+",value:"+value+",expire:"+expire);
     var timeNow = new Date();
     var expireTime = new Date();
     expireTime.setTime(expire);
     //document.cookie=name+"="+value+";expires="+expireTime.toGMTString();
     //console.log("expire:"+expire+",expireTime:"+expireTime);
-    document.cookie=name+"="+value+";expires="+expireTime;
-    document.cookie="expireTime="+expire+";expires="+expireTime;
-    //console.log("存储的cookie:"+document.cookie);
+    //document.cookie=name+"="+value+";expires="+expireTime;
+    //document.cookie="expireTime="+expire+";expires="+expireTime;
+
+    //document.cookie=name+"="+value+";expireTime:"+new Date();
+    document.cookie=name+"="+value+";expires="+expireTime.toGMTString();
+    //document.cookie=name+"="+value+";expires="+expireTime.toTimeString();
+    console.log(document.cookie);
 }
 
 /**

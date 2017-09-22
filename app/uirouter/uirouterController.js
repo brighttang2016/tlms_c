@@ -5,7 +5,7 @@ angular.module('com.tang.controller.RouterController',[])
     .controller('routerController',function($scope){
 
     }).run(function($templateCache){
-        $templateCache.put('html/uirouter/photo.tpl.html','<div>tttttttttttttttttttttttttttt</div>');
+        //$templateCache.put('app/uirouter/photo.html','<div>tttttttttttttttttttttttttttt</div>');
     })
     .config(function($stateProvider,$urlRouterProvider) {
         $urlRouterProvider.otherwise('/home');
@@ -22,13 +22,13 @@ angular.module('com.tang.controller.RouterController',[])
             }).state('photo',{
                 //abstract:true,
                 url: '/photo/:photoId',
-                templateUrl: 'html/uirouter/photo.tpl.html',
+                templateUrl: 'app/uirouter/photo.html',
                 controller:function($scope,$stateParams){
                     console.log($stateParams);
                 }
             }).state('photo.detail',{//嵌套路由测试
                 url: '/detail/:detailId',
-                templateUrl: 'html/uirouter/photo-detail.tpl.html',
+                templateUrl: 'app/uirouter/photo-detail.html',
                 controller:function($scope,$stateParams){
                     console.log("----------------------------");
                     console.log($stateParams);
