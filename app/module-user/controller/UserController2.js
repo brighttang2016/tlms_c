@@ -35,7 +35,7 @@ angular.module('com.app.user.controller')
          */
         $scope.allGet = function(){
             TlmsRestangular.allUrl('http://baidu.com');
-            var baseAccounts = TlmsRestangular.all('user');
+            var baseAccounts = TlmsRestangular.all('service/user');
             baseAccounts.getList().then(function(accounts){
                 $scope.allAccounts = accounts;
                 console.log(accounts);
@@ -50,7 +50,7 @@ angular.module('com.app.user.controller')
             /*
             * user和/user效果相同
             * */
-            TlmsRestangular.one('/user','123').get()
+            TlmsRestangular.one('service/user','123').get()
                 .then(function(account){
                     console.log(account);
                     console.log(JSON.stringify(account));
@@ -62,7 +62,7 @@ angular.module('com.app.user.controller')
             /*
              * user和/user效果相同
              */
-            TlmsRestangular.one('user/v1','123').get()
+            TlmsRestangular.one('service/user/v1','123').get()
                 .then(function(account){
                     console.log(account);
                     console.log(JSON.stringify(account));
@@ -70,7 +70,7 @@ angular.module('com.app.user.controller')
         };
 
         $scope.oneGet3 = function(){
-            TlmsRestangular.one('user/v2').get({'id':'123','userId':'200810405234'})
+            TlmsRestangular.one('service/user/v2').get({'id':'123','userId':'200810405234'})
                 .then(function(account){
                     console.log(account);
                     console.log(JSON.stringify(account));
@@ -78,14 +78,14 @@ angular.module('com.app.user.controller')
         };
 
         $scope.oneGet4 = function(){
-            TlmsRestangular.one('user/v3','123').one('456').get()
+            TlmsRestangular.one('service/user/v3','123').one('456').get()
                 .then(function(account){
                     console.log(account);
                     console.log(JSON.stringify(account));
                 });
         };
         $scope.oneGet5 = function(){
-            TlmsRestangular.one('user/v4','123').one('name','456').get()
+            TlmsRestangular.one('service/user/v4','123').one('name','456').get()
                 .then(function(account){
                     console.log(account);
                     console.log(JSON.stringify(account));
@@ -93,7 +93,7 @@ angular.module('com.app.user.controller')
         };
 
         $scope.oneGet6 = function(){
-            TlmsRestangular.all('user/v3').one('456').one('789').get()
+            TlmsRestangular.all('service/user/v3').one('456').one('789').get()
                 .then(function(account){
                     console.log(account);
                     console.log(JSON.stringify(account));
@@ -101,7 +101,7 @@ angular.module('com.app.user.controller')
         };
 
         $scope.oneGet7 = function(){
-            TlmsRestangular.all('user/v5').one('456').one('name','789').getList()
+            TlmsRestangular.all('service/user/v5').one('456').one('name','789').getList()
                 .then(function(accounts){
                     console.log(accounts);
                     console.log(JSON.stringify(accounts));
@@ -113,7 +113,7 @@ angular.module('com.app.user.controller')
          * post 测试开始
          */
         $scope.allPost = function(){
-            TlmsRestangular.all('user').post({"userId":"2008","userName":"唐"})
+            TlmsRestangular.all('service/user').post({"userId":"2008","userName":"唐"})
                 .then(function(data){
                     console.log('发送成功');
                 });

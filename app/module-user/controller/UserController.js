@@ -7,12 +7,12 @@ angular.module('com.app.user.controller')
         $scope.user = {};
         $scope.signIn = function(){
             console.log($scope.user);
-            TlmsRestangular.all('login/userLogin').post( $scope.user)
+            TlmsRestangular.all('user/signin').post($scope.user)
                 .then(function(data){
                     console.log("用户登录");
                     console.log(data);
                     $state.go('app');
-                })
+                });
         };
         /*console.log("**************UserController*****************");
         console.log($scope);

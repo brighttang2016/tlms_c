@@ -6,7 +6,7 @@ angular.module('com.tlms.sys.service',[
 ])
     .factory('CookieService',['$cookieStore',function($cookieStore){
         var setCookie = function(name,value){
-            console.log('setCookie,name='+name+",value="+value);
+            //console.log('setCookie,name='+name+",value="+value);
             //$cookieStore.put('userName','brighttang');
             $cookieStore.put(name,value);
 
