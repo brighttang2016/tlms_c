@@ -34,15 +34,16 @@ var app = angular.module('myApp',[
     'com.app.callcenter',
     'com.tlms.sys.service',
     'com.tlms.sys.controller',
-    'com.app.process'
+    'com.app.process',
+    'com.app.block'
 
 ]);
 app.config(function($httpProvider) {
     $httpProvider.interceptors.push('myInterceptor');
     //console.log($httpProvider.defaults.headers.common);
       //扩充http头
-    /* $httpProvider.defaults.headers.post['token'] = getCookie('token');
-     $httpProvider.defaults.headers.post['expireTime'] = getCookie('expireTime');*/
+     //$httpProvider.defaults.headers.post['token'] = getCookie('token');
+     //$httpProvider.defaults.headers.post['expireTime'] = getCookie('expireTime');
 });
 
 app.config(['$locationProvider',function($locationProvider){
@@ -66,7 +67,7 @@ app.factory('TlmsRestangular',function(Restangular){
     });
 });
 
-app.factory('myInterceptor',function($q,CookieService,$state){
+app.factory('myInterceptor',function($q,CookieService,$state,$rootScope){
     var interceptor = {
         'request':function(config){
             //console.log("request");
@@ -108,6 +109,23 @@ app.factory('myInterceptor',function($q,CookieService,$state){
     return interceptor;
 
 });
+
+app.run(['$rootScope',function($rootScope){
+    console.log("run***********************");
+    /**
+     * 状态改变监听
+     */
+    $rootScope.previousState;
+    $rootScope.currentState;
+    $rootScope.$on('$stateChangeSuccess', function(ev, to, toParams, from, fromParams) {
+        $rootScope.previousState = from.name;
+        $rootScope.currentState = to.name;
+        console.log('Previous state:'+$rootScope.previousState);
+        console.log('Current state:'+$rootScope.currentState);
+    });
+}]);
+
+
 
 
 
