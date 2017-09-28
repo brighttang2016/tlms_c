@@ -17,35 +17,17 @@ angular.module('myApp')
             template: '<div ui-view class="fade-in-up"></div>'*/
         }).state('app.process.manage',{
             url:'/manage',
-            templateUrl:'app/module-process/tpl/process.html'
-        }).
-
-            state('app.process.query',{
+            templateUrl:'app/module-process/tpl/processManage.html'
+        }).state('app.process.query',{
             url:'/query',
             templateUrl:'app/module-process/tpl/processQuery.html'
-        }).state('app.process.query.dgrmResource',{
-            url:'/dgrmresource',
-            templateUrl:'app/module-process/tpl/processDiagram.html'
-        }).state('app.process.query.resource',{
-            url:'/resource',
-            templateUrl:'app/module-process/tpl/processBpmn.html'
-        })
-
-            .state('app.process.task',{
+        }) .state('app.process.task',{
                 url:'/task',
                 templateUrl:'app/module-process/tpl/currTask.html',
                 onEnter:function(){
                     console.log("6666666666666");
                 }
-        }).state('app.process.task.dgrmResource',{
-                url:'/dgrmResource',
-                templateUrl:'app/module-process/tpl/processDiagram.html'
-        }).state('app.process.task.resource',{
-            url:'/resource',
-            templateUrl:'app/module-process/tpl/processBpmn.html'
-        })
-
-            .state('app.process.detail',{//流程明细
+        }) .state('app.process.detail',{//流程明细
                 url:'/detail',
                 templateUrl:'app/module-process/tpl/processDetail.html'
         }).state('app.process.detail.dgrmResource',{

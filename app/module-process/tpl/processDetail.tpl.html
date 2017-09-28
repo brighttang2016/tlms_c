@@ -1,8 +1,10 @@
 <div ng-controller="ProcessController">
     流程明细
     <input type="button" value="返回" ng-click="goBack()"/>
-    <input type="button" value="查看流程图" ng-click="readCurrDetailDgrmResource(process.processInstId)"/>
-    <input type="button" value="同意" ng-click="agree(process.processInstId)"/>
+    <input type="button" value="查看流程图" ng-click="readDgrmResource()"/>
+    <input type="button" value="bpnm" ng-click="readResource()"/>
+    <input type="button" value="通过" ng-click="agree()"/>
+    <input type="button" value="拒绝" ng-click="reject()"/>
     <div>
         <div ui-view="dgmnView"></div>
     </div>

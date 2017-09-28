@@ -2,7 +2,7 @@
  * Created by pujjr on 2017/7/26.
  */
 angular.module('com.app.process.controller')
-    .controller('ProcessController',['$scope','$rootScope','TlmsRestangular','$state',function($scope,$rootScope,TlmsRestangular,$state){
+    .controller('ProcessController',['$scope','$rootScope','TlmsRestangular','$state','StorageService',function($scope,$rootScope,TlmsRestangular,$state,StorageService){
         //$scope.process = {};
         //$rootScope.process = {processInstId:"11"};
         $scope.deployProcess = function(){
@@ -29,22 +29,22 @@ angular.module('com.app.process.controller')
                     $scope.records = records;
                 });
         };
-        $scope.readDgrmResource = function(processInstId){
-            $scope.process.processInstId = processInstId;
-            $scope.process.resourceType = 'dgrmResource';
-            $state.go("app.process.query.dgrmResource");
+        $scope.querySpecialProc = function(){
+            TlmsRestangular.one('service/process/query',$scope.bysiKey).one($scope.pdKey).getList()
+                .then(function(records){
+                    console.log(records);
+                    $scope.records = records;
+                });
         };
-        $scope.readResource = function(processInstId){
-            $scope.process.processInstId = processInstId;
-            $scope.process.resourceType = 'resource';
-            //$state.go("app.process.query.resource");
-            window.open("http://localhost:8090/tlms-web/process/source/"+processInstId+"/resource");
-            /*TlmsRestangular.one('service/process/source',pdid).get()
-             .then(function(records){
-             console.log(records);
-             //$scope.records = records;
-             });*/
-            //window.location.href = "http://localhost:8090/tlms-web/service/process/source/2";
+       /* $scope.readDgrmResource = function(processInstId){
+            //$scope.process.processInstId = processInstId;
+            //$scope.process.resourceType = 'dgrmResource';
+            $scope.process = StorageService.getStorage('process');
+            $state.go("app.process.query.dgrmResource");
+        };*/
+        $scope.readResource = function(){
+            var procInstId = StorageService.getStorage('procInstId')+"";
+            window.open("http://localhost:8090/tlms-web/process/source/"+procInstId+"/resource");
         };
 
         /**
@@ -69,28 +69,48 @@ angular.module('com.app.process.controller')
                 });*/
         };
 
-        $scope.readCurrDgrmResource = function(processInstId){
+        /*$scope.readCurrDgrmResource = function(processInstId){
+            console.log('跳转流程图状态');
             $scope.process.processInstId = processInstId;
             $scope.process.resourceType = 'dgrmResource';
+            StorageService.setStorage("process",$scope.process);
             $state.go("app.process.task.dgrmResource");
-        };
+        };*/
 
-        $scope.readCurrDetailDgrmResource = function(processInstId){
+        $scope.readDgrmResource = function(){
             //$scope.process.processInstId = processInstId;
-            $scope.process.processInstId = $rootScope.process.processInstId;
+            //$scope.process.processInstId = $rootScope.process.processInstId;
+            $scope.process = {};
+            var procInstId =StorageService.getStorage('procInstId')+"";
+            $scope.process.processInstId = procInstId;
             $scope.process.resourceType = 'dgrmResource';
             console.log($rootScope);
             console.log($scope);
+            $scope.dgrmSrc = 'http://localhost:8090/tlms-web/process/source/'+procInstId+'/dgrmResource?uuid='+new Date();
             $state.go("app.process.detail.dgrmResource");
         };
+
+
+
+       /* $scope.queryProcessDetailCommon = function(processInstId){
+            console.log('点击查询明细(全流程监控)');
+            console.log(processInstId);
+            console.log($scope);
+            //$rootScope.process = {processInstId:processInstId};
+            //$scope.process.processInstId = processInstId;
+            StorageService.setStorage("procInstId",processInstId);
+            console.log($rootScope);
+            $state.go("app.process.detail");
+        };*/
 
         $scope.queryProcessDetail = function(processInstId){
             console.log('点击查询明细');
             console.log(processInstId);
             console.log($scope);
 
-            $rootScope.process = {processInstId:processInstId};
-            $scope.process.processInstId = processInstId;
+            //$rootScope.process = {processInstId:processInstId};
+            //$scope.process.processInstId = processInstId;
+            StorageService.setStorage("procInstId",processInstId);
             console.log($rootScope);
             $state.go("app.process.detail");
         };
@@ -101,13 +121,21 @@ angular.module('com.app.process.controller')
             window.history.back();
         };
 
+
+
+
         /**
          * 审批操作
          */
-
-        $scope.agree = function(procInstId){
-            TlmsRestangular.one('service/process/agree',procInstId).post()
+        $scope.agree = function(){
+            TlmsRestangular.one('service/process/agree', StorageService.getStorage('procInstId')).post()
                 .then(function(records){
                 });
-        }
+        };
+        $scope.reject = function(){
+            TlmsRestangular.one('service/process/reject', StorageService.getStorage('procInstId')).post()
+                .then(function(records){
+                });
+        };
+
     }]);

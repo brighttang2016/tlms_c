@@ -20,8 +20,9 @@ angular.module('com.tlms.sys.service')
             try{
                 ret = JSON.parse(window.localStorage[name]);
             }catch(e){
-                ret = name;
+                ret = window.localStorage[name];
             }
+            console.log('ret:'+ret);
             return  ret;
         };
 
