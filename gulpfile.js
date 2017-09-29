@@ -139,6 +139,8 @@ gulp.task('copy',function(){
         .pipe(gulp.dest("dist/img"));
     gulp.src(['app/vendor/**/*.*'])
         .pipe(gulp.dest("dist/vendor"));
+    gulp.src(['app/diagramviewer/**/*.*'])
+        .pipe(gulp.dest("dist/html/diagramviewer"));
 });
 
 /*gulp.task('default',['clean'],function(){
@@ -146,5 +148,5 @@ gulp.task('copy',function(){
 });*/
 
 gulp.task('default',function(cb){
-    runSequence('clean','minifycss','templatecache',['minifyjs','copy'],'minifyhtml','appAllHtml');
+    runSequence('clean','minifycss','templatecache',['minifyjs','copy'],'appAllHtml');
 });

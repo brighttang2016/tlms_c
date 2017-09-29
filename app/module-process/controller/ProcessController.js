@@ -86,8 +86,18 @@ angular.module('com.app.process.controller')
             $scope.process.resourceType = 'dgrmResource';
             console.log($rootScope);
             console.log($scope);
+
+            /**
+             * 流程图模板页面显示流程图
+             * @type {string}
+             */
             $scope.dgrmSrc = 'http://localhost:8090/tlms-web/process/source/'+procInstId+'/dgrmResource?uuid='+new Date();
             $state.go("app.process.detail.dgrmResource");
+            /**
+             * diagram view 显示流程图
+             */
+
+            window.open('html/diagramviewer/showDiagramViewer.html');
         };
 
 
@@ -103,14 +113,15 @@ angular.module('com.app.process.controller')
             $state.go("app.process.detail");
         };*/
 
-        $scope.queryProcessDetail = function(processInstId){
+        $scope.queryProcessDetail = function(procInstId,pdid){
             console.log('点击查询明细');
-            console.log(processInstId);
+            console.log(procInstId);
             console.log($scope);
 
-            //$rootScope.process = {processInstId:processInstId};
-            //$scope.process.processInstId = processInstId;
-            StorageService.setStorage("procInstId",processInstId);
+            //$rootScope.process = {processInstId:procInstId};
+            //$scope.process.procInstId = procInstId;
+            StorageService.setStorage("procInstId",procInstId);
+            StorageService.setStorage("pdid",pdid);
             console.log($rootScope);
             $state.go("app.process.detail");
         };

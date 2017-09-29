@@ -67,3 +67,5 @@ function getCookie(name){
 function printCookie(){
     //console.log("document.cookie:"+document.cookie);
 }
+
+
