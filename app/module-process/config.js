@@ -40,6 +40,9 @@ angular.module('myApp')
         }).state('app.process.detail.resource',{
             url:'/resource',
             templateUrl:'app/module-process/tpl/processBpmn.html'
-        }) ;
+        }).state('app.process.model',{
+            url:'model',
+            templateUrl:'app/module-process/tpl/modelManage.html'
+        });
     });
 

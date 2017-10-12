@@ -6,36 +6,53 @@ angular.module('com.app.process.controller')
         //$scope.process = {};
         //$rootScope.process = {processInstId:"11"};
         $scope.deployProcess = function(){
-            TlmsRestangular.one('service/process/deploy').get()
+            TlmsRestangular.one('process/deploy').get()
                 .then(function(data){
                 });
         };
-        $scope.deleteProcess = function(){
-            TlmsRestangular.one('service/process/delete').get()
+
+        $scope.deleteProcessDefCascade = function(pdid){
+            TlmsRestangular.one('process/def/cascade',pdid).remove()
                 .then(function(data){
                 });
         };
-        $scope.startProcess = function(){
+
+        $scope.deleteProcessDef = function(pdid){
+            TlmsRestangular.one('process/def',pdid).remove()
+                .then(function(data){
+                });
+        };
+
+
+        $scope.startProcessByKey = function(key){
             console.log($scope);
-            TlmsRestangular.one('service/process/start',$scope.processId).get()
+            TlmsRestangular.one('process/start',key).get()
                 .then(function(data){
                 });
         };
 
         $scope.queryProcess = function(){
-            TlmsRestangular.one('service/process/query').getList()
+            TlmsRestangular.one('process/query').getList()
                 .then(function(records){
                     console.log(records);
                     $scope.records = records;
                 });
         };
         $scope.querySpecialProc = function(){
-            TlmsRestangular.one('service/process/query',$scope.bysiKey).one($scope.pdKey).getList()
+            TlmsRestangular.one('process/query',$scope.bysiKey).one($scope.pdKey).getList()
                 .then(function(records){
                     console.log(records);
                     $scope.records = records;
                 });
         };
+        $scope.queryDefineProcess = function(){
+            TlmsRestangular.one('process/query/def').getList()
+                .then(function(records){
+                    $scope.records = records;
+                });
+        };
+
+
        /* $scope.readDgrmResource = function(processInstId){
             //$scope.process.processInstId = processInstId;
             //$scope.process.resourceType = 'dgrmResource';
@@ -44,13 +61,13 @@ angular.module('com.app.process.controller')
         };*/
         $scope.readResource = function(){
             var procInstId = StorageService.getStorage('procInstId')+"";
-            window.open("http://localhost:8090/tlms-web/process/source/"+procInstId+"/resource");
+            window.open("http://localhost:8090/tlms-web/source/"+procInstId+"/resource");
         };
 
         /**
          * 当前任务查询
          */
-        TlmsRestangular.one('service/process/task').getList()
+        TlmsRestangular.one('process/task').getList()
             .then(function(records){
                 console.log(records);
                 //$scope.records = records;
@@ -59,7 +76,7 @@ angular.module('com.app.process.controller')
                 console.log($rootScope);
             });
         $scope.queryCurrProcess = function(){
-           /* TlmsRestangular.one('service/process/task').getList()
+           /* TlmsRestangular.one('process/task').getList()
                 .then(function(records){
                     console.log(records);
                     //$scope.records = records;
@@ -91,7 +108,7 @@ angular.module('com.app.process.controller')
              * 流程图模板页面显示流程图
              * @type {string}
              */
-            $scope.dgrmSrc = 'http://localhost:8090/tlms-web/process/source/'+procInstId+'/dgrmResource?uuid='+new Date();
+            $scope.dgrmSrc = 'http://localhost:8090/tlms-web/source/'+procInstId+'/dgrmResource?uuid='+new Date();
             $state.go("app.process.detail.dgrmResource");
             /**
              * diagram view 显示流程图
@@ -139,12 +156,12 @@ angular.module('com.app.process.controller')
          * 审批操作
          */
         $scope.agree = function(){
-            TlmsRestangular.one('service/process/agree', StorageService.getStorage('procInstId')).post()
+            TlmsRestangular.one('process/agree', StorageService.getStorage('procInstId')).post()
                 .then(function(records){
                 });
         };
         $scope.reject = function(){
-            TlmsRestangular.one('service/process/reject', StorageService.getStorage('procInstId')).post()
+            TlmsRestangular.one('process/reject', StorageService.getStorage('procInstId')).post()
                 .then(function(records){
                 });
         };

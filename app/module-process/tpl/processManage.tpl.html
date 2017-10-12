@@ -1,16 +1,31 @@
 <div ng-controller="ProcessController">
     流程管理
-    <form>
-        <div>
-            <input type="button" value="流程发布" ng-click="deployProcess()"/>
-            <input type="button" value="流程删除" ng-click="deleteProcess()"/>
+    <div>
+        <form>
+            <input type="button" value="定义发布" ng-click="deployProcess()"/>
+            <input type="button" value="定义流程查询" ng-click="queryDefineProcess()"/>
+        </form>
+    </div>
+    <div>
+        <table class="table table-condensed table-bordered">
+            <thead>
+            <tr>
+                <td>流程定义id</td><td>流程name</td><td>流程key</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in records">
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.key }}</td>
+                <td>
+                    <a ng-click="startProcessByKey(item.key)">启动流程定义</a>
+                    <a ng-click="deleteProcessDefCascade(item.id)">删除流程定义cascade</a>
+                    <a ng-click="deleteProcessDef(item.id)">>删除流程定义</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-        </div>
-
-        <div>
-            待启动流程编号<input type="input" ng-model="processId"/>
-            <input type="button" value="流程启动" ng-click="startProcess()"/>
-        </div>
-
-    </form>
 </div>

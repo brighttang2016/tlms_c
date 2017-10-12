@@ -3,7 +3,7 @@
  */
 angular.module('com.app.block.controller')
     .controller('BlockController',['$scope','$rootScope','TlmsRestangular','$state',function($scope,$rootScope,TlmsRestangular,$state){
-        $scope.signOut = function(){
+        /*$scope.signOut = function(){
             console.log("777777777");
             TlmsRestangular.all('service/signout').post($scope.user)
                 .then(function(data){
@@ -12,5 +12,6 @@ angular.module('com.app.block.controller')
                     //$rootScope.user.userId = $scope.user.userId;
                     $state.go('signin');
                 });
-        };
+            $state.go('signin');
+        };*/
     }]);

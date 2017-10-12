@@ -1,0 +1,32 @@
+<div ng-controller="ProcessModelController">
+    流程模型管理
+    <form>
+        <input type="button" value="模型查询" ng-click="queryModel()"/>
+        <input type="button" value="流程设计" ng-click="designProcess()"/>
+    </form>
+
+    <div>
+        <table class="table table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <td>模型id</td><td>模型name</td><td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in models">
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>
+                    <a ng-click="editModel(item.id)">模型编辑</a>
+                    <a ng-click="deployModel(item.id)">模型发布</a>
+                    <a ng-click="deleteModel(item.id)">模型删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--<div>
+        流程图如下：
+        <div ui-view></div>
+    </div>-->
+</div>

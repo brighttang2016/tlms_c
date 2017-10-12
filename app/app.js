@@ -4,7 +4,7 @@
 var app = angular.module('myApp',[
     'templates',
     'ui.router',
-    //'ngAnimate',
+    'ngAnimate',
     'toaster',
      'ngCookies',
     'ngResource',
@@ -35,7 +35,8 @@ var app = angular.module('myApp',[
     'com.tlms.sys.service',
     'com.tlms.sys.controller',
     'com.app.process',
-    'com.app.block'
+    'com.app.block',
+    'com.app.uibootstrap'
 
 ]);
 app.config(function($httpProvider) {

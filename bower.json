@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "restangular": "^1.6.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "moment": "momentjs#^2.18.1"
   }
 }

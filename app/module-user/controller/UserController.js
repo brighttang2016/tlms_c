@@ -37,11 +37,12 @@ angular.module('com.app.user.controller')
         };
 
         $scope.signOut = function(){
-            TlmsRestangular.all('service/signout').post($scope.user)
+            /*TlmsRestangular.all('service/signout').post($scope.user)
                 .then(function(data){
                     console.log("用户登出");
                     $state.go('signin');
-                });
+                });*/
+            $state.go('signin');
         };
 
 
