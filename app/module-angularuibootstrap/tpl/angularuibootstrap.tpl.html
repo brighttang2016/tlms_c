@@ -1,121 +1,56 @@
-<div>
+<div ng-controller="UiBootstrapController">
     angular ui bootstrap 测试。
-    <div ng-controller="UiBootstrapController">
-        collapse折叠控件测试
-        <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
-        <div uib-collapse="isCollapsed" collapsed="coled()" collapsing="coling()" expanded="exped()" expanding="exping()">
+    <div>
+        折叠控件
+        <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse Vertically</button>
+        <hr>
+        <div uib-collapse="isCollapsed">
+            <div class="well well-lg">Some content</div>
+        </div>
+
+        <button type="button" class="btn btn-default" ng-click="isCollapsedHorizontal = !isCollapsedHorizontal">Toggle collapse Horizontally</button>
+        <hr>
+        <div class="horizontal-collapse" uib-collapse="isCollapsedHorizontal" horizontal>
             <div class="well well-lg">Some content</div>
         </div>
     </div>
-
-    <hr/>
-    <div ng-controller="UiBootstrapController">
-        手风琴测试
-        <div>
-            <script type="text/ng-template" id="group-template.html">
-                <div class="panel-heading">
-                    <h4 class="panel-title" style="color:#fa39c3">
-                        <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading">
-          <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
-            {{heading}}
-          </span>
-                        </a>
-                    </h4>
-                </div>
-                <div class="panel-collapse collapse" uib-collapse="!isOpen">
-                    <div class="panel-body" style="text-align: right" ng-transclude></div>
-                </div>
-            </script>
-
-            <p>
-                <button type="button" class="btn btn-default btn-sm" ng-click="status.open = !status.open">Toggle last panel</button>
-                <button type="button" class="btn btn-default btn-sm" ng-click="status.isFirstDisabled = ! status.isFirstDisabled">Enable / Disable first panel</button>
-            </p>
-
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" ng-model="oneAtATime">
-                    Open only one at a time
-                </label>
-            </div>
-
-            <uib-accordion close-others="oneAtATime">
-                <div uib-accordion-group class="panel-default" heading="标题" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-                    内容...
-                </div>
-            </uib-accordion>
-
-            <uib-accordion close-others="oneAtATime">
-                <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
-                    This content is straight in the template.
-                </div>
-                <div uib-accordion-group class="panel-default" heading="{{group.title}}" ng-repeat="group in groups">
-                    {{group.content}}
-                </div>
-                <div uib-accordion-group class="panel-default" heading="Dynamic Body Content">
-                    <p>The body of the uib-accordion group grows to fit the contents</p>
-                    <button type="button" class="btn btn-default btn-sm" ng-click="addItem()">Add Item</button>
-                    <div ng-repeat="item in items">{{item}}</div>
-                </div>
-                <div uib-accordion-group class="panel-default" heading="Custom template" template-url="group-template.html">
-                    Hello
-                </div>
-                <div uib-accordion-group class="panel-default" is-open="status.isCustomHeaderOpen" template-url="group-template.html">
-                    <uib-accordion-heading>
-                        Custom template with custom header template <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.isCustomHeaderOpen, 'glyphicon-chevron-right': !status.isCustomHeaderOpen}"></i>
-                    </uib-accordion-heading>
-                    World
-                </div>
-                <div uib-accordion-group class="panel-danger" heading="Delete account">
-                    <p>Please, to delete your account, click the button below</p>
-                    <button class="btn btn-danger">Delete</button>
-                </div>
-                <div uib-accordion-group class="panel-default" is-open="status.open">
-                    <uib-accordion-heading>
-                        I cano have markup, to! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
-                    </uib-accordion-heading>
-                    This is just some content to illustrate fancy headings.
-                </div>
-            </uib-accordion>
-        </div>
-    </div>
-
-    <hr/>
-    <div ng-controller="UiBootstrapController">
-        标签页测试
-        <uib-tabset active="active" type="tabs">
-            <uib-tab index="0" heading="标签页1">内容1</uib-tab>
-            <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
-                {{tab.content}}
-            </uib-tab>
-            <uib-tab index="3" select="alertMe()">
-                <uib-tab-heading>
-                    <i class="glyphicon glyphicon-bell"></i> Alert!
-                </uib-tab-heading>
-                内容部分
-            </uib-tab>
-        </uib-tabset>
-    </div>
-
-    <hr/>
-    <div ng-controller="UiBootstrapController">
-        bootstrap字体图标glyphicon
-        <span class="glyphicon glyphicon-search" aria-hidden="true">656565</span>
-    </div>
-
     <hr/>
 
     <div>
-        日期
-        <p class="form-group">
-        <div class="input-group">
-            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dat" is-open="popup1.opened" ng-required="true" close-text="关闭"
-                   clear-text="清空" current-text="今天" alt-input-formats="altInputFormats" />
-                <span class="input-group-btn">
-                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
+        日期控件
+        <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+
+        <h4>Popup</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="关闭" current-text="今天" clear-text="清除" alt-input-formats="altInputFormats" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </div>
         </div>
-        </p>
+        <div class="row">
+            <div class="col-md-6">
+                <label>Format: <span class="muted-text">(manual alternate <em>{{altInputFormats[0]}}</em>)</span></label> <select class="form-control" ng-model="format" ng-options="f for f in formats"><option></option></select>
+            </div>
+        </div>
+
+        <hr />
+        <button type="button" class="btn btn-sm btn-info" ng-click="today()">Today</button>
+        <button type="button" class="btn btn-sm btn-default" ng-click="setDate(2009, 7, 24)">2009-08-24</button>
+        <button type="button" class="btn btn-sm btn-danger" ng-click="clear()">Clear</button>
+        <button type="button" class="btn btn-sm btn-default" ng-click="toggleMin()" uib-tooltip="After today restriction">Min date</button>
     </div>
 
 </div>

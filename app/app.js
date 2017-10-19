@@ -2,6 +2,7 @@
  * Created by pujjr on 2017/7/11.
  */
 var app = angular.module('myApp',[
+    'ngLocale',
     'templates',
     'ui.router',
     'ngAnimate',
