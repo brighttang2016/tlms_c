@@ -37,7 +37,8 @@ var app = angular.module('myApp',[
     'com.tlms.sys.controller',
     'com.app.process',
     'com.app.block',
-    'com.app.uibootstrap'
+    'com.app.uibootstrap',
+    'com.app.websocket'
 
 ]);
 app.config(function($httpProvider) {

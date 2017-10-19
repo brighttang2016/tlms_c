@@ -1,0 +1,17 @@
+<div ng-controller = 'WebsocketController as wc'>
+    websocket测试
+    <div>
+        消息接收
+        <textarea name="callCenterStatus" style="height: 150px;width: 100%" value="" readonly = "true">{{rcvServerMsg}}</textarea>
+    </div>
+    <div>
+        <input type="button" value="连接" ng-click="wc.wsConnect()"/>
+    </div>
+    <div>
+        <input type="button" value="发送" ng-click="wc.doSend()"/>
+    </div>
+    <div>
+        <input type="button" value="推送" ng-click="wc.doPush()"/>
+    </div>
+
+</div>
