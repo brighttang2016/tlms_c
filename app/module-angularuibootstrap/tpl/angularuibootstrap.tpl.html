@@ -1,6 +1,6 @@
-<div ng-controller="UiBootstrapController">
+<div>
     angular ui bootstrap 测试。
-    <div>
+    <div ng-controller="UiBootstrapController">
         collapse折叠控件测试
         <button type="button" class="btn btn-default" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
         <div uib-collapse="isCollapsed" collapsed="coled()" collapsing="coling()" expanded="exped()" expanding="exping()">
@@ -8,7 +8,8 @@
         </div>
     </div>
 
-    <div>
+    <hr/>
+    <div ng-controller="UiBootstrapController">
         手风琴测试
         <div>
             <script type="text/ng-template" id="group-template.html">
@@ -37,6 +38,13 @@
                     Open only one at a time
                 </label>
             </div>
+
+            <uib-accordion close-others="oneAtATime">
+                <div uib-accordion-group class="panel-default" heading="标题" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+                    内容...
+                </div>
+            </uib-accordion>
+
             <uib-accordion close-others="oneAtATime">
                 <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
                     This content is straight in the template.
@@ -64,7 +72,7 @@
                 </div>
                 <div uib-accordion-group class="panel-default" is-open="status.open">
                     <uib-accordion-heading>
-                        I can have markup, too! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
+                        I cano have markup, to! <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}"></i>
                     </uib-accordion-heading>
                     This is just some content to illustrate fancy headings.
                 </div>
@@ -72,7 +80,8 @@
         </div>
     </div>
 
-    <div>
+    <hr/>
+    <div ng-controller="UiBootstrapController">
         标签页测试
         <uib-tabset active="active" type="tabs">
             <uib-tab index="0" heading="标签页1">内容1</uib-tab>
@@ -88,5 +97,25 @@
         </uib-tabset>
     </div>
 
+    <hr/>
+    <div ng-controller="UiBootstrapController">
+        bootstrap字体图标glyphicon
+        <span class="glyphicon glyphicon-search" aria-hidden="true">656565</span>
+    </div>
+
+    <hr/>
+
+    <div>
+        日期
+        <p class="form-group">
+        <div class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dat" is-open="popup1.opened" ng-required="true" close-text="关闭"
+                   clear-text="清空" current-text="今天" alt-input-formats="altInputFormats" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+        </div>
+        </p>
+    </div>
 
 </div>

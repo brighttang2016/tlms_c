@@ -21,7 +21,7 @@ angular.module('com.app.uibootstraop.controller',[
         };
         //手风情控件测试
         $scope.oneAtATime = true;
-        $scope.groups = [
+        /* $scope.groups = [
             {
                 title: 'Dynamic Group Header - 1',
                 content: 'Dynamic Group Body - 1'
@@ -40,7 +40,7 @@ angular.module('com.app.uibootstraop.controller',[
             isCustomHeaderOpen: false,
             isFirstOpen: true,
             isFirstDisabled: false
-        };
+        };*/
 
         //tab页
         $scope.tabs = [
@@ -53,4 +53,20 @@ angular.module('com.app.uibootstraop.controller',[
                 $window.alert('clicked!');
             });
         };
+    //日期选择
+        $scope.today = function() {
+            $scope.dt = new Date();
+        };
+        $scope.today();
+
+        $scope.clear = function() {
+            $scope.dt = null;
+        };
+
+        $scope.options = {
+            customClass: getDayClass,
+            minDate: new Date(),
+            showWeeks: true
+        };
+
     });

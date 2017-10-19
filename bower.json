@@ -43,6 +43,12 @@
   "devDependencies": {
     "restangular": "^1.6.1",
     "lodash": "^4.17.4",
-    "moment": "momentjs#^2.18.1"
+    "moment": "momentjs#^2.18.1",
+    "angular-locale_zh-cn": "angular-locale-zh-cn#*",
+    "angular-bootstrap": "^2.5.0",
+    "angular-ui-grid": "^4.0.7",
+    "angularjs-datepicker": "^2.1.23",
+    "angular-ui-bootstrap": "2.5.0",
+    "angular": "1.6.4"
   }
 }
