@@ -28,6 +28,7 @@ angular.module('com.app.websocket',[
     $rootScope.eventMakeCall = "eventMakeCall";//呼叫
 
     $rootScope.eventCallIn = "eventCallIn";//呼入弹屏事件*/
+    $rootScope.eventTodoTask = "eventTodoTask";//待办任务事件
 }]);
 angular.module('com.app.websocket.controller',[]);
 angular.module('com.app.websocket.service',[]);

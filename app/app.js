@@ -70,6 +70,12 @@ app.factory('TlmsRestangular',function(Restangular){
     });
 });
 
+app.factory('PujjrPushRestangular',function(Restangular){
+    return Restangular.withConfig(function(configurer){
+        configurer.setBaseUrl(PUJJR_PUSH_URL);
+    });
+});
+
 app.factory('myInterceptor',function($q,CookieService,$state,$rootScope){
     var interceptor = {
         'request':function(config){
@@ -126,6 +132,11 @@ app.run(['$rootScope',function($rootScope){
         console.log('Previous state:'+$rootScope.previousState);
         console.log('Current state:'+$rootScope.currentState);
     });
+}]);
+
+
+app.config(['WebsocketServiceProvider',function(WebsocketServiceProvider){
+    WebsocketServiceProvider.setWebSocketUrl(SERVER_URL.PJ_WS_URI);
 }]);
 
 

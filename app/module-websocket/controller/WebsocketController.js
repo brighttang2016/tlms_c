@@ -2,336 +2,191 @@
  * Created by pujjr on 2017/7/19.
  */
 angular.module('com.app.websocket.controller')
-    .controller('WebsocketController',['$scope','$rootScope','WebsocketService','$timeout','$interval','TlmsRestangular',function($scope,$rootScope,WebsocketService,$timeout,$interval,TlmsRestangular){
+    .controller('WebsocketController',['$scope','$rootScope','$timeout','$interval','PujjrPushRestangular','WebsocketService','$interval','$log',function($scope,$rootScope,$timeout,$interval,PujjrPushRestangular,WebsocketService,$interval,$log){
 
-        //tlms_c测试时使用
-
+        //*****************单机测试使用*********开始*************
         $rootScope.account = {};
-        $rootScope.account.accountId = '8010';
+        $rootScope.account.accountId = '8020';
         $rootScope.account.callcenterExtensionTelephone = '1001';
         $rootScope.account.callcenterLoginPasswd = '123456';
         $rootScope.account.invokeCallcenter = true;//是否加载CallCenter模块;true:显示呼叫中心弹窗并自动签入，false:不显示。
-        //定义上送报文
-        var sendMsg = {"cmdsn":"","seatno":"","caller":"","para":"","cmd":"","userName":"王小二","userId":"200810405234"};
+        //*****************单机测试使用*********结束*************
+        //上送报文
+        $scope.sendMsg = {"tranCode":"","accountId":"","passwd":"","heartBeatTime":"","msg":"","msgId":"","list":[]};
+        //返回报文
+        $scope.recvMsg = {"tranCode":"","accountId":"","passwd":"","heartBeatTime":"","msg":"","msgId":"","state":"","list":[]};
+        //心跳检测频率
+        $scope.heartBeatFreq = 20000;
+        //接收消息队列扫描频率
+        $scope.recvMsgScanFreq = 1000;
+        //网络连接状态扫描频率
+        $scope.netStatusScanFreq = 3000;
+        //网络连接状态
+        $scope.netStatus = '';
+        //用户登录状态
+        $scope.loginStatus = '';
 
-        eventMsg = {"prefix":"","msg":""};
-        console.log("共享controller");
-        console.log($scope);
-
-        $scope.ws = null;
-        this.wsConnect = function(){
-            console.log($scope);
-            for(var i = 0;i < 30;i++){
-                ws = new WebSocket(SERVER_URL.PJ_WS_URI);
-                ws.onopen = function(evt){
-                    console.log('连接成功');
-                    eventMsg.msg = '连接成功';
-                    $rootScope.$emit($rootScope.eventConnect,eventMsg);
-                    $rootScope.ccCurrStatus = $rootScope.ccAllStatus.已连接;
-                    //doSend(sendMsg);
-                };
-                ws.onclose = function(evt){
-                    //onClose(evt);
-                };
-                ws.onmessage = function(evt){
-                    console.log('收到返回：');
-                    console.log(evt);
-                    //onMessage(evt);
-                };
-                ws.onerror = function(evt){
-                    //onError(evt);
-                };
-                $scope.ws = ws;
-            }
+        $rootScope.$on($rootScope.eventTodoTask,function(event,param){
+            console.log("待办任务收到事件");
+            console.log(param);
+        });
+        /**
+         * 开发发送心跳检测
+         * 心跳频率：20s
+         */
+        $scope.startHeartbeat = function(){
+            //WebsocketService.doSend(sendMsg);
+            $scope.heartBeatInterval = $interval(function(){
+                var sendMsg ={"tranCode":"","accountId":"","passwd":"","heartBeatTime":"","list":[]};
+                sendMsg.tranCode = '1002';
+                sendMsg.accountId = $rootScope.account.accountId;
+                sendMsg.heartBeatTime = $scope.recvMsg.heartBeatTime;
+                //console.log("发送心跳检测:"+JSON.stringify(sendMsg));
+                WebsocketService.doSend(sendMsg);
+            },$scope.heartBeatFreq);
         };
 
-        this.doSend = function(){
+        /**
+         * 停止发送心跳检测
+         */
+        $scope.stopHeartbeat = function(){
+            console.log("停止心跳检测");
+            $interval.cancel($scope.heartBeatInterval);
+        };
+
+        /**
+         * websocket消息队列扫描
+         * 扫描频率：1s
+         */
+        $scope.receiveMsgScan = function(){
+            var inter =  $interval(function(){
+                //$log.log("**********websocket返回消息扫描*************");
+                var results = WebsocketService.getResults();
+                popResult = {};
+                if(results.length > 0){
+                    var rcvMsg = results.pop();
+                    popResult = JSON.parse(rcvMsg);
+                    console.log("获取返回报文："+rcvMsg);
+                }
+                //更新心跳时间
+                if(popResult.heartBeatTime > 0){
+                    $scope.recvMsg.heartBeatTime = popResult.heartBeatTime;
+                    $scope.sendMsg.heartBeatTime = popResult.heartBeatTime;
+                }
+                $scope.recvMsg.state = popResult.state;//消息状态
+                switch(popResult.tranCode){
+                    case "1001"://成功连接返回
+                        //启动心跳
+                        $scope.startHeartbeat();
+                        //签入
+                        $scope.signIn();
+                        break;
+                    case '1002'://返回心跳报文
+                        if(popResult.state == "01"){//坐席未签入
+                            $scope.signIn();
+                        }
+                        break;
+                    case '1003'://签入返回
+                        $scope.loginStatus = '签入成功';
+                        break;
+                    case '1004'://用户签出
+                        break;
+                    case '1005'://待办任务
+                        /**
+                         * 待办任务业务逻辑处理
+                         */
+                        //////////////////////////////////////////////////
+                        //$scope.recvMsg.msg = popResult.msg;
+                        $scope.sendMsg.msgId = popResult.msgId;
+                        console.log( $scope.sendMsg);
+                        $rootScope.$emit($rootScope.eventTodoTask,popResult);
+                        /**
+                         * 发送待办任务接收回执
+                         */
+                        $scope.sendMsg.tranCode = '1005';
+                        $scope.sendMsg.msg = "待办任务接收成功";
+                        WebsocketService.doSend($scope.sendMsg);
+
+                        break;
+                }
+            },$scope.recvMsgScanFreq);
+        };
+        /**
+         * 网络监控扫描
+         * 扫描频率
+         */
+        $scope.netStatusScan = function(){
+            $interval(function(){
+                console.log("当前连接状态（0:connecting;1:open;2:closing;3:closed）:"+WebsocketService.getWsStatus());
+                $scope.netStatus = WebsocketService.getWsStatus();
+                if(WebsocketService.getWsStatus() == undefined){
+                    console.log("网络初始化连接");
+                    $scope.stopHeartbeat();
+                    WebsocketService.wsConnect();
+                }else if(WebsocketService.getWsStatus() == '0'){
+                    console.log("网络连接中...");
+                }else if(WebsocketService.getWsStatus() == '1'){
+                    console.log("网络已连接");
+                }else if(WebsocketService.getWsStatus() == '2'){
+                    console.log("网络断开连接中...");
+                }else if(WebsocketService.getWsStatus() == '3'){
+                    console.log("网络已断开连接");
+                    $scope.stopHeartbeat();
+                    WebsocketService.wsConnect();
+                }
+            },$scope.netStatusScanFreq);
+        };
+        //启动websocket消息队列扫描
+        $scope.receiveMsgScan();
+        //网络扫描
+        $scope.netStatusScan();
+
+        /********************************
+         * *********以下测试区域***************
+         ********************************/
+        $scope.signIn = function(){
+            $scope.sendMsg.tranCode = "1003";
+            $scope.sendMsg.accountId = $rootScope.account.accountId;
+            $scope.sendMsg.passwd = '123456';
+            WebsocketService.doSend($scope.sendMsg);
+        };
+        /**
+         * 创建连接
+         */
+      /*  $scope.wsConnect = function(){
+            WebsocketService.wsConnect();
+        };*/
+        /**
+         * 断开连接
+         */
+       /* $scope.wsClose = function(){
+            console.log('断开连接');
+            ws.close();
+        };*/
+
+        /**
+         * 测试：服务端断开所有websocket连接
+         */
+        $scope.serverClose = function(){
+            PujjrPushRestangular.one('closeall').get()
+                .then(function(responseData){
+
+                });
+        };
+
+        $scope.doSend = function(){
             console.log("消息发送");
             console.log($scope);
-            $scope.ws.send(JSON.stringify(sendMsg));
-            //$scope.ws.send(sendMsg);
+            console.log($scope);
+            WebsocketService.doSend($scope.sendMsg);
         };
 
-        this.doPush = function(){
-            TlmsRestangular.one('startPush.ctrl').get()
+        $scope.doPush = function(){
+            PujjrPushRestangular.one('startpush').get()
                 .then(function(responseData){
 
                 });
         };
 
 
-
-
-        //电话号码指令初始化
-        this.initPhoneIcon = function(){
-           var phoneDirectiveScope = this;
-            if($rootScope.account.invokeCallcenter == true){
-                this.phoneIconShow = "";
-            }else{
-                this.phoneIconShow = "hide";
-            }
-            console.log("*********电话指令初始化************");
-            console.log(this);
-        };
-        this.doInit = function(){
-            console.log("******************doInit******************");
-            directiveScope = this;
-            if(!$rootScope.account.invokeCallcenter){
-                directiveScope.activeCallCenter = "hide";
-                return;
-            }
-            directiveScope.checkInType = "btn-default";
-            directiveScope.checkInName = "坐席签入";
-            //连接
-            $rootScope.$on($rootScope.eventConnect,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-            //断开连接
-            $rootScope.$on($rootScope.eventDisConnect,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-            //注册callcenter面板显示事件
-            //directiveScope.$on($rootScope.eventShowCallCenter,function(event,param){
-            $rootScope.$on($rootScope.eventShowCallCenter,function(event,param){
-                //directiveScope.activeCallCenter = 'active';
-                $rootScope.activeCallCenter = 'active';
-            });
-            //注册callcenter面板隐藏事件
-            //directiveScope.$on($rootScope.eventHideCallCenter,function(event,param){
-            $rootScope.$on($rootScope.eventHideCallCenter,function(event,param){
-                $rootScope.activeCallCenter = '';
-            });
-            //注册刷新状态事件
-            $rootScope.$on( $rootScope.eventRefreshStatus,function(event,param){
-                $rootScope.$apply(function(){
-                    if($rootScope.ccCurrStatus == $rootScope.ccAllStatus.已签入){
-                        directiveScope.checkInType = "btn-success";
-                        directiveScope.checkInName = "已签入";
-                    }
-                    if($rootScope.ccCurrStatus == $rootScope.ccAllStatus.未连接){
-                        directiveScope.checkInType = "btn-danger";
-                        directiveScope.checkInName = "坐席签入";
-                    }
-                    date = new Date();
-                    directiveScope.callCenterStatus =  date.getFullYear()+"-"+date.getMonth()+"-"+date.getDay()+" "+ date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+" "
-                        + param.prefix + ":" + param.msg
-                        + "\n"
-                        + (directiveScope.callCenterStatus == undefined ? "" : directiveScope.callCenterStatus);
-                 });
-            });
-
-            $rootScope.$on($rootScope.eventCheckIn,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventCheckOut,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventSeatBusy,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventSeatIdle,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventThreeTalk,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventTrans2Group,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventTrans2Seat,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventStayCall,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventCancelStayCall,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventExitThreeCall,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-
-            $rootScope.$on($rootScope.eventKillCall,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-            $rootScope.$on($rootScope.eventMakeCall,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-            });
-            $rootScope.$on($rootScope.eventCallIn,function(event,param){
-                $rootScope.$emit($rootScope.eventRefreshStatus,param);
-                $rootScope.$emit($rootScope.eventShowCallCenter);
-            });
-
-            $rootScope.$on($rootScope.eventPhoneIconClick,function(event,param){
-                $rootScope.$emit($rootScope.eventShowCallCenter,{"msg":""});
-                directiveScope.inputParam = param.phoneNum;
-            });
-
-            $timeout(function(){
-                directiveScope.doActiveCallCenter();
-                directiveScope.checkIn();
-            },1000);
-        };
-
-        this.makeCallByClickPhoneNum = function(){
-            console.log("**************************makeCallByClickPhoneNum*********************************");
-            console.log(this);
-            console.log($scope);
-            console.log($(this));
-            console.log(directiveScope);
-            //directiveScope.$emit($rootScope.eventShowCallCenter,{"msg":""});
-            $rootScope.$emit($rootScope.eventShowCallCenter,{"msg":""});
-            directiveScope.inputParam = this[this['attrName']];
-
-        };
-
-        //签入
-        this.checkIn = function(){
-            seatno = $rootScope.account.accountId;
-            caller = $rootScope.account.callcenterExtensionTelephone;
-            callcenterLoginPasswd = $rootScope.account.callcenterLoginPasswd;
-            sendMsg.cmdsn = '10001';//交易编码
-            sendMsg.seatno = seatno;//坐席号
-            sendMsg.para = callcenterLoginPasswd;//密码
-            sendMsg.caller = caller;//分机号
-            sendMsg.cmd = '1';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.checkIn(sendMsg,eventMsg);
-        };
-        //签出
-        this.checkOut = function(){
-            sendMsg.cmdsn = '10002';
-            sendMsg.seatno =seatno;
-            sendMsg.para = '';
-            sendMsg.caller = '';
-            sendMsg.cmd = '2';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.checkOut(sendMsg,eventMsg);
-        };
-        //坐席忙
-        this.seatBusy = function(){
-            sendMsg.cmdsn = '10005';
-            sendMsg.seatno =seatno;
-            sendMsg.para = '1';//para 为0 时为示闲，为1-99 都是示忙，各个示忙类型自己定义
-            sendMsg.caller = '';
-            sendMsg.cmd = '5';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-        //坐席闲
-        this.seatIdle = function(){
-            sendMsg.cmdsn = '10005';
-            sendMsg.seatno = seatno;
-            sendMsg.para = '0';//para 为0 时为示闲，为1-99 都是示忙，各个示忙类型自己定义
-            sendMsg.caller = '';
-            sendMsg.cmd = '5';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-        //3方通话
-        this.threeTalk = function(){
-            sendMsg.cmdsn = '10011';
-            sendMsg.seatno =seatno;
-            sendMsg.para =  directiveScope.inputParam;
-            sendMsg.caller = '';
-            sendMsg.cmd = '11';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-        //转其他坐席组
-        this.trans2Group = function(){
-            sendMsg.cmdsn = '10009';
-            sendMsg.seatno =seatno;
-            sendMsg.para =  $scope.inputParam;//其他坐席组编号
-            sendMsg.caller = '';
-            sendMsg.cmd = '9';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-        //转其他坐席
-        this.trans2Seat = function(){
-            sendMsg.cmdsn = '10012';
-            sendMsg.seatno =seatno;
-            sendMsg.para =  $scope.inputParam;//其他坐席组编号
-            sendMsg.caller = '';
-            sendMsg.cmd = '12';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-
-        this.stayCall = function(){
-            sendMsg.cmdsn = '10013';
-            sendMsg.seatno =seatno;
-            sendMsg.para =  '1';//保持通话
-            sendMsg.caller = caller;
-            sendMsg.cmd = '13';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-
-        this.cancelStayCall = function(){
-            sendMsg.cmdsn = '10013';
-            sendMsg.seatno =seatno;
-            sendMsg.para =  '2';//取消保持通话
-            sendMsg.caller = caller;
-            sendMsg.cmd = '13';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-        /**
-         * 退出3方通话
-         * 0 坐席退出3 方通话,
-         1 拨入时，客服退出3 方通话,
-         2 新加入3 方通话的C 用户退出3 方通话.
-         3 结束3 方通话:所有人都退出3 方通话挂机.
-         */
-        this.exitThreeCall = function(){
-            sendMsg.cmdsn = '10014';
-            sendMsg.seatno =seatno;
-            sendMsg.para =  '0';
-            sendMsg.caller = caller;
-            sendMsg.cmd = '14';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-        //挂机
-        this.killTalk = function(){
-            sendMsg.cmdsn = '10004';
-            sendMsg.seatno =seatno;
-            sendMsg.para =  $scope.inputParam;
-            sendMsg.caller = caller;
-            sendMsg.cmd = '4';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-        //外呼
-        this.makeCall = function(){
-            sendMsg.cmdsn = '10003';
-            sendMsg.seatno =seatno;
-            sendMsg.para =  $scope.inputParam;
-            sendMsg.caller = caller;
-            sendMsg.cmd = '3';
-            eventMsg.prefix = CallCenterService.getTranName(sendMsg.cmdsn);
-            CallCenterService.doSend(sendMsg,eventMsg);
-        };
-
-        this.doActiveCallCenter = function(){
-            if(this.activeCallCenter == 'active'){
-                //directiveScope.$emit($rootScope.eventHideCallCenter,{msg:'隐藏callcenter面板'});
-                $rootScope.$emit($rootScope.eventHideCallCenter,{msg:'隐藏callcenter面板'});
-            }
-            else{
-                //directiveScope.$emit($rootScope.eventShowCallCenter,{msg:'展开callcenter面板'});
-                $rootScope.$emit($rootScope.eventShowCallCenter,{msg:'展开callcenter面板'});
-            }
-        };
     }]);
