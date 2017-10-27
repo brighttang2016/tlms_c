@@ -2,7 +2,7 @@
  * Created by pujjr on 2017/7/19.
  */
 angular.module('com.app.websocket.controller')
-    .controller('WebsocketController',['$scope','$rootScope','$timeout','$interval','PujjrPushRestangular','WebsocketService','$interval','$log',function($scope,$rootScope,$timeout,$interval,PujjrPushRestangular,WebsocketService,$interval,$log){
+    .controller('WebsocketController',['$scope','$rootScope','$timeout','$interval','PujjrPushRestangular','WebsocketService','$interval','$log','ProviderServiceTest',function($scope,$rootScope,$timeout,$interval,PujjrPushRestangular,WebsocketService,$interval,$log,ProviderServiceTest){
 
         //*****************单机测试使用*********开始*************
         $rootScope.account = {};
@@ -188,5 +188,5 @@ angular.module('com.app.websocket.controller')
                 });
         };
 
-
+        ProviderServiceTest.getUrl();
     }]);

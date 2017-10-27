@@ -139,6 +139,10 @@ app.config(['WebsocketServiceProvider',function(WebsocketServiceProvider){
     WebsocketServiceProvider.setWebSocketUrl(SERVER_URL.PJ_WS_URI);
 }]);
 
+app.config(['ProviderServiceTestProvider',function(ProviderServiceTestProvider){
+    ProviderServiceTestProvider.setWebSocketUrl(SERVER_URL.PJ_WS_URI);
+}]);
+
 
 
 
