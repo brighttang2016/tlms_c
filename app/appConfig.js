@@ -23,7 +23,7 @@ var SERVER_URL = {
     /**OSS_URL:'http://pujjr-cs.oss-cn-hangzhou.aliyuncs.com/'**/
     ,WS_URI:'ws://172.18.10.78:5061/'
    /* ,PJ_WS_URI:'ws://localhost:8090/tlms-web/tlmsWebSocketServer.ctrl'*/
-    ,PJ_WS_URI:'ws://localhost:8070/pjmessage-web/pujjrPushMs/pujjrWebSocketServer'
+    ,PJ_PUSH_URI:'ws://localhost:8070/pjmessage-web/pujjrPushMs/pujjrWebSocketServer'
 };
 angular.module('myApp')
     .config(['$stateProvider','$urlRouterProvider',function($stateProvider,$urlRouterProvider){

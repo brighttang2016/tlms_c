@@ -14,6 +14,7 @@ var app = angular.module('myApp',[
     'ngStorage',
     'ui.router',
     'ui.bootstrap',
+    'ui.bootstrap.modal',
     'ui.load',
     //'ui.jq',//延迟加载jquery构件
     'ui.validate',
@@ -139,8 +140,8 @@ app.config(['WebsocketServiceProvider',function(WebsocketServiceProvider){
     WebsocketServiceProvider.setWebSocketUrl(SERVER_URL.PJ_WS_URI);
 }]);
 
-app.config(['ProviderServiceTestProvider',function(ProviderServiceTestProvider){
-    ProviderServiceTestProvider.setWebSocketUrl(SERVER_URL.PJ_WS_URI);
+app.config(['MessagePushServiceProvider',function(MessagePushServiceProvider){
+    MessagePushServiceProvider.setWebSocketUrl(SERVER_URL.PJ_PUSH_URI);
 }]);
 
 

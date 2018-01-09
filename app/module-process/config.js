@@ -43,6 +43,9 @@ angular.module('myApp')
         }).state('app.process.model',{
             url:'model',
             templateUrl:'app/module-process/tpl/modelManage.html'
+        }).state('app.process.toTask',{
+            url:'toTask',
+            templateUrl:'app/module-process/tpl/currTodoTask.html'
         });
     });
 

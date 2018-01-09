@@ -5,7 +5,7 @@ angular.module('ui.bootstrap.demo').controller('ModalDemoCtrl', function ($uibMo
   $ctrl.animationsEnabled = true;
 
   $ctrl.open = function (size, parentSelector) {
-    var parentElem = parentSelector ? 
+    var parentElem = parentSelector ?
       angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
     var modalInstance = $uibModal.open({
       animation: $ctrl.animationsEnabled,
@@ -25,6 +25,7 @@ angular.module('ui.bootstrap.demo').controller('ModalDemoCtrl', function ($uibMo
 
     modalInstance.result.then(function (selectedItem) {
       $ctrl.selected = selectedItem;
+      console.log(selectedItem);
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
     });
@@ -56,7 +57,7 @@ angular.module('ui.bootstrap.demo').controller('ModalDemoCtrl', function ($uibMo
       templateUrl: 'stackedModal.html',
       size: 'sm',
       controller: function($scope) {
-        $scope.name = 'bottom';  
+        $scope.name = 'bottom';
       }
     });
 
@@ -67,7 +68,7 @@ angular.module('ui.bootstrap.demo').controller('ModalDemoCtrl', function ($uibMo
       templateUrl: 'stackedModal.html',
       size: 'sm',
       controller: function($scope) {
-        $scope.name = 'top';  
+        $scope.name = 'top';
       }
     });
   };

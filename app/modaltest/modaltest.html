@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html  ng-app='myApp'>
+<head lang="en">
+   <!-- <base href="/base/url" />-->
+    <meta name="fragment" content="!"/>
+    <meta charset="UTF-8"/>
+
+    <link type="text/css" rel="stylesheet" href="../../asset/css/bootstrap.css"/>
+    <link type="text/css" rel="stylesheet" href="../../asset/css/app.css"/>
+
+    <link type="text/css" rel="stylesheet" href="../../asset/css/font-awesome.min.css"  />
+    <link type="text/css" rel="stylesheet" href="../../asset/css/simple-line-icons.css"  />
+
+
+
+    <title>route 测试</title>
+    <!-- jQuery -->
+    <script src="../../bower_components/jquery/dist/jquery.js"></script>
+    <!-- Angular -->
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="../../bower_components/angular-resource/angular-resource.js"></script>
+    <script src="../../bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <!-- <script src="../../bower_components/angular-route/angular-route.js"></script>-->
+    <script src="../../bower_components/angular-touch/angular-touch.js"></script>
+
+    <script src="../../bower_components/ngStorage/ngStorage.js"></script>
+    <script src="../../bower_components/angular-breadcrumb/dist/angular-breadcrumb.js"></script>
+
+    <!-- bootstrap -->
+    <script src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../../bower_components/angular-ui-bootstrap/src/modal/modal.js"></script>
+
+    <script src="../../bower_components/ngstorage/ngstorage.js"></script>
+
+    <!-- lazyload -->
+    <script src="../../bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+    <!-- translate -->
+    <script src="../../bower_components/angular-translate/angular-translate.js"></script>
+
+    <script src="../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../../bower_components/AngularJS-Toaster/toaster.js"></script>
+
+    <script src="../../bower_components/screenfull/dist/screenfull.js"></script>
+
+    <!-----websocket------->
+    <script src="../../bower_components/angular-websocket/dist/angular-websocket.js"></script>
+    <!--restangular------>
+    <script src="../../bower_components/lodash/dist/lodash.js"></script>
+    <script src="../../bower_components/restangular/dist/restangular.js"></script>
+
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!--DatePicker日期控件相关-->
+    <script src="../../bower_components/angular-locale_zh-cn/angular-locale_zh-cn.js"></script>
+
+    <script src="modaltest.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../asset/css/tlms.css"/>
+</head>
+<body>
+    <div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <ul>
+                    <li ng-repeat="item in $ctrl.items">
+                        <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ $ctrl.selected.item }}</b>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="stackedModal.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title-{{name}}">The {{name}} modal!</h3>
+            </div>
+            <div class="modal-body" id="modal-body-{{name}}">
+                Having multiple modals open at once is probably bad UX but it's technically possible.
+            </div>
+        </script>
+
+        <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.open('lg')">Large modal</button>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.open('sm')">Small modal</button>
+        <button type="button"
+                class="btn btn-default"
+                ng-click="$ctrl.open('sm', '.modal-parent')">
+            Modal appended to a custom parent
+        </button>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.toggleAnimation()">Toggle Animation ({{ $ctrl.animationsEnabled }})</button>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.openComponentModal()">Open a component modal!</button>
+        <button type="button" class="btn btn-default" ng-click="$ctrl.openMultipleModals()">
+            Open multiple modals at once
+        </button>
+        <div ng-show="$ctrl.selected">Selection from a modal: {{ $ctrl.selected }}</div>
+        <div class="modal-parent">
+        </div>
+    </div>
+
+</body>
+</html>

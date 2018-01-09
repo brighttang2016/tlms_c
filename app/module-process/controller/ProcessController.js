@@ -11,6 +11,12 @@ angular.module('com.app.process.controller')
                 });
         };
 
+        $scope.deployManualProcess = function(){
+            TlmsRestangular.one('process/deploy/manual').get()
+                .then(function(data){
+                });
+        };
+
         $scope.deleteProcessDefCascade = function(pdid){
             TlmsRestangular.one('process/def/cascade',pdid).remove()
                 .then(function(data){
@@ -85,6 +91,17 @@ angular.module('com.app.process.controller')
                     console.log($scope);
                 });*/
         };
+        $scope.queryCurrTodoTaskProcess = function(){
+             TlmsRestangular.one('process/todoTask').getList()
+                 .then(function(records){
+                     console.log(records);
+                     $rootScope.records = records;
+                     console.log('当前任务查询');
+                     console.log($scope);
+             });
+        };
+
+
 
         /*$scope.readCurrDgrmResource = function(processInstId){
             console.log('跳转流程图状态');
@@ -162,6 +179,22 @@ angular.module('com.app.process.controller')
         };
         $scope.reject = function(){
             TlmsRestangular.one('process/reject', StorageService.getStorage('procInstId')).post()
+                .then(function(records){
+                });
+        };
+        /**
+         * 签收
+         */
+        $scope.claim = function(){
+            TlmsRestangular.one('process/claim', StorageService.getStorage('procInstId')).post()
+                .then(function(records){
+                });
+        };
+        /**
+         * 委派
+         */
+        $scope.delegate = function(){
+            TlmsRestangular.one('process/delegate', StorageService.getStorage('procInstId')).post()
                 .then(function(records){
                 });
         };

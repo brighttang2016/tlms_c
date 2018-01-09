@@ -61,7 +61,6 @@ angular.module('com.app.websocket.service')
         };
         var doSend = function(sendMsg){
             console.log("发送报文："+JSON.stringify(sendMsg));
-            //console.log(ws);
             ws.send(JSON.stringify(sendMsg));
         };
         var getWebSocketUrl = function(){
