@@ -23,7 +23,7 @@ angular.module('com.app.websocket.service')
             return wsStatus;
         };
         var wsConnect = function(){
-
+            console.log("客户端发起连接，connectStatus="+connectStatus+",wsUrl="+wsUrl);
             if(connectStatus == "01"){
                 ws = new WebSocket(wsUrl);
                 ws.onopen = function(evt){

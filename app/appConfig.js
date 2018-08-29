@@ -2,7 +2,7 @@
  * Created by pujjr on 2017/7/18.
  */
 var BASE_URL='http://127.0.0.1:8080/pcms-web';
-var TLMS_URL='http://localhost:8090/tlms-web';
+var TLMS_URL='http://127.0.0.1:8090/tlms-web';
 //前端发起模拟推送地址
 var PUJJR_PUSH_URL='http://localhost:8070/pjmessage-web';
 var SERVER_URL = {
@@ -21,8 +21,9 @@ var SERVER_URL = {
     /**OSS地址**/
     OSS_URL:'http://pcms-test.oss-cn-hzfinance.aliyuncs.com/'
     /**OSS_URL:'http://pujjr-cs.oss-cn-hangzhou.aliyuncs.com/'**/
-    ,WS_URI:'ws://172.18.10.78:5061/'
-   /* ,PJ_WS_URI:'ws://localhost:8090/tlms-web/tlmsWebSocketServer.ctrl'*/
+   /* ,WS_URI:'ws://172.18.10.78:5061/'*/
+    ,WS_URI:'http://172.18.10.41:8090/tlms-web/tlmsWebSocketServer.ctrl'
+    ,PJ_WS_URI:'ws://172.18.10.41:8090/tlms-web/tlmsWebSocketServer.ctrl'
     ,PJ_PUSH_URI:'ws://localhost:8070/pjmessage-web/pujjrPushMs/pujjrWebSocketServer'
 };
 angular.module('myApp')

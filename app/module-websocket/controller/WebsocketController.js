@@ -17,5 +17,12 @@ angular.module('com.app.websocket.controller')
             console.log(param);
         });
 
-        MessagePushService.startPushService($rootScope.account);
+        /**
+         * 启动小推送服务
+         */
+        //MessagePushService.startPushService($rootScope.account);
+
+        $scope.wsConnect = function(){
+            WebsocketService.wsConnect();
+        };
     }]);
