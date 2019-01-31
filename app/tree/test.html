@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>指令测试</title>
+    <script src="../../bower_components/angular/angular.js"></script>
+  <!--  <script src="../../js/directive/directive.min.js"></script>-->
+    <script src="test.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../asset/css/tlms.css"/>
+    <link rel="stylesheet" href="../../bower_components/angular-ui-tree/dist/angular-ui-tree.min.css">
+    <link type="text/css" rel="stylesheet" href="../../asset/css/font-awesome.min.css"  />
+    <link type="text/css" rel="stylesheet" href="../../asset/css/bootstrap.css"/>
+    <script type="text/javascript" src="../../bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+</head>
+<body >
+
+<div ng-controller="TreeController">
+    <div>
+        <ul ng-model="list">
+            <li ng-repeat="item in list">
+                <div>
+                    <i class="fa">&nbsp;</i><i class="fa {{item.icon}}">&nbsp;</i>{{item.title}}
+                </div>
+                <ul ng-model="item.items">
+                    <li ng-repeat="subItem in item.items">
+                        <div>
+                            <a ng-click="clickItem(subItem)"><i class="fa {{subItem.icon}}">&nbsp;</i>{{subItem.title}}</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

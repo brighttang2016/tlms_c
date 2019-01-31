@@ -35,7 +35,8 @@
     "angular-touch": "^1.6.5",
     "screenfull": "^3.3.1",
     "angular-ui-bootstrap": "^2.5.0",
-    "angular-websocket": "^2.0.0"
+    "angular-websocket": "^2.0.0",
+    "angular-ui-tree": "^2.22.6"
   },
   "resolutions": {
     "bootstrap": "~3.0.0"

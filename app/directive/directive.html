@@ -1,15 +1,58 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html ng-app="app">
 <head lang="en">
     <meta charset="UTF-8">
     <title>指令测试</title>
-    <script src="../../../bower_components/angular/angular.js"></script>
-    <!--<script src="../../js/directive/directive.min.js"></script>-->
-    <script src="../../js/all.min.js"></script>
-    <link type="text/css" rel="stylesheet" href="../../css/tlms.min.css"/>
+    <script src="../../bower_components/angular/angular.js"></script>
+  <!--  <script src="../../js/directive/directive.min.js"></script>-->
+    <script src="directive.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../asset/css/tlms.css"/>
 </head>
 <body>
-    <div my-directive></div>
+
+
+
+<div>
+    <label>父控制器中的name变量值</label> <input ng-model="name" />
+    <div ng-controller="ChildCtrl">
+        <label>子控制器中的name变量值</label> <input ng-model="name" />
+
+        <ul>
+            <li>child controller name: {{name}}</li>
+            <li>parent controller name: {{$parent.name}}</li>
+        </ul>
+    </div>
+</div>
+
+
+<ng-form name="demoForm">
+    <input name="name" type="text" required ng-model="name"/>
+    <input name="password" type="text" required minlength="8" ng-model="password"/>
+    <button ng-disabled="demoForm.$invalid">Save</button>
+</ng-form>
+<hr/>
+
+<div>
+    <div ng-controller="applyController">
+        <sidebox title="用户管理">
+            {{appId}}
+            用户管理模块内容
+            <apply-show callback-apply = 'callbackApply(obj)' apply-channel="pujjr" page-type="show" app-id="C206170210103S1"></apply-show>
+        </sidebox>
+    </div>
+<hr/>
+    <ul>
+        <li>First link</li>
+        <li>Second link</li>
+    </ul>
+</div>
+
+    <div my-directive>
+        <ul>
+            <li>First link</li>
+            <li>Second link</li>
+        </ul>
+    </div>
     <div ng-init="test='brighttang'">
         指令中使用表达式：{{test}}
     </div>
@@ -27,46 +70,60 @@
         </div>
     </div>
 
-    <div class="border-style">
-        <p>说明：双向数据绑定测试</p>
-        输入需要跳转到地址(指令外)<input type="text" ng-model="theirUrl"/>
-        <div my-directive4
-             some-url="theirUrl"
-             my-link-text4=" my-directive4跳转到{{theirUrl}}(向指令中传递数据)">
-        </div>
-    </div>
+   <div class="border-style">
+       <p>说明：双向数据绑定测试</p>
+       输入需要跳转到地址(指令外)<input type="text" ng-model="theirUrl"/>
+       <div my-directive4
+            some-url="theirUrl"
+            my-link-text4=" my-directive4跳转到{{theirUrl}}(向指令中传递数据)">
+       </div>
+   </div>
 
     <div ng-controller="SomeController" class="border-style">
-        <p>说明：由于原型继承的关系，修改父级对象中的someBareValue会同时修改子对象中的值，但反之则不行</p>
-        {{ someBareValue }}
-        <button ng-click="someAction()">Communicate to child（会修改子对象值）</button>
-        <div ng-controller="ChildController">
-            {{ someBareValue }}
-            <p ng-bind="someBareValue"></p>
-            <button ng-click="childAction()">Communicate to parent（不会修改父对象值）</button>
-        </div>
+         <p>说明：由于原型继承的关系，修改父级对象中的someBareValue会同时修改子对象中的值，但反之则不行</p>
+         {{ someBareValue }}
+         <button ng-click="someAction()">Communicate to child（会修改子对象值）</button>
+         <div ng-controller="ChildController">
+             {{ someBareValue }}
+             <p ng-bind="someBareValue"></p>
+             <button ng-click="childAction()">Communicate to parent（不会修改父对象值）</button>
+         </div>
     </div>
 
-    <div class="border-style">
-        <div>说明：作用域测试</div>
-        <div ng-app="myApp"
-             ng-init="someProperty = 'some data'">
-            <div ng-init="siblingProperty='moredata'">
-                Inside Div Two: {{ aThirdProperty }}
-                <div ng-init="aThirdProperty = 'data for 3rd property'"
-                     ng-controller="SomeController">
-                    Inside Div Three: {{ aThirdProperty }}
-                    <div ng-init="aFourthProperty">
-                        Inside Div Four: {{ aThirdProperty }}
-                    </div>
-                </div>
-            </div>
-        </div>
+     <div class="border-style">
+         <div>说明：作用域测试</div>
+         <div ng-app="app"
+              ng-init="someProperty = 'some data'">
+             <div ng-init="siblingProperty='moredata'">
+                 Inside Div Two: {{ aThirdProperty }}
+                 <div ng-init="aThirdProperty = 'data for 3rd property'"
+                      ng-controller="SomeController">
+                     Inside Div Three: {{ aThirdProperty }}
+                     <div ng-init="aFourthProperty">
+                         Inside Div Four: {{ aThirdProperty }}
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+
+     <div my-directive5>
+         <div>模块加载</div>
+     </div>
+
+<div ng-controller="topController">
+    <apply-show callback-apply = 'callbackApply(obj)' apply-channel="pujjr" page-type="show" app-id="C206170210103S1"></apply-show>
+</div>
+
+<!--    <apply-show apply-channel="pujjr" page-type="edit" app-id="C206170210103S1"></apply-show>
+    <apply-show apply-channel="icbc" page-type="show" app-id="C206170210103S1"></apply-show>
+    <apply-show apply-channel="icbc" page-type="edit" app-id="C206170210103S1"></apply-show>-->
+
+    <div ng-controller="applyController">
+        <div my-directive6 id="myDirective6Id" on-send="sendEmail(mailAddress,msg,interface)" init-sys-user="initUser(userId,userName)" on-init="onInit(obj)">111111</div>
+        <div><button ng-click="callMydirective6Interface()">暴露指令内接口后，在指令外调用指令内接口</button></div>
     </div>
 
-    <div my-directive5>
-        <div>模块加载</div>
-    </div>
 
 </body>
 </html>
