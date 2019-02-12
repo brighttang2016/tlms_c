@@ -1,1 +1,4 @@
 bower_components/
+dist/
+dist/vendor/
+dist/bower_components/
