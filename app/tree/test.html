@@ -2,7 +2,7 @@
 <html ng-app="app">
 <head lang="en">
     <meta charset="UTF-8">
-    <title>指令测试</title>
+    <title>测试</title>
     <script src="../../bower_components/angular/angular.js"></script>
   <!--  <script src="../../js/directive/directive.min.js"></script>-->
     <script src="test.js"></script>
@@ -14,10 +14,10 @@
 </head>
 <body >
 
-<div ng-controller="TreeController">
-    <div>
-        <ul ng-model="list">
-            <li ng-repeat="item in list">
+<!--<div ng-controller="TreeController">
+    <div items="root.items">
+        <ul ng-model="root.items">
+            <li ng-repeat="item in root.items">
                 <div>
                     <i class="fa">&nbsp;</i><i class="fa {{item.icon}}">&nbsp;</i>{{item.title}}
                 </div>
@@ -31,11 +31,11 @@
             </li>
         </ul>
     </div>
-</div>
+</div>-->
 
-
-
-
+    <div ng-controller="TreeController">
+        <div simple-tree root="root"></div>
+    </div>
 
 </body>
 </html>
