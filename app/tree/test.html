@@ -21,7 +21,7 @@
                 <div>
                     <i class="fa">&nbsp;</i><i class="fa {{item.icon}}">&nbsp;</i>{{item.title}}
                 </div>
-                <ul ng-model="item.items">
+                <ul ng-model="item.items" ng-show="false">
                     <li ng-repeat="subItem in item.items">
                         <div>
                             <a ng-click="clickItem(subItem)"><i class="fa {{subItem.icon}}">&nbsp;</i>{{subItem.title}}</a>
