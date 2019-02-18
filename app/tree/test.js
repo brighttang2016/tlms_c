@@ -7,28 +7,28 @@ app.controller('TreeController',function($scope){
     $scope.root = {
         "title": "标题0",
         "isSelected":"false",
-        "icon":"fa-square-o",
+        "selectedIcon":"fa-square-o",
         "id":'title0',
         "isLeaf":"false",
         items:[
             {
                 "title": "标题1",
                 "isSelected":"false",
-                "icon":"fa-square-o",
+                "selectedIcon":"fa-square-o",
                 "id":'title1',
                 "pid":"title0",
                 "isLeaf":"false",
                 items: [{
                     "title": "标题1.1",
                     "isSelected":"false",
-                    "icon":"fa-square-o",
+                    "selectedIcon":"fa-square-o",
                     "id":'title1-1',
                     "pid":"title1",
                     "isLeaf":"true"
                 }, {
                     "title": "标题1.2",
                     "isSelected":"false",
-                    "icon":"fa-square-o",
+                    "selectedIcon":"fa-square-o",
                     "id":'title1-2',
                     "pid":"title1",
                     "isLeaf":"true"
@@ -37,21 +37,21 @@ app.controller('TreeController',function($scope){
             {
                 "title": "标题2",
                 "isSelected":"false",
-                "icon":"fa-square-o",
+                "selectedIcon":"fa-square-o",
                 "id":'title2',
                 "pid":"title0",
                 "isLeaf":"false",
                 items: [{
                     "title": "标题2.1",
                     "isSelected":"false",
-                    "icon":"fa-square-o",
+                    "selectedIcon":"fa-square-o",
                     "id":'title2-1',
                     "pid":"title2",
                     "isLeaf":"true"
                 }, {
                     "title": "标题2.2",
                     "isSelected":"false",
-                    "icon":"fa-square-o",
+                    "selectedIcon":"fa-square-o",
                     "id":'title2-2',
                     "pid":"title2",
                     "isLeaf":"true"
@@ -60,28 +60,28 @@ app.controller('TreeController',function($scope){
             {
                 "title": "标题3",
                 "isSelected":"false",
-                "icon":"fa-square-o",
+                "selectedIcon":"fa-square-o",
                 "id":'title3',
                 "pid":"title0",
                 "isLeaf":"false",
                 items: [{
                     "title": "标题3.1",
                     "isSelected":"false",
-                    "icon":"fa-square-o",
+                    "selectedIcon":"fa-square-o",
                     "id":'title3-1',
                     "pid":"title3",
                     "isLeaf":"false",
                     items:[{
                         "title": "标题3.1.1",
                         "isSelected":"false",
-                        "icon":"fa-square-o",
+                        "selectedIcon":"fa-square-o",
                         "id":'title3-1-1',
                         "pid":"title3-1",
                         "isLeaf":"false",
                         items:[{
                             "title": "标题3.1.1.1",
                             "isSelected":"false",
-                            "icon":"fa-square-o",
+                            "selectedIcon":"fa-square-o",
                             "id":'title3-1-1-1',
                             "pid":"title3-1-1",
                             "isLeaf":"true"
@@ -89,21 +89,21 @@ app.controller('TreeController',function($scope){
                     },{
                         "title": "标题3.1.2",
                         "isSelected":"false",
-                        "icon":"fa-square-o",
+                        "selectedIcon":"fa-square-o",
                         "id":'title3-1-2',
                         "pid":"title3-1",
                         "isLeaf":"false",
                         items:[{
                             "title": "标题3.1.2.1",
                             "isSelected":"false",
-                            "icon":"fa-square-o",
+                            "selectedIcon":"fa-square-o",
                             "id":'title3-1-2-1',
                             "pid":"title3-1-2",
                             "isLeaf":"true"
                         },{
                             "title": "标题3.1.2.2",
                             "isSelected":"false",
-                            "icon":"fa-square-o",
+                            "selectedIcon":"fa-square-o",
                             "id":'title3-1-2-2',
                             "pid":"title3-1-2",
                             "isLeaf":"true"
@@ -112,7 +112,7 @@ app.controller('TreeController',function($scope){
                 }, {
                     "title": "标题3.2",
                     "isSelected":"false",
-                    "icon":"fa-square-o",
+                    "selectedIcon":"fa-square-o",
                     "id":'title3-2',
                     "pid":"title3",
                     "isLeaf":"true"
@@ -166,18 +166,18 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
              * @param currNode
              * @param isSelected
              */
-            scope.changeChildNodeIcon = function(currNode,isSelected){
+            scope.changeChildNodeSelectedIcon = function(currNode,isSelected){
                 if(isSelected == 'false'){
                     currNode.isSelected = 'false';
-                    currNode.icon = 'fa-square-o';
+                    currNode.selectedIcon = 'fa-square-o';
                 }else{
                     currNode.isSelected = 'true';
-                    currNode.icon = 'fa-check-square';
+                    currNode.selectedIcon = 'fa-check-square';
                 }
                 var childNodes = currNode.items;
                 if(childNodes != undefined){
                     for(var i = 0;i < childNodes.length;i++){
-                        scope.changeChildNodeIcon(childNodes[i],currNode.isSelected);
+                        scope.changeChildNodeSelectedIcon(childNodes[i],currNode.isSelected);
                     }
                 }
             };
@@ -187,7 +187,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
              * @param currNode
              * @param isSelected
              */
-            scope.changeParentNodeIcon = function(pid){
+            scope.changeParentNodeSelectedIcon = function(pid){
                 console.log("pid:"+pid);
                 if(pid != undefined && pid != ''){
                     var parentNode = scope.findNodeById(scope.root,pid);
@@ -212,14 +212,14 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                     }
                     if(isChildSelected == 'true'){
                         parentNode.isSelected = 'true';
-                        parentNode.icon = 'fa-check-square';
+                        parentNode.selectedIcon = 'fa-check-square';
                     }else{
                         parentNode.isSelected = 'false';
-                        parentNode.icon = 'fa-square-o';
+                        parentNode.selectedIcon = 'fa-square-o';
                     }
                     //如果存在父节点，继续递归父节点
                     if(parentNode.pid != undefined){
-                        scope.changeParentNodeIcon(parentNode.pid);
+                        scope.changeParentNodeSelectedIcon(parentNode.pid);
                     }
                 }
             };
@@ -252,10 +252,10 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                     console.log('节点递归,找到节点：'+currNode.id);
                     if(currNode.isSelected == 'true'){
                         currNode.isSelected = 'false';
-                        currNode.icon = 'fa-square-o';
+                        currNode.selectedIcon = 'fa-square-o';
                     }else{
                         currNode.isSelected = 'true';
-                        currNode.icon = 'fa-check-square';
+                        currNode.selectedIcon = 'fa-check-square';
                     }
                     /**
                      * 变更子节点选中状态
@@ -263,13 +263,13 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                     if(childNodes != undefined){
                         for(var i = 0;i < childNodes.length;i++){
                             var currChildNode = childNodes[i];
-                            scope.changeChildNodeIcon(currChildNode,currNode.isSelected);
+                            scope.changeChildNodeSelectedIcon(currChildNode,currNode.isSelected);
                         }
                     }
                     /**
                      * 变更父节点选中状态
                      */
-                    scope.changeParentNodeIcon(currNode.pid);
+                    scope.changeParentNodeSelectedIcon(currNode.pid);
                     /**
                      * 初始化树形，重新渲染
                      */
@@ -320,9 +320,10 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                 console.log(itemJson);*/
 
                 // console.log(item.marginLeft);
-                // var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><i class="fa '+item.icon+'">&nbsp;</i><i class="fa {{item.icon}}">&nbsp;</i>'+item.title+'</div>');
+                // var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><i class="fa '+item.selectedIcon+'">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>'+item.title+'</div>');
                 // var test = 'fa-check-square';
-                var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><a ng-click="clickItem('+JSON.stringify(item).replace(/\"/g,"'")+')"><i class="fa '+item.icon+'">&nbsp;</i>'+item.title+'</a></div>');
+                var itemStr = JSON.stringify(item).replace(/\"/g,"'");
+                var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><a ng-click="clickItem('+itemStr+')"><i class="fa '+item.selectedIcon+'">&nbsp;</i>'+item.title+'</a></div>');
                 nodeTitleDiv = scope.compileDom(nodeTitleDiv,scope);
                 nodeLi.append(nodeTitleDiv);
                 //子节点
@@ -333,7 +334,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                     for(var j = 0;j < childItems.length;j++){
                         /*var childItem = childItems[j];
                         var childNodeLi = angular.element('<li></li>');
-                        var childNoddTitleDiv = angular.element('<div><i class="fa">&nbsp;</i><i class="fa {{item.icon}}">&nbsp;</i>'+childItem.title+'</div>');
+                        var childNoddTitleDiv = angular.element('<div><i class="fa">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>'+childItem.title+'</div>');
                         childNodeLi.append(childNoddTitleDiv);
                         childNodeUl.append(childNodeLi);*/
                         childItems[j].marginLeft = item.marginLeft + 20;
@@ -358,7 +359,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                     for(var i = 0;i < items.length;i++){
                         /*var item = items[i];
                         var nodeLi = angular.element('<li></li>');
-                        var nodeTitleDiv = angular.element('<div><i class="fa">&nbsp;</i><i class="fa {{item.icon}}">&nbsp;</i>'+item.title+'</div>');
+                        var nodeTitleDiv = angular.element('<div><i class="fa">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>'+item.title+'</div>');
                         nodeLi.append(nodeTitleDiv);
                         //子节点
                         var childItems = item.items;
@@ -367,7 +368,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                             for(var j = 0;j < childItems.length;j++){
                                 var childItem = childItems[j];
                                 var childNodeLi = angular.element('<li></li>');
-                                var childNoddTitleDiv = angular.element('<div><i class="fa">&nbsp;</i><i class="fa {{item.icon}}">&nbsp;</i>'+childItem.title+'</div>');
+                                var childNoddTitleDiv = angular.element('<div><i class="fa">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>'+childItem.title+'</div>');
                                 childNodeLi.append(childNoddTitleDiv);
                                 childNodeUl.append(childNodeLi);
                             }
