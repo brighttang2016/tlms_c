@@ -67,23 +67,15 @@ angular.module('com.app.process.controller')
         /**
          * 当前任务查询
          */
-        TlmsRestangular.one('process/task').getList()
-            .then(function(records){
-                console.log(records);
-                //$scope.records = records;
-                $rootScope.records = records;
-                console.log('当前任务查询');
-                console.log($rootScope);
-            });
-        $scope.queryCurrProcess = function(){
-           /* TlmsRestangular.one('process/task').getList()
+        $scope.queryPorcessTask = function(){
+            TlmsRestangular.one('process/task').getList()
                 .then(function(records){
                     console.log(records);
                     //$scope.records = records;
                     $rootScope.records = records;
                     console.log('当前任务查询');
                     console.log($scope);
-                });*/
+                });
         };
 
         /*$scope.readCurrDgrmResource = function(processInstId){
