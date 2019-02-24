@@ -3,7 +3,28 @@
  */
 var app = angular.module("app",['ui.tree']);
 
+
+
+app.controller('FormController',function($scope,$timeout){
+    $scope.user = {};
+
+    $scope.test= "sss";
+    $scope.$watch('user.valid',function(newVal,oldVal){
+        console.log(newVal);
+    });
+    $timeout(function(){
+       console.log($scope.user.valid);
+    },8000);
+});
 app.controller('TreeController',function($scope){
+
+    $scope.changeGpsLvl = function(){
+        console.log($scope.gpsLvl);
+        $scope.gpsLvl = {"id":"222","lvlName":"两台"};
+    };
+
+    $scope.gpsLvlListNew = [{"id":"111","lvlName":"一台"},{"id":"222","lvlName":"两台"}];
+
     $scope.root = {
         "title": "标题0",
         "isSelected":"false",

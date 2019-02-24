@@ -11,26 +11,30 @@ p {
 .tlms-border{
     border:1px solid red;
 }
-ul{
+.simple-tree{
+
+}
+.simple-tree ul{
     list-style-type:none;
     margin:0px;
     padding-left:0px;
     font-size:16px;
 }
-ul li{
+.simple-tree ul li{
     list-style: none;
     margin-left:0px;
 }
-ul li a{
+.simple-tree ul li a{
     background:#ccc;
     display:block;
     width:200px;
     margin:5px 0px 5px 20px;
     color:black;
 }
-ul li a:hover{
+.simple-tree ul li a:hover{
     background:#999;
     cursor: pointer;
     color:black;
 }
+
 

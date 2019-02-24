@@ -114,7 +114,7 @@ angular.module('com.app.process.controller')
              * diagram view 显示流程图
              */
 
-            // window.open('html/diagramviewer/showDiagramViewer.html');
+            window.open('html/diagramviewer/showDiagramViewer.html');
         };
 
 
