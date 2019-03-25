@@ -4,9 +4,20 @@
     <meta charset="UTF-8">
     <title>指令测试</title>
     <script src="../../bower_components/angular/angular.js"></script>
+    <script src="../../bower_components/jquery/dist/jquery.js"></script>
+    jquery.js
   <!--  <script src="../../js/directive/directive.min.js"></script>-->
     <script src="directive.js"></script>
     <link type="text/css" rel="stylesheet" href="../../asset/css/tlms.css"/>
+    <link type="text/css" rel="stylesheet" href="../../asset/css/bootstrap.css"/>
+
+    <style>
+
+        input.ng-invalid, select.ng-invalid {
+            background-color:#FFFF00 !important;
+            border: 1px solid red;
+        }
+    </style>
 </head>
 <body>
 
@@ -123,6 +134,17 @@
         <div my-directive6 id="myDirective6Id" on-send="sendEmail(mailAddress,msg,interface)" init-sys-user="initUser(userId,userName)" on-init="onInit(obj)">111111</div>
         <div><button ng-click="callMydirective6Interface()">暴露指令内接口后，在指令外调用指令内接口</button></div>
     </div>
+
+
+<div my-attr="obj.name" my-directive-parse>parse测试</div>
+
+<div ng-controller="formValidController" class="form-control">
+    表单测试
+    <ng-form name="testForm">
+        <input type="number" required="required" ng-model="user.userName" name="userName" form-valid user="user" required class="test"/>
+        <span>{{testForm.$valid}}|{{testForm.userName.$valid}}|{{msg}}|{{testForm.userName.$error.brighttang}}|{{testForm.userName.$error.formValid}}</span>
+    </ng-form>
+</div>
 
 
 </body>

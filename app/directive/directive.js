@@ -3,7 +3,123 @@
  */
 var app = angular.module("app",[]);
 
-app.directive('sidebox', function() {
+app.controller('formValidController',function($scope){
+    $scope.user = {};
+    // $scope.user.userName = 1234;
+});
+
+app.directive('formValid', function($parse) {
+    return {
+        restrict: 'EA',
+        require:'ngModel',
+        scope: {
+            user: '='
+        },
+        /*restrict: 'EA',
+        scope: {
+            root: '='
+        },*/
+        // template: '<div>{{title}}<div ng-transclude></div></div>',
+        // replace:false,
+        transclude: true,
+        link:function(scope,el,attr,ctrl){
+            var el = $(el);
+            console.log("111111111111111111");
+            // test  ng-invalid-required
+            console.log(el.hasClass("test"));
+
+            console.log("99999999999999999999");
+            console.log(ctrl);
+            console.log(attr);
+            ctrl.$validate();
+            scope.el = el;
+            scope.errorMsg = "";
+
+            scope.handleMsg = function(isValid){
+
+                var errorTextEle = null;
+                if(!(el.attr("errorText"))){
+                    el.after('<div class="validation-errorText">数据非法</div>');
+                    el.attr('errorText', true);
+                    errorTextEle = el.next();
+                }
+
+
+
+                if(isValid){
+                    el.next().hide();
+                }else{
+                    el.next().show();
+                }
+            };
+
+
+            scope.doValid = function(value){
+                console.log("1111111111111111111");
+                console.log(value);
+                var isValid = false;
+                if(value < 0 || value >= 5){
+                    console.log("非法");
+                    //设置为非法：false  合法：formValid：true
+                    ctrl.$setValidity('formValid',false);
+                    if(scope.errorMsg == ""){
+                        scope.errorMsg = "数据非法";
+                    }
+                    isValid = false;
+                }else if(value==undefined || value=='undefined'){
+                    console.log("必输项");
+                    ctrl.$setValidity('formValid',false);
+                    if(scope.errorMsg == ""){
+                        scope.errorMsg = "必输项";
+                    }
+                    isValid = false;
+                }else{
+                    console.log("合法");
+                    ctrl.$setValidity('formValid',true);
+                    isValid = true;
+                }
+                //ctrl.$error["formValid"] true:表示非法    false:表示合法
+                // console.log("formValid:"+ctrl.$error["formValid"]);
+                console.log("formValid:"+ctrl.$error["formValid"]);
+                console.log("brighttang:"+ctrl.$error["brighttang"]);
+
+                console.log(el.hasClass("ng-invalid-required"));
+
+
+                return isValid;
+            };
+
+
+            ctrl.$validators.customValidator = function (value) {
+               /* var emailsRegexp = /^([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*[;；]?)+$/i;
+                var validity = ctrl.$isEmpty(value) || emailsRegexp.test(value);
+                ctrl.$setValidity("multipleEmail", validity);
+
+                return validity ? value : undefined;*/
+
+               console.log("customValidator");
+               console.log(value);
+               console.log(el);
+               console.log(scope);
+                console.log(scope.number);
+                var isValid = scope.doValid(value);
+                scope.handleMsg(isValid);
+               return true;
+            };
+
+            var isValid = scope.doValid(value);
+            scope.handleMsg(isValid);
+
+            ctrl.$validate();
+
+            // ctrl.$formatters.push(scope.customValidator);
+            // ctrl.$parsers.push(scope.customValidator);
+            // ctrl.$validators.push(customValidator);
+        }
+    };
+});
+
+app.directive('sidebox', function($parse) {
         return {
             restrict: 'EA',
             scope: {
@@ -23,6 +139,51 @@ app.directive('sidebox', function() {
         };
     });
 
+app.directive("myDirectiveParse",function($parse){
+    return {
+        restrict:'A',
+        replace:false,
+        template:'<a href="http://www.baidu.com">跳转百度</a>',
+        transclude:true,
+        link:function(scope,element,attr,value4,ctrl,value6,value7){
+            console.log("************myDirectiveParse 开始**************");
+            scope.obj = {};
+            scope.obj.expression = "a+b+c";
+            console.log(scope);
+            console.log(element);
+            console.log(attr);
+            console.log(attr.username);
+            console.log(value4);
+            console.log(ctrl);
+            console.log(value6);
+            console.log(value7);
+
+            //测试
+            scope.testParse = function(){
+                console.log("************scope.testParse 开始**************");
+                var context = {
+                    serviceFee: 5000,
+                    boardFee:3000
+                };
+                var expression = "serviceFee + boardFee";
+                var parseFunc = $parse(expression);
+                console.log("parse 函数属性：");
+                console.log(parseFunc.literal);
+                console.log(parseFunc.constant);
+                console.log(parseFunc.assign);
+                scope.ParsedValue = parseFunc(context);
+                console.log("运算结果："+scope.ParsedValue);
+                console.log("************scope.testParse 结束**************");
+            };
+            scope.testParse();
+
+
+
+
+            console.log("************myDirectiveParse 结束**************");
+        }
+    };
+});
 
 app.directive("myDirective",function(){
     return {

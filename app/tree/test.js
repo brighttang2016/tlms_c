@@ -4,26 +4,26 @@
 var app = angular.module("app",['ui.tree']);
 
 
-
-app.controller('FormController',function($scope,$timeout){
-    $scope.user = {};
-
-    $scope.test= "sss";
-    $scope.$watch('user.valid',function(newVal,oldVal){
-        console.log(newVal);
-    });
-    $timeout(function(){
-       console.log($scope.user.valid);
-    },8000);
-});
 app.controller('TreeController',function($scope){
-
-    $scope.changeGpsLvl = function(){
-        console.log($scope.gpsLvl);
-        $scope.gpsLvl = {"id":"222","lvlName":"两台"};
+    $scope.isHide = "false";
+    $scope.toggleHide = function(){
+        console.log($scope.root.expand);
+        var expand = $scope.root.expand;
+        if(expand == 'false'){
+            $scope.root.expand == 'true';
+            $scope.root.title = '222';
+            console.log(222);
+        }else if(expand == 'true'){
+            $scope.root.expand == 'false';
+            $scope.root.test == '2222';
+            $scope.root.title = '111';
+            console.log(111);
+            console.log($scope.root);
+        }
+        console.log("toggleHide");
+        console.log($scope.root);
     };
 
-    $scope.gpsLvlListNew = [{"id":"111","lvlName":"一台"},{"id":"222","lvlName":"两台"}];
 
     $scope.root = {
         "title": "标题0",
@@ -31,6 +31,7 @@ app.controller('TreeController',function($scope){
         "selectedIcon":"fa-square-o",
         "id":'title0',
         "isLeaf":"false",
+        "expand":"true",
         items:[
             {
                 "title": "标题1",
@@ -154,6 +155,8 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
         template: '<div></div>',
         transclude: true,
         link:function(scope,el,attr,ctrl){
+
+
 
             /**
              * 清空树
