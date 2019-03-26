@@ -10,12 +10,12 @@ app.controller('TreeController',function($scope){
         console.log($scope.root.expand);
         var expand = $scope.root.expand;
         if(expand == 'false'){
-            $scope.root.expand == 'true';
+            $scope.root.expand = 'true';
             $scope.root.title = '222';
             console.log(222);
         }else if(expand == 'true'){
-            $scope.root.expand == 'false';
-            $scope.root.test == '2222';
+            $scope.root.expand = 'false';
+            $scope.root.test = '2222';
             $scope.root.title = '111';
             console.log(111);
             console.log($scope.root);
@@ -26,17 +26,21 @@ app.controller('TreeController',function($scope){
 
 
     $scope.root = {
-        "title": "标题0",
+        "title": "标题0(根节点)",
         "isSelected":"false",
         "selectedIcon":"fa-square-o",
+        "expandIcon":"fa-minus-square",
+        "expand":"true",
         "id":'title0',
         "isLeaf":"false",
-        "expand":"true",
+        "isShowRoot":'true',
         items:[
-            {
+           /* {
                 "title": "标题1",
                 "isSelected":"false",
                 "selectedIcon":"fa-square-o",
+                "expandIcon":"fa-minus-square",
+                "expand":"true",
                 "id":'title1',
                 "pid":"title0",
                 "isLeaf":"false",
@@ -55,11 +59,38 @@ app.controller('TreeController',function($scope){
                     "pid":"title1",
                     "isLeaf":"true"
                 }]
+            },*/
+            {
+                "title": "标题4",
+                "isSelected":"false",
+                "selectedIcon":"fa-square-o",
+                "expandIcon":"fa-minus-square",
+                "expand":"true",
+                "id":'title4',
+                "pid":"title0",
+                "isLeaf":"false",
+                items: [{
+                    "title": "标题4.1",
+                    "isSelected":"false",
+                    "selectedIcon":"fa-square-o",
+                    "id":'title4-1',
+                    "pid":"title4",
+                    "isLeaf":"true"
+                }, {
+                    "title": "标题4.2",
+                    "isSelected":"false",
+                    "selectedIcon":"fa-square-o",
+                    "id":'title4-2',
+                    "pid":"title4",
+                    "isLeaf":"true"
+                }]
             },
             {
                 "title": "标题2",
                 "isSelected":"false",
                 "selectedIcon":"fa-square-o",
+                "expandIcon":"fa-minus-square",
+                "expand":"true",
                 "id":'title2',
                 "pid":"title0",
                 "isLeaf":"false",
@@ -83,6 +114,8 @@ app.controller('TreeController',function($scope){
                 "title": "标题3",
                 "isSelected":"false",
                 "selectedIcon":"fa-square-o",
+                "expandIcon":"fa-minus-square",
+                "expand":"true",
                 "id":'title3',
                 "pid":"title0",
                 "isLeaf":"false",
@@ -90,6 +123,8 @@ app.controller('TreeController',function($scope){
                     "title": "标题3.1",
                     "isSelected":"false",
                     "selectedIcon":"fa-square-o",
+                    "expandIcon":"fa-minus-square",
+                    "expand":"true",
                     "id":'title3-1',
                     "pid":"title3",
                     "isLeaf":"false",
@@ -97,6 +132,8 @@ app.controller('TreeController',function($scope){
                         "title": "标题3.1.1",
                         "isSelected":"false",
                         "selectedIcon":"fa-square-o",
+                        "expandIcon":"fa-minus-square",
+                        "expand":"true",
                         "id":'title3-1-1',
                         "pid":"title3-1",
                         "isLeaf":"false",
@@ -112,6 +149,8 @@ app.controller('TreeController',function($scope){
                         "title": "标题3.1.2",
                         "isSelected":"false",
                         "selectedIcon":"fa-square-o",
+                        "expandIcon":"fa-minus-square",
+                        "expand":"true",
                         "id":'title3-1-2',
                         "pid":"title3-1",
                         "isLeaf":"false",
@@ -311,6 +350,56 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
             };
 
             /**
+             * 根据节点ID获取节点信息
+             * @param id
+             */
+            scope.getNodeById = function(currNode,id){
+                console.log("getNodeById,currNode:");
+                console.log(currNode);
+                console.log(id);
+                console.log(currNode.id == id);
+                if(currNode.id == id){
+                    console.log("getNodeById,找到目标节点:"+currNode.title);
+                    return currNode;
+                }else{
+                    console.log(currNode.items);
+                    if(currNode.items != undefined){
+                        for(var i = 0;i < currNode.items.length;i++){
+                            var targetNode= scope.getNodeById(currNode.items[i],id);
+                            if(targetNode == undefined){
+                                continue;
+                            }else{
+                                return targetNode;
+                            }
+                        }
+                    }
+                }
+            };
+            /**
+             * 展开、收缩树形
+             */
+            scope.toggleItem = function(item){
+                console.log(item);
+                var currNode = scope.getNodeById(scope.root,item.id);
+                console.log(currNode);
+                if(currNode.expand == 'true'){
+                    //收缩
+                    currNode.expand = 'false';
+                    currNode.expandIcon = 'fa-plus-square';
+                }else{
+                    //展开
+                    currNode.expand = 'true';
+                    currNode.expandIcon = 'fa-minus-square';
+                }
+                // console.log(currNode);
+                /**
+                 * 初始化树形，重新渲染
+                 */
+                scope.initTree();
+            };
+
+
+            /**
              * 节点点击
              * @param item
              */
@@ -347,21 +436,27 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                 // var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><i class="fa '+item.selectedIcon+'">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>'+item.title+'</div>');
                 // var test = 'fa-check-square';
                 var itemStr = JSON.stringify(item).replace(/\"/g,"'");
-                var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><a ng-click="clickItem('+itemStr+')"><i class="fa '+item.selectedIcon+'">&nbsp;</i>'+item.title+'</a></div>');
+                //节点title
+                var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><a><i class="fa '+item.expandIcon+'" ng-click="toggleItem('+itemStr+')">&nbsp</i><i class="fa '+item.selectedIcon+'" ng-click="clickItem('+itemStr+')">&nbsp;</i>'+item.title+'</a></div>');
                 nodeTitleDiv = scope.compileDom(nodeTitleDiv,scope);
                 nodeLi.append(nodeTitleDiv);
                 //子节点
                 var childItems = item.items;
                 if(childItems != undefined){
-                    var childNodeUl = angular.element('<ul></ul>');
-                    scope.compileDom(childNodeUl,scope);
+                    console.log(item.title+"|"+item.expand+"|"+(item.expand == 'true'));
+                    //节点是否展开
+                    var isExpand = item.expand == 'true';
+                    //节点子节点list
+                    var childNodeUl = angular.element('<ul ng-show="'+isExpand+'"></ul>');
+                    // var childNodeUl = angular.element('<ul></ul>');
+                    childNodeUl = scope.compileDom(childNodeUl,scope);
                     for(var j = 0;j < childItems.length;j++){
                         /*var childItem = childItems[j];
                         var childNodeLi = angular.element('<li></li>');
                         var childNoddTitleDiv = angular.element('<div><i class="fa">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>'+childItem.title+'</div>');
                         childNodeLi.append(childNoddTitleDiv);
                         childNodeUl.append(childNodeLi);*/
-                        childItems[j].marginLeft = item.marginLeft + 20;
+                        childItems[j].marginLeft = item.marginLeft + 36;
                         scope.appendNode(childNodeUl,childItems[j]);
                     }
                     nodeLi.append(childNodeUl);
@@ -373,11 +468,39 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
              * 初始化树形
              */
             scope.initTree = function(){
+                console.log("*****initTree********");
+                console.log(scope.root);
                 scope.cleanTree();
                 // console.log(scope.root);
                 // console.log(el);
                 var nodeUl = angular.element('<ul></ul>');
                 nodeUl = scope.compileDom(nodeUl,scope);
+
+                //根节点定义
+                var nodeLi = angular.element('<li></li>');
+                nodeLi = scope.compileDom(nodeLi,scope);
+                var itemStr = JSON.stringify(scope.root).replace(/\"/g,"'");
+                scope.root.marginLeft = 0;
+                //根节点title
+                var nodeTitleDiv = angular.element('<div style="margin-left:'+scope.root.marginLeft+'px'+'"><a><i class="fa '+scope.root.expandIcon+'" ng-click="toggleItem('+itemStr+')">&nbsp</i><i class="fa '+scope.root.selectedIcon+'" ng-click="clickItem('+itemStr+')">&nbsp;</i>'+scope.root.title+'</a></div>');
+                nodeTitleDiv = scope.compileDom(nodeTitleDiv,scope);
+                //根节点加入标题
+                nodeLi.append(nodeTitleDiv);
+
+                //根节点是否展开
+                var isExpand = scope.root.expand == 'true';
+                //根节点子节点list
+                var nodeUlRoot = angular.element('<ul ng-show="'+isExpand+'"></ul>');
+                nodeUlRoot = scope.compileDom(nodeUlRoot,scope);
+                //根节点加入子节点list
+                nodeLi.append(nodeUlRoot);
+
+                //将根节点加入列表
+                if(scope.root.isShowRoot == 'true'){
+                    nodeUl.append(nodeLi);
+                }
+
+                //根节点所有子节点
                 var items = scope.root.items;
                 if(items != undefined){
                     for(var i = 0;i < items.length;i++){
@@ -399,8 +522,15 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                             nodeLi.append(childNodeUl);
                         }
                         nodeUl.append(nodeLi);*/
-                        items[i].marginLeft = 20;
-                        scope.appendNode(nodeUl,items[i]);
+                        items[i].marginLeft = scope.root.marginLeft + 18;
+                        if(scope.root.isShowRoot == 'true'){
+                            scope.appendNode(nodeUlRoot,items[i]);
+                        }else{
+                            scope.appendNode(nodeUl,items[i]);
+                        }
+
+
+
                     }
                 }
                 el.append(nodeUl);

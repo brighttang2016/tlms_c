@@ -8,7 +8,7 @@ app.controller('formValidController',function($scope){
     // $scope.user.userName = 1234;
 });
 
-app.directive('formValid', function($parse) {
+app.directive('formValid', function($parse,$compile) {
     return {
         restrict: 'EA',
         require:'ngModel',
@@ -23,29 +23,32 @@ app.directive('formValid', function($parse) {
         // replace:false,
         transclude: true,
         link:function(scope,el,attr,ctrl){
-            var el = $(el);
-            console.log("111111111111111111");
-            // test  ng-invalid-required
-            console.log(el.hasClass("test"));
+            console.log("******************formValid 开始**********************");
+            scope.appendMsgEl = function(){
+                var errorMsgEl = '<div ng-if="!isValid" style="color:red">{{errorMsg}}</div>';
+                el.after($compile(errorMsgEl)(scope));
+            };
+            scope.appendMsgEl();
 
-            console.log("99999999999999999999");
-            console.log(ctrl);
-            console.log(attr);
-            ctrl.$validate();
+            //angular dom对象转jquery dom对象
+            var el = $(el);
+            // ctrl.$validate();
             scope.el = el;
             scope.errorMsg = "";
+            console.log(el);
+            console.log(el.after());
+            scope.clickTest = function(){
+                console.log("*************clickTest***************");
+                scope.errorMsg = "初始化";
+            };
 
             scope.handleMsg = function(isValid){
-
                 var errorTextEle = null;
                 if(!(el.attr("errorText"))){
-                    el.after('<div class="validation-errorText">数据非法</div>');
+                    el.after('<div>必输项</div>');
                     el.attr('errorText', true);
                     errorTextEle = el.next();
                 }
-
-
-
                 if(isValid){
                     el.next().hide();
                 }else{
@@ -53,65 +56,40 @@ app.directive('formValid', function($parse) {
                 }
             };
 
-
             scope.doValid = function(value){
-                console.log("1111111111111111111");
-                console.log(value);
                 var isValid = false;
                 if(value < 0 || value >= 5){
                     console.log("非法");
                     //设置为非法：false  合法：formValid：true
-                    ctrl.$setValidity('formValid',false);
-                    if(scope.errorMsg == ""){
-                        scope.errorMsg = "数据非法";
-                    }
-                    isValid = false;
+                    ctrl.$setValidity('fieldValid',false);
+                    scope.errorMsg = "数据非法";
+                    scope.isValid = false;
                 }else if(value==undefined || value=='undefined'){
                     console.log("必输项");
-                    ctrl.$setValidity('formValid',false);
-                    if(scope.errorMsg == ""){
-                        scope.errorMsg = "必输项";
-                    }
-                    isValid = false;
+                    ctrl.$setValidity('fieldValid',false);
+                    scope.errorMsg = "必输项";
+                    scope.isValid = false;
                 }else{
                     console.log("合法");
-                    ctrl.$setValidity('formValid',true);
-                    isValid = true;
+                    ctrl.$setValidity('fieldValid',true);
+                    scope.isValid = true;
                 }
-                //ctrl.$error["formValid"] true:表示非法    false:表示合法
-                // console.log("formValid:"+ctrl.$error["formValid"]);
                 console.log("formValid:"+ctrl.$error["formValid"]);
                 console.log("brighttang:"+ctrl.$error["brighttang"]);
-
                 console.log(el.hasClass("ng-invalid-required"));
-
-
-                return isValid;
+                return scope.isValid;
             };
-
 
             ctrl.$validators.customValidator = function (value) {
-               /* var emailsRegexp = /^([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*[;；]?)+$/i;
-                var validity = ctrl.$isEmpty(value) || emailsRegexp.test(value);
-                ctrl.$setValidity("multipleEmail", validity);
-
-                return validity ? value : undefined;*/
-
-               console.log("customValidator");
-               console.log(value);
-               console.log(el);
-               console.log(scope);
-                console.log(scope.number);
+                console.log("ctrl.$validators.customValidator");
                 var isValid = scope.doValid(value);
-                scope.handleMsg(isValid);
-               return true;
+                console.log("ctrl.$validators.customValidator 校验结果，isValid："+isValid);
+                return scope.isValid;
             };
-
-            var isValid = scope.doValid(value);
-            scope.handleMsg(isValid);
-
-            ctrl.$validate();
-
+            scope.$watch('isValid',function(newValue,oldValue){
+                console.log("oldValue:"+newValue+"|oldValue:"+oldValue);
+                // ctrl.$validate();
+            });
             // ctrl.$formatters.push(scope.customValidator);
             // ctrl.$parsers.push(scope.customValidator);
             // ctrl.$validators.push(customValidator);

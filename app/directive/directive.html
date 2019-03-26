@@ -14,8 +14,8 @@
     <style>
 
         input.ng-invalid, select.ng-invalid {
-            background-color:#FFFF00 !important;
-            border: 1px solid red;
+            background-color:#FEBF98 !important;
+            border: 1px solid #FEBF98;
         }
     </style>
 </head>
@@ -138,11 +138,20 @@
 
 <div my-attr="obj.name" my-directive-parse>parse测试</div>
 
-<div ng-controller="formValidController" class="form-control">
-    表单测试
+<div ng-controller="formValidController" style="border:1px solid red">
+    <div>表单测试</div>
     <ng-form name="testForm">
-        <input type="number" required="required" ng-model="user.userName" name="userName" form-valid user="user" required class="test"/>
-        <span>{{testForm.$valid}}|{{testForm.userName.$valid}}|{{msg}}|{{testForm.userName.$error.brighttang}}|{{testForm.userName.$error.formValid}}</span>
+        <div>
+            用户名：<input type="number" required="required" ng-model="user.userName" name="userName" form-valid user="user" required class="test"/>
+        </div>
+        <div>
+            电话：<input type="number" required="required" ng-model="user.mobile" name="mobile" form-valid user="user" required class="test"/>
+        </div>
+        <div>表单合法性：{{testForm.$valid}}</div>
+        <div>userName字段合法性：{{testForm.userName.$valid}}</div>
+        <div>userName $error:{{testForm.userName.$error.fieldValid}}</div>
+        <div>mobile字段合法性：{{testForm.mobile.$valid}}</div>
+        <div>mobile $error:{{testForm.mobile.$error.fieldValid}}</div>
     </ng-form>
 </div>
 
