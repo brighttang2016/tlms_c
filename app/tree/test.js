@@ -35,7 +35,7 @@ app.controller('TreeController',function($scope){
         "isLeaf":"false",
         "isShowRoot":'true',
         items:[
-           /* {
+           {
                 "title": "标题1",
                 "isSelected":"false",
                 "selectedIcon":"fa-square-o",
@@ -59,7 +59,7 @@ app.controller('TreeController',function($scope){
                     "pid":"title1",
                     "isLeaf":"true"
                 }]
-            },*/
+            },
             {
                 "title": "标题4",
                 "isSelected":"false",
@@ -437,7 +437,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                 // var test = 'fa-check-square';
                 var itemStr = JSON.stringify(item).replace(/\"/g,"'");
                 //节点title
-                var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><a><i class="fa '+item.expandIcon+'" ng-click="toggleItem('+itemStr+')">&nbsp</i><i class="fa '+item.selectedIcon+'" ng-click="clickItem('+itemStr+')">&nbsp;</i>'+item.title+'</a></div>');
+                var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><a style="margin-left:0px;"><i class="fa '+item.expandIcon+'" ng-click="toggleItem('+itemStr+')">&nbsp;</i><i class="fa '+item.selectedIcon+'" ng-click="clickItem('+itemStr+')">&nbsp;</i>'+item.title+'</a></div>');
                 nodeTitleDiv = scope.compileDom(nodeTitleDiv,scope);
                 nodeLi.append(nodeTitleDiv);
                 //子节点
@@ -477,12 +477,12 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                 nodeUl = scope.compileDom(nodeUl,scope);
 
                 //根节点定义
-                var nodeLi = angular.element('<li></li>');
+                var nodeLi = angular.element('<li style="border:1px solid red"></li>');
                 nodeLi = scope.compileDom(nodeLi,scope);
                 var itemStr = JSON.stringify(scope.root).replace(/\"/g,"'");
                 scope.root.marginLeft = 0;
                 //根节点title
-                var nodeTitleDiv = angular.element('<div style="margin-left:'+scope.root.marginLeft+'px'+'"><a><i class="fa '+scope.root.expandIcon+'" ng-click="toggleItem('+itemStr+')">&nbsp</i><i class="fa '+scope.root.selectedIcon+'" ng-click="clickItem('+itemStr+')">&nbsp;</i>'+scope.root.title+'</a></div>');
+                var nodeTitleDiv = angular.element('<div style="border:1px solid green;margin-left:'+scope.root.marginLeft+'px'+'"><a style="margin-left:0px;border:1px solid red"><i class="fa '+scope.root.expandIcon+'" ng-click="toggleItem('+itemStr+')">&nbsp</i><i class="fa '+scope.root.selectedIcon+'" ng-click="clickItem('+itemStr+')">&nbsp;</i>'+scope.root.title+'</a></div>');
                 nodeTitleDiv = scope.compileDom(nodeTitleDiv,scope);
                 //根节点加入标题
                 nodeLi.append(nodeTitleDiv);
