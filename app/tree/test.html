@@ -13,36 +13,38 @@
     <script type="text/javascript" src="../../bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
 </head>
 <body >
+    <!--
+    <div ng-controller="TreeController">
+        <div items="root.items">
+            <ul style="border:1px solid red;padding:0px">
+                <li >
+                    <div ng-click="toggleHide()" >
+                        {{root.title}}
+                    </div>
+                    <ul ng-model="root.items" ng-if="root.expand == 'true'" style="border:1px solid red;padding:0px">
+                        <li ng-repeat="item in root.items" style="border:1px solid red">
+                            <div style="border:1px solid red">
+                                <i class="fa">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>{{item.title}}
+                            </div>
+                            <ul ng-model="item.items" ng-show="false">
+                                <li ng-repeat="subItem in item.items">
+                                    <div>
+                                        <a ng-click="clickItem(subItem)"><i class="fa {{subItem.selectedIcon}}">&nbsp;</i>{{subItem.title}}</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
 
-<div ng-controller="TreeController">
-    <div items="root.items">
-        <ul style="border:1px solid red;padding:0px">
-            <li >
-                <div ng-click="toggleHide()" >
-                    {{root.title}}
-                </div>
-                <ul ng-model="root.items" ng-if="root.expand == 'true'" style="border:1px solid red;padding:0px">
-                    <li ng-repeat="item in root.items" style="border:1px solid red">
-                        <div style="border:1px solid red">
-                            <i class="fa">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>{{item.title}}
-                        </div>
-                        <ul ng-model="item.items" ng-show="false">
-                            <li ng-repeat="subItem in item.items">
-                                <div>
-                                    <a ng-click="clickItem(subItem)"><i class="fa {{subItem.selectedIcon}}">&nbsp;</i>{{subItem.title}}</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
+        </div>
     </div>
-</div>
-
+    -->
+    <!--树形指令测试-->
     <div class="simple-tree" ng-controller="TreeController">
-        <div simple-tree root="root"></div>
+        <div simple-tree root="root" is-check="true" checked-items="checkedItems"></div>
     </div>
+
 </body>
 </html>
