@@ -25,16 +25,18 @@ p {
     margin-left:0px;
 }
 .simple-tree ul li a{
-    background:#ccc;
+    /*background:#ccc;*/
     display:block;
     width:200px;
     margin:5px 0px 5px 20px;
     color:black;
+    text-decoration: none;
 }
 .simple-tree ul li a:hover{
     background:#999;
     cursor: pointer;
     color:black;
+    /*font-weight:bold;*/
 }
 
 

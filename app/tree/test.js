@@ -4,7 +4,7 @@
 var app = angular.module("app",['ui.tree']);
 
 
-app.controller('TreeController',function($scope){
+app.controller('TreeController',function($scope,$interval){
     $scope.isHide = "false";
     $scope.toggleHide = function(){
         console.log($scope.root.expand);
@@ -29,145 +29,162 @@ app.controller('TreeController',function($scope){
         "title": "标题0(根节点)",
         "isSelected":"false",
         "selectedIcon":"fa-square-o",
-        "expandIcon":"fa-minus-square",
+        "expandIcon":"fa-chevron-down",
         "expand":"true",
         "id":'title0',
         "isLeaf":"false",
         "isShowRoot":'true',
+        "nodeIcon":"fa-folder",
         items:[
-           /* {
+           {
                 "title": "标题1",
                 "isSelected":"false",
                 "selectedIcon":"fa-square-o",
-                "expandIcon":"fa-minus-square",
+                "expandIcon":"fa-chevron-down",
                 "expand":"true",
                 "id":'title1',
                 "pid":"title0",
                 "isLeaf":"false",
+                "nodeIcon":"fa-folder",
                 items: [{
                     "title": "标题1.1",
                     "isSelected":"false",
                     "selectedIcon":"fa-square-o",
                     "id":'title1-1',
                     "pid":"title1",
-                    "isLeaf":"true"
+                    "isLeaf":"true",
+                    "nodeIcon":"fa-file-o"
                 }, {
                     "title": "标题1.2",
                     "isSelected":"false",
                     "selectedIcon":"fa-square-o",
                     "id":'title1-2',
                     "pid":"title1",
-                    "isLeaf":"true"
+                    "isLeaf":"true",
+                    "nodeIcon":"fa-file-o"
                 }]
-            },*/
+            },
             {
                 "title": "标题4",
                 "isSelected":"false",
                 "selectedIcon":"fa-square-o",
-                "expandIcon":"fa-minus-square",
+                "expandIcon":"fa-chevron-down",
                 "expand":"true",
                 "id":'title4',
                 "pid":"title0",
                 "isLeaf":"false",
+                "nodeIcon":"fa-folder",
                 items: [{
                     "title": "标题4.1",
                     "isSelected":"false",
                     "selectedIcon":"fa-square-o",
                     "id":'title4-1',
                     "pid":"title4",
-                    "isLeaf":"true"
+                    "isLeaf":"true",
+                    "nodeIcon":"fa-file-o"
                 }, {
                     "title": "标题4.2",
                     "isSelected":"false",
                     "selectedIcon":"fa-square-o",
                     "id":'title4-2',
                     "pid":"title4",
-                    "isLeaf":"true"
+                    "isLeaf":"true",
+                    "nodeIcon":"fa-file-o"
                 }]
             },
             {
                 "title": "标题2",
                 "isSelected":"false",
                 "selectedIcon":"fa-square-o",
-                "expandIcon":"fa-minus-square",
+                "expandIcon":"fa-chevron-down",
                 "expand":"true",
                 "id":'title2',
                 "pid":"title0",
                 "isLeaf":"false",
+                "nodeIcon":"fa-folder",
                 items: [{
                     "title": "标题2.1",
                     "isSelected":"false",
                     "selectedIcon":"fa-square-o",
                     "id":'title2-1',
                     "pid":"title2",
-                    "isLeaf":"true"
+                    "isLeaf":"true",
+                    "nodeIcon":"fa-file-o"
                 }, {
                     "title": "标题2.2",
                     "isSelected":"false",
                     "selectedIcon":"fa-square-o",
                     "id":'title2-2',
                     "pid":"title2",
-                    "isLeaf":"true"
+                    "isLeaf":"true",
+                    "nodeIcon":"fa-file-o"
                 }]
              },
             {
                 "title": "标题3",
                 "isSelected":"false",
                 "selectedIcon":"fa-square-o",
-                "expandIcon":"fa-minus-square",
+                "expandIcon":"fa-chevron-down",
                 "expand":"true",
                 "id":'title3',
                 "pid":"title0",
                 "isLeaf":"false",
+                "nodeIcon":"fa-folder",
                 items: [{
                     "title": "标题3.1",
                     "isSelected":"false",
                     "selectedIcon":"fa-square-o",
-                    "expandIcon":"fa-minus-square",
+                    "expandIcon":"fa-chevron-down",
                     "expand":"true",
                     "id":'title3-1',
                     "pid":"title3",
                     "isLeaf":"false",
+                    "nodeIcon":"fa-folder",
                     items:[{
                         "title": "标题3.1.1",
                         "isSelected":"false",
                         "selectedIcon":"fa-square-o",
-                        "expandIcon":"fa-minus-square",
+                        "expandIcon":"fa-chevron-down",
                         "expand":"true",
                         "id":'title3-1-1',
                         "pid":"title3-1",
                         "isLeaf":"false",
+                        "nodeIcon":"fa-folder",
                         items:[{
                             "title": "标题3.1.1.1",
                             "isSelected":"false",
                             "selectedIcon":"fa-square-o",
                             "id":'title3-1-1-1',
                             "pid":"title3-1-1",
-                            "isLeaf":"true"
+                            "isLeaf":"true",
+                            "nodeIcon":"fa-file-o"
                         }]
                     },{
                         "title": "标题3.1.2",
                         "isSelected":"false",
                         "selectedIcon":"fa-square-o",
-                        "expandIcon":"fa-minus-square",
+                        "expandIcon":"fa-chevron-down",
                         "expand":"true",
                         "id":'title3-1-2',
                         "pid":"title3-1",
                         "isLeaf":"false",
+                        "nodeIcon":"fa-folder",
                         items:[{
                             "title": "标题3.1.2.1",
                             "isSelected":"false",
                             "selectedIcon":"fa-square-o",
                             "id":'title3-1-2-1',
                             "pid":"title3-1-2",
-                            "isLeaf":"true"
+                            "isLeaf":"true",
+                            "nodeIcon":"fa-file-o"
                         },{
                             "title": "标题3.1.2.2",
                             "isSelected":"false",
                             "selectedIcon":"fa-square-o",
                             "id":'title3-1-2-2',
                             "pid":"title3-1-2",
-                            "isLeaf":"true"
+                            "isLeaf":"true",
+                            "nodeIcon":"fa-file-o"
                         }]
                     }]
                 }, {
@@ -176,11 +193,18 @@ app.controller('TreeController',function($scope){
                     "selectedIcon":"fa-square-o",
                     "id":'title3-2',
                     "pid":"title3",
-                    "isLeaf":"true"
+                    "isLeaf":"true",
+                    "nodeIcon":"fa-file-o"
                 }]
             }
             ]
     };
+
+    $scope.checkedItems = new Array();
+    $interval(function(){
+        console.log("已选择项：");
+        console.log($scope.checkedItems);
+    },2000);
 
 });
 
@@ -189,7 +213,12 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
     return {
         restrict: 'EA',
         scope: {
-            root: '='
+            //数据：树形根节点
+            root: '=',
+            //是否作为选择树：true：选择树 false：非选择树
+            isCheck:'@',
+            //选择的树形叶子节点
+            checkedItems:'='
         },
         template: '<div></div>',
         transclude: true,
@@ -302,6 +331,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                         scope.getSelectedNode(items[i]);
                     }
                 }
+                scope.checkedItems = scope.selectedNodeArray;
             };
 
             /**
@@ -382,14 +412,16 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                 console.log(item);
                 var currNode = scope.getNodeById(scope.root,item.id);
                 console.log(currNode);
-                if(currNode.expand == 'true'){
-                    //收缩
-                    currNode.expand = 'false';
-                    currNode.expandIcon = 'fa-plus-square';
-                }else{
-                    //展开
-                    currNode.expand = 'true';
-                    currNode.expandIcon = 'fa-minus-square';
+                if(item.isLeaf == 'false'){
+                    if(currNode.expand == 'true'){
+                        //收缩
+                        currNode.expand = 'false';
+                        currNode.expandIcon = 'fa-chevron-right';
+                    }else{
+                        //展开
+                        currNode.expand = 'true';
+                        currNode.expandIcon = 'fa-chevron-down';
+                    }
                 }
                 // console.log(currNode);
                 /**
@@ -437,7 +469,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                 // var test = 'fa-check-square';
                 var itemStr = JSON.stringify(item).replace(/\"/g,"'");
                 //节点title
-                var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><a><i class="fa '+item.expandIcon+'" ng-click="toggleItem('+itemStr+')">&nbsp</i><i class="fa '+item.selectedIcon+'" ng-click="clickItem('+itemStr+')">&nbsp;</i>'+item.title+'</a></div>');
+                var nodeTitleDiv = angular.element('<div style="margin-left:'+item.marginLeft+'px'+'"><a><i class="fa '+item.expandIcon+' fa-fw" ng-click="toggleItem('+itemStr+')"></i><i ng-if="'+(scope.isCheck=='true')+'" class="fa '+item.selectedIcon+' fa-fw" ng-click="clickItem('+itemStr+')">&nbsp;</i><i class="fa '+item.nodeIcon+' fa-fw">&nbsp;</i>'+item.title+'</a></div>');
                 nodeTitleDiv = scope.compileDom(nodeTitleDiv,scope);
                 nodeLi.append(nodeTitleDiv);
                 //子节点
@@ -456,7 +488,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                         var childNoddTitleDiv = angular.element('<div><i class="fa">&nbsp;</i><i class="fa {{item.selectedIcon}}">&nbsp;</i>'+childItem.title+'</div>');
                         childNodeLi.append(childNoddTitleDiv);
                         childNodeUl.append(childNodeLi);*/
-                        childItems[j].marginLeft = item.marginLeft + 36;
+                        childItems[j].marginLeft = item.marginLeft + 20;
                         scope.appendNode(childNodeUl,childItems[j]);
                     }
                     nodeLi.append(childNodeUl);
@@ -482,7 +514,7 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                 var itemStr = JSON.stringify(scope.root).replace(/\"/g,"'");
                 scope.root.marginLeft = 0;
                 //根节点title
-                var nodeTitleDiv = angular.element('<div style="margin-left:'+scope.root.marginLeft+'px'+'"><a><i class="fa '+scope.root.expandIcon+'" ng-click="toggleItem('+itemStr+')">&nbsp</i><i class="fa '+scope.root.selectedIcon+'" ng-click="clickItem('+itemStr+')">&nbsp;</i>'+scope.root.title+'</a></div>');
+                var nodeTitleDiv = angular.element('<div style="margin-left:'+scope.root.marginLeft+'px'+'"><a><i class="fa '+scope.root.expandIcon+' fa-fw" ng-click="toggleItem('+itemStr+')"></i><i ng-if="'+(scope.isCheck=='true')+'" class="fa '+scope.root.selectedIcon+' fa-fw" ng-click="clickItem('+itemStr+')">&nbsp;</i><i class="fa '+scope.root.nodeIcon+' fa-fw">&nbsp;</i>'+scope.root.title+'</a></div>');
                 nodeTitleDiv = scope.compileDom(nodeTitleDiv,scope);
                 //根节点加入标题
                 nodeLi.append(nodeTitleDiv);
@@ -522,7 +554,9 @@ app.directive('simpleTree', function($compile,$rootScope,$timeout) {
                             nodeLi.append(childNodeUl);
                         }
                         nodeUl.append(nodeLi);*/
-                        items[i].marginLeft = scope.root.marginLeft + 18;
+                        /**
+                         * 下一级缩进20个像素后，图标恰好能对齐*/
+                        items[i].marginLeft = scope.root.marginLeft + 20;
                         if(scope.root.isShowRoot == 'true'){
                             scope.appendNode(nodeUlRoot,items[i]);
                         }else{
